@@ -1,4 +1,5 @@
 /* Copyright (C) 2020 Noel Nyback
+ * Copyright (C) 2020 Ludwig Gustafsson
  * 
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,6 +19,8 @@
 #include <EEPROM.h> // Flash memory access. (permanent-memory)
 
 #define INT_PIN 2
+
+//test234
 
 byte I2C_display = 0; // this will contain I2C address for the display.
 byte I2C_keypad = 0; // this the address for the keypad.
