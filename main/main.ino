@@ -98,7 +98,7 @@ void keyInput()
 }
 void openLock()
 {
-  // The door lock opens when calling this function.
+  // The door lock opens when calling this function. It closes after 2s, enough for the hatch to fall down.
 digitalWrite(lock, HIGH);
 delay (2000);
 digitalWrite(lock, LOW);
