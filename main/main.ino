@@ -20,7 +20,7 @@
 
 #define INT_PIN 2
 
-// NEJ!
+// sluta
 
 byte I2C_display = 0; // this will contain I2C address for the display.
 byte I2C_keypad = 0; // this the address for the keypad.
