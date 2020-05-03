@@ -27,6 +27,7 @@ byte I2C_keypad = 0; // this the address for the keypad.
 
 int addressPosition = 0; // Contains EEPROM address for stepper position.
 int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
+int lock = 13; // Lock signal connected to digital 13.
 
 // As of writing this it looks like a user will take up 14 bytes of data in memory. 
 typedef struct
@@ -49,7 +50,10 @@ void setup()
   pinMode(INT_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
 
+  pinMode(lock, OUTPUT); //Initialize lock as output pin.
+  
   // IF NO ADMIN RUN firstUse()
+  
 }
 
 void loop()
@@ -91,4 +95,11 @@ void writeScreen(int cursorPosition, char c)// Alt 2
 void keyInput()
 {
   // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
+}
+void openLock()
+{
+  // The door lock opens when calling this function.
+digitalWrite(lock, HIGH);
+delay (2000);
+digitalWrite(lock, LOW);
 }
