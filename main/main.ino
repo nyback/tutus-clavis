@@ -21,16 +21,13 @@
 #define INT_PIN 2
 
 
-// sluta
-
-
 byte I2C_display = 0; // this will contain I2C address for the display.
 byte I2C_keypad = 0; // this the address for the keypad.
 
 int addressPosition = 0; // Contains EEPROM address for stepper position.
 int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
 
-// As of writing this it looks like a user will take up 13 bytes of data in memory. 
+// As of writing this it looks like a user will take up 14 bytes of data in memory. 
 typedef struct
 {
   byte id; // 0-255 (We can have no more than 255 users.)
@@ -78,14 +75,14 @@ void updateUser(byte id, typedef user)
 
 void userScan()
 
-void updateScreen()
+void updateScreen()// Alt 1
 {
   for (int i = 0, i < 40, i++) {
     writeScreen(i, screen[i])
   }
 }
 
-void writeScreen(int cursorPosition, char c)
+void writeScreen(int cursorPosition, char c)// Alt 2
 {
   // TAKES ARGS AND WRITES TO SCREEN?
 }
