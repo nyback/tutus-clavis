@@ -55,13 +55,13 @@ void setup()
   pinMode(lock, OUTPUT); //Initialize lock as output pin.
   
   // IF NO ADMIN RUN firstUse()
+  stepperRight(1);
+  stepperLeft(2);
 }
 
 void loop()
 {
-  stepperRight(1);
-  stepperLeft(2);
-  mainUI();
+  
 }
 
 void mainUI()
