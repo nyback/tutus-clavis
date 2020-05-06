@@ -22,30 +22,32 @@
 #define INT_PIN 2
 
 
-byte I2C_display = 0; // this will contain I2C address for the display.
-byte I2C_keypad = 0; // this the address for the keypad.
+//byte I2C_display = 0; // this will contain I2C address for the display.
+//byte I2C_keypad = 0; // this the address for the keypad.
 
-int addressPosition = 0; // Contains EEPROM address for stepper position.
-int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
+//int addressPosition = 0; // Contains EEPROM address for stepper position.
+//int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
 int lock = 13; // Lock signal connected to digital 13.
 
 // As of writing this it looks like a user will take up 14 bytes of data in memory. 
-typedef struct
+typedef struct userData
 {
   byte id; // 0-255 (We can have no more than 255 users.)
   char name[9];
   word pass; // 0-65535
   byte access; // Each bit represents one key. eg: MSB=1 -> access granted to first key.
   byte options; // room for many options, for now all that is needed is admin true or false. so maybe LSB determins
-} user;
+};
 
-user *users;
+userData *users;
 
 //int screenCursor = 0; // Position of "writing head" on screen. 0 being top left, 9 being top right and 39 being bottom right.
 char screen[40]; // This will be used by updateScreen() and written to display.
 
 void setup()
 {
+  debugInit();
+  stepperInit();
   // Sets up interrupt that triggers when a key is pressed (if INT on the keypad stands for interrupt).
   pinMode(INT_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
@@ -53,11 +55,12 @@ void setup()
   pinMode(lock, OUTPUT); //Initialize lock as output pin.
   
   // IF NO ADMIN RUN firstUse()
-  
 }
 
 void loop()
 {
+  stepperRight(1);
+  stepperLeft(2);
   mainUI();
 }
 
@@ -76,14 +79,20 @@ void deleteUser(byte id)
   
 }
 
-void updateUser(byte id, typedef user)
+void updateUser(byte id, struct userData user)
+{
+  
+}
 
 void userScan()
+{
+  
+}
 
 void updateScreen()// Alt 1
 {
-  for (int i = 0, i < 40, i++) {
-    writeScreen(i, screen[i])
+  for (int i = 0; i < 40; i++) {
+    writeScreen(i, screen[i]);
   }
 }
 
@@ -96,10 +105,11 @@ void keyInput()
 {
   // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
 }
+
 void openLock()
 {
   // The door lock opens when calling this function. It closes after 2s, enough for the hatch to fall down.
-digitalWrite(lock, HIGH);
-delay (2000);
-digitalWrite(lock, LOW);
+  digitalWrite(lock, HIGH);
+  delay (2000);
+  digitalWrite(lock, LOW);
 }
