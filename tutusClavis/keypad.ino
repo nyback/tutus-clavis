@@ -25,7 +25,9 @@ void keypadInit()
   pinMode(lock, OUTPUT); //Initialize lock as output pin.
 }
 
- void keyInput()
+//Returns input
+char keyInput()
 {
   // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
+  //Send upon release of button
 }
