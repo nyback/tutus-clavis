@@ -13,16 +13,23 @@ typedef struct userData
 };
 
 
-void createUser(char namn[9], word pass, int options, int access[8]){
-  int preusers; 
-  EEPROM.get(1023, preusers);
-  users = preusers + 1;
+void createUser(){
+byte id = 0;
+char namn[9] = "kalle";
+word pass = 1234;
+int options = 8;
+int access[8] = {1,1,1,1,1,1,0,1};
 
-  EEPROM.put(1023, users);
+userData user = {id, namn, pass, options, access};
 
-  userData user = {users, namn, pass, options, access};
+Serial.println(user.id);
+Serial.println(user.namn);
+Serial.println(user.pass);
+Serial.println(user.options);
 
-  EEPROM.put(users, user);
+for (int i = 0; i < 8; i++){
+  Serial.println(user.access[i]);
+}
    
 }
 
