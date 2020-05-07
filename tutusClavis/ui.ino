@@ -30,5 +30,15 @@ typedef struct userData
   byte options; // room for many options, for now all that is needed is admin true or false. so maybe LSB determins
 };
 
-
 userData *users;
+
+void logOut()
+{
+  
+}
+
+//Takes option "headlines" as parameters and returns which option chosen (0==go back)
+int scrollableList(list of option headlines)
+{
+  
+}
