@@ -166,7 +166,8 @@ void addUserMenu()
 char * newNameMenu()
 {
   //Calling Keyboard function to get the string
-
+  displayPrint("Username:");
+  userName = useAlphabet();
   //Confirming name to move on
 }
 

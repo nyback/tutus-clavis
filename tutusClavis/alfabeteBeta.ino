@@ -1,21 +1,21 @@
 /* Copyright (C) 2020 Noel Nyback
- * Copyright (C) 2020 Ludwig Gustafsson
- * Copyright (C) 2020 Gustav Thorén
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *  
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
- 
+   Copyright (C) 2020 Ludwig Gustafsson
+   Copyright (C) 2020 Gustav Thorén
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
@@ -35,25 +35,29 @@ String alphabetInit() {
 }
 
 void useAlphabet() {
+  // Uses 3 as move right, 2 as scroll up, 5 as scroll down, 1 as move left
   while (c != '*') {
     char c = keyInput();
     if (c != -1) {
-      if (c == '1') {
+      if (c == '3') {
         username += alphabet[i];
         moveRight();
       }
       else if (c == '2') {
         scrollUp();
       }
-      else if (c == '3') {
+      else if (c == '5') {
         scrollDown();
+      }
+      else if (c == '1') {
+        moveLeft();
       }
     }
 
     // Print on display
-    lcd.setCursor(column, 0);
+    lcd.setCursor(column, 1);
     lcd.print(alphabet[i]);
-    lcd.setCursor(column, 0);
+    lcd.setCursor(column, 1);
 
     // Turn off the cursor
     lcd.noCursor();
@@ -70,7 +74,11 @@ void useAlphabet() {
 }
 
 void moveLeft() {
-
+  column -= 1;
+  if (column == 0) {
+    column = 15;
+  }
+  i = 0;
 }
 
 void moveRight() {

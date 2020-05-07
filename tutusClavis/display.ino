@@ -27,3 +27,9 @@ void displayInit()
   lcd.begin(16, 2);
   lcd.clear();
 }
+
+void displayPrint(String printThis, int column, int row){
+  //column 0-15, row 0-1
+  lcd.setCursor(column, row);
+  lcd.print(printThis);
+}
