@@ -15,3 +15,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+void keypadInit()
+{
+  // Sets up interrupt that triggers when a key is pressed (if INT on the keypad stands for interrupt).
+  pinMode(INT_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
+
+  pinMode(lock, OUTPUT); //Initialize lock as output pin.
+}
+
+ void keyInput()
+{
+  // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
+}
