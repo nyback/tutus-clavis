@@ -29,17 +29,7 @@
 //int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
 int lock = 13; // Lock signal connected to digital 13.
 
-// As of writing this it looks like a user will take up 14 bytes of data in memory. 
-typedef struct userData
-{
-  byte id; // 0-255 (We can have no more than 255 users.)
-  char name[9];
-  word pass; // 0-65535
-  byte access; // Each bit represents one key. eg: MSB=1 -> access granted to first key.
-  byte options; // room for many options, for now all that is needed is admin true or false. so maybe LSB determins
-};
 
-userData *users;
 
 //int screenCursor = 0; // Position of "writing head" on screen. 0 being top left, 9 being top right and 39 being bottom right.
 char screen[40]; // This will be used by updateScreen() and written to display.
