@@ -1,7 +1,7 @@
 #include <EEPROM.h>
 #define USER_SIZE 30
 
-int users = 0;
+int users = 0; //för att hålla koll på hur många användare de finns
 
 typedef struct userData
 {
@@ -13,8 +13,21 @@ typedef struct userData
 };
 
 
+void createUser(char namn[9], word pass, int options, int access[8]){
+  int preusers; 
+  EEPROM.get(1023, preusers);
+  users = preusers + 1;
 
-void setup() {
+  EEPROM.put(1023, users);
+
+  userData user = {users, namn, pass, options, access};
+
+  EEPROM.put(users, user);
+   
+}
+
+
+void userInit() {
   // put your setup code here, to run once:
 
   Serial.begin(9600);
@@ -92,7 +105,7 @@ void setup() {
   
 }
 
-void loop() {
+void someloop() {
   // put your main code here, to run repeatedly:
 
 }
