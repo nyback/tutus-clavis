@@ -51,6 +51,40 @@ void setup()
 
 void loop()
 {
+  int steps = 0;
+
+  steps = gotoKey(1);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(2);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(3);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(4);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(5);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(6);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(7);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
+  steps = gotoKey(8);
+  delay(1000);
+  gotoStart(steps);
+  delay(1000);
   
 }
 
