@@ -38,11 +38,8 @@ void setup()
 {
   debugInit();
   stepperInit();
-  // Sets up interrupt that triggers when a key is pressed (if INT on the keypad stands for interrupt).
-  pinMode(INT_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
+  keypadInit();
 
-  pinMode(lock, OUTPUT); //Initialize lock as output pin.
   
   // IF NO ADMIN RUN firstUse()
   stepperRight(1);
@@ -96,10 +93,7 @@ void writeScreen(int cursorPosition, char c)// Alt 2
   // TAKES ARGS AND WRITES TO SCREEN?
 }
 
-void keyInput()
-{
-  // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
-}
+
 
 void openLock()
 {

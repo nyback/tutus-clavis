@@ -16,9 +16,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-
-
+//If time permits we need some way to automatically log out due to inactivity (increased safety)
+//Är det ett problem att röra sig runt i programmet endast genom att kalla nya funktioner eler bör en lösning baserad på att hoppa tillbaka implementeras
 
 // As of writing this it looks like a user will take up 14 bytes of data in memory. 
 typedef struct userData
@@ -32,13 +31,59 @@ typedef struct userData
 
 userData *users;
 
+//Sets upp the first admin if no users exist
+void firstStartup()
+{
+  
+}
+
+//Confirms that the user wants to log out and if so logs the user out, otherwise calls 'mainMenu'
 void logOut()
 {
   
 }
 
-//Takes option "headlines" as parameters and returns which option chosen (0==go back)
-int scrollableList(list of option headlines)
+//Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
+void mainMenu()
+{
+
+  choice=scrollableList(/*list of available options*/)
+  switch(choice)
+  {
+    case 1:
+      keysMenu();
+      break;
+    case 3:
+      newPinMenu();
+      break;
+    case 4:
+      //Only possible if the logged in account is an admin account
+      break;
+    default:
+      //If chosen option is 2 or 0 it is interpretted as log out
+      logOut();
+      break;
+  }
+}
+
+//Displays available keys##########
+void keysMenu()
+{
+  
+  //Calls stepper if chosen key is accessible
+
+  //displays message and calls 'mainMenu' reagrdless of accessibility
+}
+
+//Asks for a new pin and then confirmitaion, upon confirmation rewrites pin
+void newPinMenu();
+{
+  mainMenu();
+}
+
+//Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
+//Displays and handles the scrolling and chosing in a list of size n
+int scrollableList(/*list of option headlines*/)
 {
   
 }
