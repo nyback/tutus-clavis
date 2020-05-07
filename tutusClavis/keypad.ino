@@ -15,6 +15,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//We would probably benefit from having an 'excpectInput' function which sends back only one of the sent in excpected inputs//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
 #include <Wire.h>
 #include "SparkFun_Qwiic_Keypad_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_keypad
 KEYPAD keypad1;
