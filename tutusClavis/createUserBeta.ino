@@ -1,117 +1,102 @@
 #include <EEPROM.h>
-#define USER_SIZE 30
+#define USER_SIZE 31
 
-int users = 0;
+int nrUsers = 0;
 
 typedef struct userData
 {
   byte id; // 0-255 (We can have no more than 255 users.)
-  char namn[9];
+  char namn[10];
   word pass; // 0000-9999
   int options; // room for many options, for now all that is needed is admin true or false. so maybe LSB determins
   int access[8]; // Each bit represents one key. eg: MSB=1 -> access granted to first key.
-  //#### access bör vara bool eller byte
 };
 
+void createUser(char namn[], word pass, int options, int access[]){
 
+EEPROM.get(1023, nrUsers);
+nrUsers++;
+EEPROM.put(1023, nrUsers);
+int idu = (nrUsers-1);
+userData user = {idu, {}, pass, options, {}};
 
-void createUser(){
-byte id = 0;
-char namn[9] = "kalle";
-word pass = 1234;
-int options = 8;
-int access[8] = {1,1,1,1,1,1,0,1};
+Serial.println(sizeof(userData));
 
-userData user = {id, namn, pass, options, access};
-
+for (int i = 0; i < 8; i++){
+  user.namn[i]=namn[i];
+}
+for (int i = 0; i < 8; i++){
+  user.access[i]=access[i];
+}
 Serial.println(user.id);
 Serial.println(user.namn);
 Serial.println(user.pass);
 Serial.println(user.options);
 
 for (int i = 0; i < 8; i++){
-  Serial.println(user.access[i]);
+  Serial.print(user.access[i]);
 }
-   
+  Serial.println();
+
+  EEPROM.put((user.id*sizeof(userData)), user);
+
 }
 
 
-void userInit() {
+
+
+
+void setup() {
   // put your setup code here, to run once:
-
   Serial.begin(9600);
-  int eeAddress = 0;
-
-
-  userData user1 = {0, "kalle", 9901, 8, {1,1,1,1,1,1,1,0}};
-  userData user2 = {1, "pelle", 1234, 7, {0,0,0,0,0,0,0,0}};
-
-  Serial.println("Written custom user.");
   
-  Serial.println(user1.id, DEC);
-  Serial.println(user1.namn);
-  Serial.println(user1.pass, DEC);
-  Serial.println(user1.options);
-
-  for (int i = 0 ; i < 8 ; i++) {
-    Serial.print(user1.access[i]);
-  }
-  Serial.println();
-
-  Serial.println("Written custom user2.");
+  char namn[] = "per";
+  word pass = 1235;
+  int options = 8;
+  int access[] = {1,0,1,1,1,1,0,1};
   
-  Serial.println(user2.id, DEC);
-  Serial.println(user2.namn);
-  Serial.println(user2.pass, DEC);
-  Serial.println(user2.options);
-  
-  for (int i = 0 ; i < 8 ; i++) {
-    Serial.print(user2.access[i]);
-  }
-  Serial.println();
-  
+  createUser(namn, pass, options, access);
 
-
-
-  EEPROM.put(eeAddress, user1);
-
-  eeAddress += sizeof(userData);
-
-  EEPROM.put(eeAddress, user2);
-
-  Serial.println("Written custom data type!");
-  
-  Serial.println(sizeof(userData));
-
+  Serial.println("User0:");
   userData readUser;
+  EEPROM.get((0*sizeof(userData)), readUser);
 
-  EEPROM.get((user1.id*USER_SIZE), readUser);
-
-  Serial.println("Read user:");
-  Serial.println(readUser.id, DEC);
-  Serial.println(readUser.namn);
-  Serial.println(readUser.pass, DEC);
-  Serial.println(readUser.options);
-  
-  for (int i = 0 ; i < 8 ; i++) {
-    Serial.print(readUser.access[i]);
-  }
-  Serial.println();
-
-
-  EEPROM.get((user2.id*USER_SIZE), readUser);
-
-  Serial.println("Read user:");
   Serial.println(readUser.id);
   Serial.println(readUser.namn);
   Serial.println(readUser.pass);
   Serial.println(readUser.options);
-  
-  for (int i = 0 ; i < 8 ; i++) {
+
+  for (int i = 0; i < 8; i++){
     Serial.print(readUser.access[i]);
   }
-  Serial.println();
-  
+    Serial.println();
+
+  Serial.println("User1:");
+  EEPROM.get((1*sizeof(userData)), readUser);
+
+  Serial.println(readUser.id);
+  Serial.println(readUser.namn);
+  Serial.println(readUser.pass);
+  Serial.println(readUser.options);
+
+  for (int i = 0; i < 8; i++){
+    Serial.print(readUser.access[i]);
+  }
+    Serial.println();
+
+  Serial.println("User2:");
+  EEPROM.get((2*sizeof(userData)), readUser);
+
+  Serial.println(readUser.id);
+  Serial.println(readUser.namn);
+  Serial.println(readUser.pass);
+  Serial.println(readUser.options);
+
+  for (int i = 0; i < 8; i++){
+    Serial.print(readUser.access[i]);
+  }
+    Serial.println();
+
 }
 
 void loop() {
