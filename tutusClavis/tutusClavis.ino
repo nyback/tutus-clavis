@@ -91,10 +91,6 @@ void loop()
   delay(1000);
   gotoStart(steps);
   delay(1000);
-  steps = gotoKey(8);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
   
 }
 
