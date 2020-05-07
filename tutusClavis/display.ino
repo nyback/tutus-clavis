@@ -15,12 +15,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
 
 // Display related variables goes here:
-
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 // Display setup.
 void displayInit()
 {
-  
+  lcd.begin(16, 2);
+  lcd.clear();
 }
