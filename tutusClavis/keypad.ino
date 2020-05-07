@@ -15,6 +15,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//We would probably benefit from having an 'excpectInput' function which sends back only one of the sent in excpected inputs//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
 #include <Wire.h>
 #include "SparkFun_Qwiic_Keypad_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_keypad
 KEYPAD keypad1;
@@ -22,33 +28,53 @@ KEYPAD keypad1;
 void keypadInit()
 {
   // Sets up interrupt that triggers when a key is pressed (if INT on the keypad stands for interrupt).
-  pinMode(INT_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
+  //pinMode(INT_PIN, INPUT_PULLUP);
+  //attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
 
-  pinMode(lock, OUTPUT); //Initialize lock as output pin.
+  //pinMode(lock, OUTPUT); //Initialize lock as output pin.
+
+  //Här nedan är koden jag använt!!!! Kommenterade bort allt annat men sätt tillbaka om behövs //Alva ################################
+  Serial.begin(9600);
+
+  //To debug but keypad1.begin() needs to remain
+  if (keypad1.begin() == false)   // Note, using begin() like this will use default I2C address, 0x4B. 
+                  // You can pass begin() a different address like so: keypad1.begin(Wire, 0x4A).
+  {
+    //Serial.println("Keypad does not appear to be connected. Please check wiring. Freezing...");
+    while (1);
+  }
+  /*Serial.print("Initialized. Firmware Version: ");
+  Serial.println(keypad1.getVersion());
+  Serial.println("Press a button: * to do a space. # to go to next line.");*/
 }
 
  char keyInput()
 {
   // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
 
-
-  keypad1.updateFIFO();  // necessary for keypad to pull button from stack to readable register
+  // necessary for keypad to pull button from stack to readable register
+  keypad1.updateFIFO();
   char button = keypad1.getButton();
 
   if (button == -1)
   {
+    //For debuging
+    /*
     Serial.println("No keypad detected");
-    delay(1000);
+    delay(1000);*/
   }
   else if (button != 0)
   {
+    //For debuging 
+    /*
     if (button == '#') Serial.println();
     else if (button == '*') Serial.print(" ");
-    else Serial.print(button);
+    else Serial.print(button);*/
   }
 
+  //Delay needed, otherwise I2C gets too much info
   delay(25);
 
+  //Return button pressed as char
   return button;
 }

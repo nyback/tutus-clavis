@@ -1,7 +1,7 @@
 #include <EEPROM.h>
 #define USER_SIZE 30
 
-int users = 0; //för att hålla koll på hur många användare de finns
+int users = 0;
 
 typedef struct userData
 {
@@ -10,7 +10,9 @@ typedef struct userData
   word pass; // 0000-9999
   int options; // room for many options, for now all that is needed is admin true or false. so maybe LSB determins
   int access[8]; // Each bit represents one key. eg: MSB=1 -> access granted to first key.
+  //#### access bör vara bool eller byte
 };
+
 
 
 void createUser(){
@@ -112,7 +114,7 @@ void userInit() {
   
 }
 
-void someloop() {
+void loop() {
   // put your main code here, to run repeatedly:
 
 }
