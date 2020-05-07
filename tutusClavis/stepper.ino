@@ -44,3 +44,20 @@ void stepperLeft(int steps)
   debugStep(steps, 'l');
   stepper.step(steps*STEP_SIZE, BACKWARD, SINGLE);
 }
+
+int gotoKey(int key){
+
+  int steps = key * STEP_SIZE;
+  stepper.step(steps, FORWARD, SINGLE);
+  stepper.release();
+
+  return steps;
+  
+}
+
+void gotoStart(int steps){
+
+  stepper.step(steps, BACKWARD, SINGLE);
+  stepper.release();
+  
+}
