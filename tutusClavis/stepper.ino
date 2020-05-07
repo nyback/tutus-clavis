@@ -45,6 +45,7 @@ void stepperLeft(int steps)
   stepper.step(steps*STEP_SIZE, BACKWARD, SINGLE);
 }
 
+//för nycklar 0-7
 int gotoKey(int key){
 
   int steps = key * STEP_SIZE;

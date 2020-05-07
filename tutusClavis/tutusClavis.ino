@@ -28,7 +28,7 @@
 //int addressPosition = 0; // Contains EEPROM address for stepper position.
 //int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
 int lock = 13; // Lock signal connected to digital 13.
-
+int steps;
 
 
 //int screenCursor = 0; // Position of "writing head" on screen. 0 being top left, 9 being top right and 39 being bottom right.
@@ -51,7 +51,7 @@ void setup()
 
 void loop()
 {
-  int steps = 0;
+  steps = 0;
 
   steps = gotoKey(1);
   delay(1000);
@@ -81,35 +81,6 @@ void loop()
   delay(1000);
   gotoStart(steps);
   delay(1000);
-  steps = gotoKey(8);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  
-}
-
-void mainUI()
-{
-  
-}
-
-int userCreate(char *name, word pass)
-{
-  //return id.
-}
-
-void deleteUser(byte id) 
-{
-  
-}
-
-void updateUser(byte id, struct userData user)
-{
-  
-}
-
-void userScan()
-{
   
 }
 
