@@ -15,6 +15,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <Wire.h>
+#include "SparkFun_Qwiic_Keypad_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_keypad
+KEYPAD keypad1;
 
 void keypadInit()
 {
@@ -25,7 +28,27 @@ void keypadInit()
   pinMode(lock, OUTPUT); //Initialize lock as output pin.
 }
 
- void keyInput()
+ char keyInput()
 {
   // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
+  
+  
+  keypad1.updateFIFO();  // necessary for keypad to pull button from stack to readable register
+  char button = keypad1.getButton();
+
+  if (button == -1)
+  {
+    Serial.println("No keypad detected");
+    delay(1000);
+  }
+  else if (button != 0)
+  {
+    if (button == '#') Serial.println();
+    else if (button == '*') Serial.print(" ");
+    else Serial.print(button);
+  }
+  
+  delay(25);
+
+  return button;
 }
