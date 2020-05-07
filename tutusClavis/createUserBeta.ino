@@ -46,9 +46,9 @@ for (int i = 0; i < 8; i++){
 
 
 
-void setup() {
+void createUserInit() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+//  Serial.begin(9600);
   
   char namn[] = "per";
   word pass = 1235;
@@ -84,6 +84,8 @@ void setup() {
   }
     Serial.println();
 
+
+
   Serial.println("User2:");
   EEPROM.get((2*sizeof(userData)), readUser);
 
@@ -96,10 +98,5 @@ void setup() {
     Serial.print(readUser.access[i]);
   }
     Serial.println();
-
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
 
 }

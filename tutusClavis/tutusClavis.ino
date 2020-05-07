@@ -38,13 +38,17 @@ char screen[40]; // This will be used by updateScreen() and written to display.
 void setup()
 {
   debugInit();
+  createUserInit();
+  Serial.println("efter user");
   stepperInit();
+  Serial.println("efter stepper");
   keypadInit();
-
-  
-  // IF NO ADMIN RUN firstUse()
-  stepperRight(1);
-  stepperLeft(2);
+  Serial.println("efter keypad");
+//
+//  
+//  // IF NO ADMIN RUN firstUse()
+//  stepperRight(1);
+//  stepperLeft(2);
 }
 
 void loop()

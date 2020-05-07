@@ -27,7 +27,7 @@ AF_Stepper stepper(MOTOR_STEPS_ROTATION, MOTOR_NUMBER);
 // Stepper setup.
 void stepperInit()
 {
-  Serial.begin(9600);
+//  Serial.begin(9600);
   stepper.setSpeed(8);
 }
 

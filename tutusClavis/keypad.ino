@@ -34,7 +34,7 @@ void keypadInit()
   //pinMode(lock, OUTPUT); //Initialize lock as output pin.
 
   //Här nedan är koden jag använt!!!! Kommenterade bort allt annat men sätt tillbaka om behövs //Alva ################################
-  Serial.begin(9600);
+//  Serial.begin(9600);
 
   //To debug but keypad1.begin() needs to remain
   if (keypad1.begin() == false)   // Note, using begin() like this will use default I2C address, 0x4B. 
