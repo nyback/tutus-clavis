@@ -21,6 +21,8 @@
 //Är det ett problem att röra sig runt i programmet endast genom att kalla nya funktioner eler bör en lösning baserad på att hoppa tillbaka implementeras
 //Skulle kunna ske med kod som gör att varje gång en funktion gås tillbaka till startar 'callern' om från början (Bör göras något liknande)
 
+//Might have messed upp breaking from the while loop
+
 // As of writing this it looks like a user will take up 14 bytes of data in memory. 
 typedef struct userData
 {
@@ -47,7 +49,7 @@ bool logOut()
   //if logged out return true else return false
 }
 
-//The highest function in the ui hierarchy
+//The highest function in the ui hierarchy which handles logging in
 void logIn(bool firstStartup=false)
 {
   if (firstStartup==true){mainMenu();}
@@ -76,9 +78,11 @@ void mainMenu()
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
         manageUsersMenu();
         break;
-      //If chosen option is 2 or 0 it is interpretted as log out
-      if (logOut())
-        //if logged out return to 'logIn' else continue
+      default:
+        //If chosen option is 2 or 0 it is interpretted as log out
+        if (logOut())
+          //if logged out return to 'logIn' else continue
+          return;
         break;
     }
   }
@@ -96,7 +100,7 @@ void keysMenu()
 //Asks for a new pin and then confirmitaion, upon correct confirmation rewrites pin
 word newPinMenu();
 {
-  //return confirmed pin
+  //return confirmed pin or none
 }
 
 //Handles the admin commands menu
@@ -116,8 +120,9 @@ void manageUsersMenu()
       case 3:
         deleteUserMenu();
         break;
-      //If chosen option 0 return to 'mainMenu'
-      break;
+      default:
+        //If chosen option 0 return to 'mainMenu'
+        return;
     }
   }
 }
@@ -127,8 +132,9 @@ void addUserMenu()
 {
   //####### Or corresponding datatypes for a user
   char Name[9];
-  int access[8];
   word pin;
+  int access[8];
+  bool Return=false;
   
   while (true)
   {
@@ -145,10 +151,14 @@ void addUserMenu()
         access=keyAccessMenu();
         break;
       case 4:
-        finishMenu();
+        Return=finishMenu(Name, pin, access);
+        break;
+      default:
       //If chosen option 0 return to 'manageUsersMenu'
-      break;
+        Return=true
+        break;
     }
+    if (Return){return;}
   }
 }
 
@@ -160,7 +170,18 @@ char * newNameMenu()
   //Confirming name to move on
 }
 
+//Returns an array with the accessible keys
 int * keyAccessMenu()
+{
+  
+}
+
+//Shows a message on what is missing from the user if something is missing
+//Returns true if Name, pin and access are set otherwise returns false
+bool finishMenu(char Name[9], word pin, int access[8])
+{
+  //if everything set creates new user
+}
 
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
 //Displays and handles the scrolling and chosing in a list of size n
