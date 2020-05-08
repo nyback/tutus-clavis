@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#define MAX_USERS 20 // Do we need more than 30 users?
+#define MAX_USERS 30 // Do we need more than 30 users?
 
 
 
@@ -151,6 +151,17 @@ void userDelete(byte id) {
     users[i+1].options = 0;
     users[i+1].access = 0;
   }
+}
+
+// Finds user id from pass word (no pun intended). If no user is found returns 255.
+byte userFind(word pass)
+{
+  for (byte i = 0; i < userNumber; i++) {
+    if (users[i].pass == pass) {
+      return i;
+    }
+  }
+  return 0xFF;
 }
 
 byte numberOfUsers(){
