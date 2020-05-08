@@ -84,9 +84,12 @@ byte scrollableList(String headlines[], byte options)
 
         break;
       }
-      else if (c == '*') {
+      else if (c == '#') {
         displayClear();
-        return i;
+        return i+1;
+      }
+      else if (c=='*') {
+        return 0;
       }
     }
   }
@@ -144,10 +147,16 @@ void addUserMenu()
   byte access;
   bool Return = false;
   byte choice;
+  String headlines[4];
+
+  headlines[0]="Nem";
+  headlines[1]="Pin";
+  headlines[2]="Key access";
+  headlines[3]="Finish";
 
   while (true)
   {
-    choice = scrollableList(/*list of available options,*/ 4);
+    choice = scrollableList(headlines, 4);
     switch (choice)
     {
       case 1:
@@ -193,9 +202,14 @@ void deleteUserMenu()
 void manageUsersMenu()
 {
   byte choice;
+  String headlines[3];
+
+  headlines[0]="Add user";
+  headlines[1]="Edit user";
+  headlines[2]="Delete user";
   while (true)
   {
-    choice = scrollableList(/*list of available options,*/ 3);
+    choice = scrollableList(headlines, 3);
     switch (choice)
     {
       case 1:
@@ -225,15 +239,21 @@ void mainMenu()
 {
   byte choice;
   byte options = 3;
+  String headlines[4];
+
+  headlines[0]="Keys";
+  headlines[1]="Log out";
+  headlines[2]="Change pin";
 
   if (userAdmin(currentUser) == 255)
   {
     options++;
+    headlines[3]="Manage users";
   }
 
   while (true)
   {
-    choice = scrollableList(/*list of available options,*/ options);
+    choice = scrollableList(headlines, options);
     switch (choice)
     {
       case 1:
