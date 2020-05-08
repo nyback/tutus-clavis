@@ -99,7 +99,7 @@ void setup()
 //  stepperTest();
 }
 
-void moveToKey(int key, byte id){
+bool moveToKey(int key, byte id){
  byte perm = userAccess(id, key);
   if(perm == 1){
     // Skriv access granted
@@ -109,11 +109,13 @@ void moveToKey(int key, byte id){
     delay(9000);
     stepperStart();
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
+    return true;
   } else {
     String acc = "Access";
     String den = "Denied";
     displayPrint(acc,0,0);
     displayPrint(den,0,1);
+    return false;
   }
 }
 

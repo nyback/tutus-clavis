@@ -58,10 +58,19 @@ byte scrollableList(/*list of option headlines, */byte options)
 //Displays available keys##########
 void keysMenu()
 {
+  byte choosenKey;
+  String line1="Choose  x x x x ";
+  String line2="a key  x x x x  ";
   
-  //Calls stepper if chosen key is accessible
-
-  //displays message and returns reagardless of accessibility
+  bool Return;
+  
+  while (true)
+  {
+    //Prints available keys on the screen
+    
+    Return=moveToKey(choosenKey, currentUser);
+    if (Return){return;}
+  }
 }
 
 //Asks for a new pin and then confirmitaion, upon correct confirmation rewrites pin
