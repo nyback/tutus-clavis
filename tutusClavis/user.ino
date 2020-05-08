@@ -1,8 +1,6 @@
 /* Copyright (C) 2020 Noel Nyback
  * Copyright (C) 2020 Ludwig Gustafsson
  * Copyright (C) 2020 Gustav Thorén
- * Copyright (C) 2020 Victor Engdahl
- * Copyright (C) 2020 Alva Johansson Staaf
  * 
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,6 +17,8 @@
  */
 
 #define MAX_USERS 30 // Do we need more than 30 users?
+
+
 
 typedef struct userData
 {
@@ -53,7 +53,7 @@ void userSave()
 // Wipe all user entries.
 void userClean()
 {
-  for (byte i = 0; i < MAX_USERS; i++) {
+  for (byte i = 0; i < MAX_USERS; i++)
     users[i].id = 0;
     strcpy(users[i].uname, "");
     users[i].pass = 0;
@@ -61,6 +61,7 @@ void userClean()
     users[i].access = 0;
   }
   userNumber = 0;
+
 }
 
 // Creates new user.
@@ -81,7 +82,6 @@ void userDelete(byte id)
   // Deletes user from array and subs one from userNumber.
   for (byte i = id; i < userNumber; i++) {
     users[i] = users[i+1];
-    users[i].id--;
 
     // Clears info from last user.
     users[i+1].id = 0;
@@ -89,8 +89,6 @@ void userDelete(byte id)
     users[i+1].pass = 0;
     users[i+1].options = 0;
     users[i+1].access = 0;
-
-    userNumber--;
   }
 }
 
