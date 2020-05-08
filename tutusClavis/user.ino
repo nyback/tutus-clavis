@@ -42,7 +42,7 @@ void userLoad()
 // Saves all users to EEPROM. Perhaps after creating first user and when exiting user settings?
 void userSave()
 {
-  EEPROM.write(0, userNumber); // Saves number of users.
+  EEPROM.write(0, userNumber); // Saves number of users
   for (byte i = 0; i < userNumber; i++) {
     EEPROM.put(sizeof(userData)*i+1, users[i]);
   }
