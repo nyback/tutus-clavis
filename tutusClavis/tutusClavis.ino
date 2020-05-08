@@ -31,12 +31,15 @@ void setup()
 {
   debugInit();
   userInit(); // For now only loads users from EEPROM.
+  //userDebug(0);
+  alphabetInit();
+  
   lockInit();
   stepperInit();
   keypadInit();
-  uiInit();
+  
   displayInit();
-  alphabetInit();
+  uiInit();
 
 // Everything below is only for testing!
 

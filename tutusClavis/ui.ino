@@ -28,11 +28,14 @@ byte currentUser;
 //Probably using pointer shenanigans to return a correct string
 String newNameMenu() {
   char ans = 0;
-
+  Serial.println("a");
   displayPrint("Username:", 0, 0);
+  Serial.println("b");
   String userName = useAlphabet();
+  Serial.println("c");
   displayClear();
   displayPrint(userName, 0, 0);
+  Serial.println("d");
   displayPrint("Conf(#) Retry(*)", 0, 1);
   while (true) {
     ans = keypadInput();
@@ -40,6 +43,7 @@ String newNameMenu() {
       break;
     }
   }
+  Serial.println("e");
 
   while (ans == '*') {
     displayClear();
@@ -67,78 +71,112 @@ byte keyAccessMenu()
 {
   char c;
 
-  String line0="Choose  x x x x";
-  String line1="keys   x x x x ";
-  byte newAccess=0;
+  String line0 = "Choose  x x x x";
+  String line1 = "keys   x x x x ";
+  byte newAccess = 0;
 
   while (true)
   {
-    for (byte i=0; i<4; i++)
+    for (byte i = 0; i < 4; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line0.setCharAt(7+i*2, char(i));
+        line0.setCharAt(7 + i * 2, char(i));
       }
     }
-    for (byte i=0; i<4; i++)
+    for (byte i = 0; i < 4; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line1.setCharAt(6+i*2, char(i));
+        line1.setCharAt(6 + i * 2, char(i));
       }
     }
 
-    displayPrint(line0,0,0);
-    displayPrint(line1,0,1);
-    
-    c=keypadInput();
+    displayPrint(line0, 0, 0);
+    displayPrint(line1, 0, 1);
 
-    if (c=='#'){return newAccess;}
-    if (c=='*')
-    {
-      newAccess=0;
+    c = keypadInput();
+
+    if (c == '#') {
       return newAccess;
     }
-    if (c=='1')
+    if (c == '*')
     {
-      if (B00000001 & newAccess==B00000001){newAccess-=B00000001;}
-      else{newAccess+=B00000001;}     
+      newAccess = 0;
+      return newAccess;
     }
-    if (c=='2')
+    if (c == '1')
     {
-      if (B00000010 & newAccess==B00000010){newAccess-=B00000010;}
-      else{newAccess+=B00000010;}     
+      if (B00000001 & newAccess == B00000001) {
+        newAccess -= B00000001;
+      }
+      else {
+        newAccess += B00000001;
+      }
     }
-    if (c=='3')
+    if (c == '2')
     {
-      if (B00000100 & newAccess==B00000100){newAccess-=B00000100;}
-      else{newAccess+=B00000100;}     
+      if (B00000010 & newAccess == B00000010) {
+        newAccess -= B00000010;
+      }
+      else {
+        newAccess += B00000010;
+      }
     }
-    if (c=='4')
+    if (c == '3')
     {
-      if (B00001000 & newAccess==B00001000){newAccess-=B00001000;}
-      else{newAccess+=B00001000;}     
+      if (B00000100 & newAccess == B00000100) {
+        newAccess -= B00000100;
+      }
+      else {
+        newAccess += B00000100;
+      }
     }
-    if (c=='5')
+    if (c == '4')
     {
-      if (B00010000 & newAccess==B00010000){newAccess-=B00010000;}
-      else{newAccess+=B00010000;}     
+      if (B00001000 & newAccess == B00001000) {
+        newAccess -= B00001000;
+      }
+      else {
+        newAccess += B00001000;
+      }
     }
-    if (c=='6')
+    if (c == '5')
     {
-      if (B00100000 & newAccess==B00100000){newAccess-=B00100000;}
-      else{newAccess+=B00100000;}     
+      if (B00010000 & newAccess == B00010000) {
+        newAccess -= B00010000;
+      }
+      else {
+        newAccess += B00010000;
+      }
     }
-    if (c=='7')
+    if (c == '6')
     {
-      if (B01000000 & newAccess==B01000000){newAccess-=B01000000;}
-      else{newAccess+=B01000000;}     
+      if (B00100000 & newAccess == B00100000) {
+        newAccess -= B00100000;
+      }
+      else {
+        newAccess += B00100000;
+      }
     }
-    if (c=='8')
+    if (c == '7')
     {
-      if (B10000000 & newAccess==B10000000){newAccess-=B10000000;}
-      else{newAccess+=B10000000;}     
-    }    
+      if (B01000000 & newAccess == B01000000) {
+        newAccess -= B01000000;
+      }
+      else {
+        newAccess += B01000000;
+      }
+    }
+    if (c == '8')
+    {
+      if (B10000000 & newAccess == B10000000) {
+        newAccess -= B10000000;
+      }
+      else {
+        newAccess += B10000000;
+      }
+    }
   }
   return newAccess;
 }
@@ -152,6 +190,7 @@ bool finishMenu(char Name[9], word pin, int access[8]) {
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
 //Displays and handles the scrolling and chosing in a list of size options
 byte scrollableList(String headlines[], byte options) {
+  Serial.println("Scrolll");
   boolean down = false;
   for (int i = 0; i <= options; i++) {
     if (down) {
@@ -162,6 +201,7 @@ byte scrollableList(String headlines[], byte options) {
         i -= 2;
       }
     }
+    Serial.println("w");
     down = false;
     String s1;
     String s2;
@@ -169,11 +209,12 @@ byte scrollableList(String headlines[], byte options) {
     s2 = headlines[i + 1];                                            //Listan ser ut:
     if (i == options - 1) {                                           // >Markerat alternativ
       s2 = " ";                                                       // Annat alternativ
-    }                                                                 //Returnerar alternativets index i arrayen som skickas med
+    }
+    Serial.println("x");                                              //Returnerar alternativets index i arrayen som skickas med
     displayClear();
     displayPrint(s1, 0, 0);
     displayPrint(s2, 0, 1);
-
+    Serial.println("t");
     while (true) {
       char c = keypadInput();
       if (c == '5') {
@@ -186,9 +227,9 @@ byte scrollableList(String headlines[], byte options) {
       }
       else if (c == '#') {
         displayClear();
-        return i+1;
+        return i + 1;
       }
-      else if (c=='*') {
+      else if (c == '*') {
         return 0;
       }
     }
@@ -200,21 +241,21 @@ byte scrollableList(String headlines[], byte options) {
 //Displays available keys and calls 'moveToKey'
 void keysMenu() {
   byte choosenKey;
-  String line0="Choose  x x x x";
-  String line1="a key  x x x x ";
-  
-  for (byte i=1; i<5; i++)
+  String line0 = "Choose  x x x x";
+  String line1 = "a key  x x x x ";
+
+  for (byte i = 1; i < 5; i++)
   {
     if (userAccess(currentUser, i))
     {
-      line0.setCharAt(6+i*2, char(i));
+      line0.setCharAt(6 + i * 2, char(i));
     }
   }
-  for (byte i=5; i<9; i++)
+  for (byte i = 5; i < 9; i++)
   {
     if (userAccess(currentUser, i))
     {
-      line1.setCharAt(i*2-3, char(i));
+      line1.setCharAt(i * 2 - 3, char(i));
     }
   }
 
@@ -222,11 +263,13 @@ void keysMenu() {
 
   while (true)
   {
-    displayPrint(line0,0,0);
-    displayPrint(line1,0,1);
-    
-    Return=moveToKey(choosenKey, currentUser);
-    if (Return){return;}
+    displayPrint(line0, 0, 0);
+    displayPrint(line1, 0, 1);
+
+    Return = moveToKey(choosenKey, currentUser);
+    if (Return) {
+      return;
+    }
   }
 }
 
@@ -237,58 +280,58 @@ word newPinMenu() {
   bool corr = false;
   String pass;
 
-  while(!corr){
+  while (!corr) {
 
-  String enter = "Enter new pin";
-  String confirm = "Confirm pin";
+    String enter = "Enter new pin";
+    String confirm = "Confirm pin";
 
-  displayPrint(enter, 0,0);
+    displayPrint(enter, 0, 0);
 
-  pass = "";
+    pass = "";
 
-  while (true){
-    char c = keypadInput();
-    //strl = sizeof pass / sizeof pass[0];
-    if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
-      pass += c;
+    while (true) {
+      char c = keypadInput();
+      //strl = sizeof pass / sizeof pass[0];
+      if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
+        pass += c;
+      }
+      else if (c == '#' | pass.length() >= 16) {
+        break;
+      }
     }
-    else if(c == '#' | pass.length() >= 16){
-      break;
+    displayClear();
+    displayPrint(confirm, 0, 0);
+    String conf = "";
+
+    while (true) {
+      char c = keypadInput();
+      //strlCon = sizeof pass / sizeof pass[0];
+      if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
+        conf += c;
+      }
+      else if (c == '#' | conf.length() >= 16) {
+        break;
+      }
+    }
+
+    if (pass == conf) {
+      corr = true;
+      displayClear();
+      displayPrint("Pin set", 0, 0);
+      delay(2000);
+      displayClear();
+    } else {
+      corr = false;
+      displayClear();
+      displayPrint("Error", 0, 0);
+      delay(2000);
+      displayClear();
     }
   }
-  displayClear();
-  displayPrint(confirm,0,0);
-  String conf = "";
 
-  while (true){
-    char c = keypadInput();
-    //strlCon = sizeof pass / sizeof pass[0];
-    if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
-      conf += c;
-    }
-    else if(c == '#' | conf.length() >= 16){
-      break;
-    }
-  }
-  
-  if(pass == conf){
-    corr = true;
-    displayClear();
-    displayPrint("Pin set", 0,0);
-    delay(2000);
-    displayClear();
-  } else {
-    corr = false;
-    displayClear();
-    displayPrint("Error", 0,0);
-    delay(2000);
-    displayClear();
-  }
-}
+  int passI = pass.toInt();
 
-int passI = pass.toInt();
-
-return passI;
+  return passI;
 }
 
 
@@ -303,10 +346,10 @@ void addUserMenu() {
   String headlines[4];
   String test;
 
-  headlines[0]="Name";
-  headlines[1]="Pin";
-  headlines[2]="Key access";
-  headlines[3]="Finish";
+  headlines[0] = "Name";
+  headlines[1] = "Pin";
+  headlines[2] = "Key access";
+  headlines[3] = "Finish";
 
   while (true)
   {
@@ -315,7 +358,7 @@ void addUserMenu() {
     {
       case 1:
         String test = newNameMenu();
-        
+
         test.toCharArray(Name, test.length());
         //strcpy(Name, test);
         break;
@@ -341,7 +384,7 @@ void addUserMenu() {
 
 //
 void editUserMenu() {
-  
+
 }
 
 //
@@ -403,9 +446,9 @@ void manageUsersMenu() {
   byte choice;
   String headlines[3];
 
-  headlines[0]="Add user";
-  headlines[1]="Edit user";
-  headlines[2]="Delete user";
+  headlines[0] = "Add user";
+  headlines[1] = "Edit user";
+  headlines[2] = "Delete user";
   while (true)
   {
     choice = scrollableList(headlines, 3);
@@ -438,14 +481,14 @@ void mainMenu() {
   byte options = 3;
   String headlines[4];
 
-  headlines[0]="Keys";
-  headlines[1]="Log out";
-  headlines[2]="Change pin";
+  headlines[0] = "Keys";
+  headlines[1] = "Log out";
+  headlines[2] = "Change pin";
 
   if (userAdmin(currentUser) == 255)
   {
     options++;
-    headlines[3]="Manage users";
+    headlines[3] = "Manage users";
   }
 
   while (true)
@@ -475,37 +518,81 @@ void mainMenu() {
 
 //The highest function in the ui hierarchy which handles logging in
 void logIn(bool firstStartup = false) {
+  //userDebug(0);
   if (firstStartup == true) {
     mainMenu();
   }
-  while (true)
-  {
-    //Log in handling
-    //mainMenu();
+  else {
+
+    bool corr = false;
+    String pass;
+    int id;
+    
+    while (!corr) {
+
+      String enter = "Enter pin";
+
+
+      displayPrint(enter, 0, 0);
+
+      pass = "";
+
+      while (true) {
+        char c = keypadInput();
+        //strl = sizeof pass / sizeof pass[0];
+        if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
+          pass += c;
+        }
+        else if (c == '#' | pass.length() >= 16) {
+          break;
+        }
+      }
+      displayClear();
+      for (int i = 0; i < numberOfUsers(); i++) {
+        if(EEPROM.get((i+1)*12)==pass){
+          corr = true;
+          id = i+
+        }
+      }
+
+
+    }
   }
+
 }
 
 //Sets upp the first admin if no users exist
 void firstStartup() {
   //Calls 'newNameMenu' and 'newPinMenu'
+
   char Name[9];
+  Serial.println("newName");
   String test = newNameMenu();
-  test.toCharArray(Name, test.length());
+  Serial.println("newNameUnder");
+  test.toCharArray(Name, test.length() + 1);
+  Serial.println("toChar");
   word pin = newPinMenu();
+  Serial.println("firstStart");
   userCreate(Name, pin, 0xFF, B11111111);
-  
+  userSave();
+  //userDebug(0);
+  Serial.println("userCreate");
   logIn(true);
 }
 
 // ui init function.
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
-  if (numberOfUsers() == 0){
+  Serial.println(numberOfUsers());
+  if (numberOfUsers() == 0) {
+
     firstStartup();
+
   }
-  else{
-    Serial.println("inen");
-    mainMenu();
+  else {
+    Serial.println("inne");
+    //mainMenu();
+    logIn();
   }
   debugPrintln("ui initialised.");
 }

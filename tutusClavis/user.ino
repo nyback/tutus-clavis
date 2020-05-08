@@ -153,6 +153,17 @@ void userDelete(byte id) {
   }
 }
 
+// Finds user id from pass word (no pun intended). If no user is found returns 255.
+byte userFind(word pass)
+{
+  for (byte i = 0; i < userNumber; i++) {
+    if (users[i].pass == pass) {
+      return i;
+    }
+  }
+  return 0xFF;
+}
+
 byte numberOfUsers(){
   return userNumber;
   }
