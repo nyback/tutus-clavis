@@ -30,8 +30,21 @@ byte currentUser;
 char * newNameMenu()
 {
   //Calling Keyboard function to get the string
-  //  displayPrint("Username:");
+  //  displayPrint("Username:", 0, 0);
   //  userName = useAlphabet();
+  displayClear();
+  displayPrint(userName, 0, 0);
+  displayPrint("Confirm (*) Retry (#)", 0, 1);
+  char ans = keypadInput();
+  while (ans == '#'){
+    displayClear();
+    displayPrint("Username:", 0, 0);
+    userName = useAlphabet();
+    displayClear();
+  displayPrint(userName, 0, 0);
+  displayPrint("Confirm (*) Retry (#)", 0, 1);
+  ans = keypadInput();
+  }
   //Confirming name to move on
 }
 
@@ -65,7 +78,7 @@ byte scrollableList(String headlines[], byte options)
     down = false;
     String s1;
     String s2;
-    s1 = ">" + headlines[i];                                          //Gjorde så att man kan scrolla. * används för att välja markerat alternativ i listan
+    s1 = ">" + headlines[i];                                          //Gjorde så att man kan scrolla. # används för att välja markerat alternativ i listan
     s2 = headlines[i + 1];                                            //Listan ser ut:
     if (i == options - 1) {                                           // >Markerat alternativ
       s2 = " ";                                                       // Annat alternativ
@@ -136,6 +149,26 @@ void keysMenu()
 word newPinMenu()
 {
   //return confirmed pin or none
+
+  String enter = "Enter new pin";
+  String confirm = "Confirm pin";
+
+  displayPrint(enter, 0,0);
+  char pass[] = "";
+
+  while (true){
+    char c = keypadInput();
+    if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
+      strncat(pass, &ch, 1);
+    }
+    else if(c == '#'){
+      break;
+    }
+  }
+
+  return pass;
+  
+  
 }
 
 //Handles creating a new user
@@ -187,6 +220,9 @@ void editUserMenu()
 {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
+
+  
+  
 }
 
 //
