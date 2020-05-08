@@ -77,6 +77,7 @@ void userDelete(byte id)
   // Deletes user from array and subs one from userNumber.
   for (byte i = id; i < userNumber; i++) {
     users[i] = users[i+1];
+    users[i].id--;
 
     // Clears info from last user.
     users[i+1].id = 0;
