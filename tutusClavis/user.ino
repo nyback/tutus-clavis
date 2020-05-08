@@ -56,6 +56,7 @@ void userDebug(byte id)
   Serial.print("access: ");
   Serial.println(users[id].access);
 }
+
 byte userKeyToAccess(byte key)
 {
   switch(key) {
@@ -124,6 +125,7 @@ void userSave()
 void userClean()
 {
   for (byte i = 0; i < MAX_USERS; i++)
+  {
     users[i].id = 0;
     strcpy(users[i].uname, "");
     users[i].pass = 0;
