@@ -403,12 +403,23 @@ void logIn(bool firstStartup = false) {
 //Sets upp the first admin if no users exist
 void firstStartup() {
   //Calls 'newNameMenu' and 'newPinMenu'
+  char Name[9];
+  String test = newNameMenu();
+  test.toCharArray(Name, test.length());
+  word pin = newPinMenu();
 
+  userCreate(Name, pin, 0xFF, B11111111);
   logIn(true);
 }
 
 // ui init function.
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
+  if (numberOfUsers() == 0){
+    firstStartup();
+  }
+  else{
+    mainMenu();
+  }
   debugPrintln("ui initialised.");
 }
