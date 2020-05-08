@@ -56,6 +56,36 @@ void userDebug(byte id)
   Serial.print("access: ");
   Serial.println(users[id].access);
 }
+byte userKeyToAccess(byte key)
+{
+  switch(key) {
+    case 1:
+      return B00000001;
+      break;
+    case 2:
+      return B00000010;
+      break;
+    case 3:
+      return B00000100;
+      break;
+    case 4:
+      return B00001000;
+      break;
+    case 5:
+      return B00010000;
+      break;
+    case 6:
+      return B00100000;
+      break;
+    case 7:
+      return B01000000;
+      break;
+    case 8:
+      return B10000000;
+      break;
+  }
+  return 0;
+}
 
 // Returns 1 if user is autorised for key.
 byte userAccess(byte id, byte key)
@@ -64,6 +94,12 @@ byte userAccess(byte id, byte key)
     return 1;
   }
   return 0;
+}
+
+// Returns 255 (1111 1111) if user is admin, 0 (0000 0000) if not.
+byte userAdmin(byte id)
+{
+  return users[id].options;
 }
 
 // Loads all users from EEPROM.
@@ -161,42 +197,9 @@ void userDEOP(byte id)
   users[id].options = 0;
 }
 
-// Returns 255 (1111 1111) if user is admin, 0 (0000 0000) if not.
-byte userAdmin(byte id)
-{
-  return users[id].options;
-}
 
-byte userKeyToAccess(byte key)
-{
-  switch(key) {
-    case 1:
-      return B00000001;
-      break;
-    case 2:
-      return B00000010;
-      break;
-    case 3:
-      return B00000100;
-      break;
-    case 4:
-      return B00001000;
-      break;
-    case 5:
-      return B00010000;
-      break;
-    case 6:
-      return B00100000;
-      break;
-    case 7:
-      return B01000000;
-      break;
-    case 8:
-      return B10000000;
-      break;
-  }
-  return 0;
-}
+
+
 
 // Gives user access to key.
 void userAuthorise(byte id, byte key)
