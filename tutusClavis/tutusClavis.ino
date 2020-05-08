@@ -1,6 +1,8 @@
 /* Copyright (C) 2020 Noel Nyback
  * Copyright (C) 2020 Ludwig Gustafsson
  * Copyright (C) 2020 Gustav Thorén
+ * Copyright (C) 2020 Victor Engdahl
+ * Copyright (C) 2020 Alva Johansson Staaf
  * 
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -84,6 +86,25 @@ void setup()
 //  userSave(); // Writes users to EEPROM.
 
 //  stepperTest();
+}
+
+void moveToKey(int key, byte id){
+ byte perm = userAccess(id, key);
+  if(perm == 1){
+    // Skriv access granted
+    gotoKey(key);
+    delay(5000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
+    openLock();
+    delay(10000);
+    gotoStart(steps);
+    delay(1000);
+  } else {
+    String acc = "Access";
+    String den = "Denied";
+    displayPrint(acc,0,0);
+    displayPrint(den,0,1);
+  }
+  
 }
 
 void loop()

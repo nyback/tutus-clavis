@@ -1,7 +1,9 @@
 /* Copyright (C) 2020 Noel Nyback
    Copyright (C) 2020 Ludwig Gustafsson
    Copyright (C) 2020 Gustav Thorén
-
+   Copyright (C) 2020 Victor Engdahl
+   Copyright (C) 2020 Alva Johansson Staaf
+   
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
