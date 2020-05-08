@@ -39,7 +39,8 @@ String alphabetInit() {
 
 String useAlphabet() {
   // Uses 3 as move right, 2 as scroll up, 5 as scroll down, 1 as move left
-  while (c != '*') {
+  username = '\0';
+  while (c != '#') {
     char c = keypadInput();
     if (c != -1) {
       if (c == '3') {
@@ -55,11 +56,11 @@ String useAlphabet() {
       else if (c == '1') {
         moveLeft();
       }
-      else if(c == '*'){
+      else if(c == '#'){
         break;
       }
     }
-    if(c=='*'){
+    if(c=='#'){
       break;
     }
     
