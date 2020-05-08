@@ -50,7 +50,7 @@ void keypadInput()
   keypad1.updateFIFO();
   keypadPressedKey = keypad1.getButton();
 
-  
+  Serial.println(keypadPressedKey);
 
 //  if (button == -1)
 //  {
