@@ -382,25 +382,21 @@ void addUserMenu() {
   }
 }
 
-//
+//Allows for changing of a users data
 void editUserMenu() {
 
 }
 
-//
+//Asks for confirmation and the deletes the user
 void deleteUserMenu() {
-  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
-  //alternativly could display current admin as well but just not allow changes
-
-  //Måste hantera att den inloggade usern fortsätter vara inloggad även efter att en user har raderats
+  
 }
 
 //Gives a list of registered users and calls 'editUserMenu' or 'deleteUserMenu'
 void accessUserMenu(byte function) {
   byte amountOfUsers;
   amountOfUsers=numberOfUsers();
-  byte test=5;
-  String users[test];
+  String users[amountOfUsers];
   byte choice;
   byte loggedInUser;
   
