@@ -25,27 +25,42 @@
 
 byte currentUser;
 
-
 //Probably using pointer shenanigans to return a correct string
-char * newNameMenu()
+String newNameMenu()
 {
-  //Calling Keyboard function to get the string
-  //  displayPrint("Username:", 0, 0);
-  //  userName = useAlphabet();
+  char ans = 0;
+
+  displayPrint("Username:", 0, 0);
+  String userName = useAlphabet();
   displayClear();
   displayPrint(userName, 0, 0);
-  displayPrint("Confirm (*) Retry (#)", 0, 1);
-  char ans = keypadInput();
-  while (ans == '#'){
+  displayPrint("Conf(#) Retry(*)", 0, 1);
+  while (true) {
+    ans = keypadInput();
+    if (ans == '*' || ans == '#') {
+      break;
+    }
+  }
+
+  while (ans == '*') {
     displayClear();
     displayPrint("Username:", 0, 0);
     userName = useAlphabet();
     displayClear();
-  displayPrint(userName, 0, 0);
-  displayPrint("Confirm (*) Retry (#)", 0, 1);
-  ans = keypadInput();
+    displayPrint(userName, 0, 0);
+    displayPrint("Conf(#) Retry(*)", 0, 1);
+    while (true) {
+      ans = keypadInput();
+      if ( ans == '*' || ans == '#') {
+        break;
+      }
+    }
   }
+  displayClear();
+  displayPrint("Confirmed", 0, 0);
   //Confirming name to move on
+
+  return userName;
 }
 
 //Returns an array with the accessible keys
@@ -99,7 +114,10 @@ byte scrollableList(String headlines[], byte options)
       }
       else if (c == '#') {
         displayClear();
-        return i;
+        return i+1;
+      }
+      else if (c=='*') {
+        return 0;
       }
     }
   }
@@ -205,10 +223,16 @@ void addUserMenu()
   byte access;
   bool Return = false;
   byte choice;
+  String headlines[4];
+
+  headlines[0]="Nem";
+  headlines[1]="Pin";
+  headlines[2]="Key access";
+  headlines[3]="Finish";
 
   while (true)
   {
-    choice = scrollableList(/*list of available options,*/ 4);
+    choice = scrollableList(headlines, 4);
     switch (choice)
     {
       case 1:
@@ -257,9 +281,14 @@ void deleteUserMenu()
 void manageUsersMenu()
 {
   byte choice;
+  String headlines[3];
+
+  headlines[0]="Add user";
+  headlines[1]="Edit user";
+  headlines[2]="Delete user";
   while (true)
   {
-    choice = scrollableList(/*list of available options,*/ 3);
+    choice = scrollableList(headlines, 3);
     switch (choice)
     {
       case 1:
@@ -289,15 +318,21 @@ void mainMenu()
 {
   byte choice;
   byte options = 3;
+  String headlines[4];
+
+  headlines[0]="Keys";
+  headlines[1]="Log out";
+  headlines[2]="Change pin";
 
   if (userAdmin(currentUser) == 255)
   {
     options++;
+    headlines[3]="Manage users";
   }
 
   while (true)
   {
-    choice = scrollableList(/*list of available options,*/ options);
+    choice = scrollableList(headlines, options);
     switch (choice)
     {
       case 1:
