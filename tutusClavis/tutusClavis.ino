@@ -119,7 +119,7 @@ bool moveToKey(int key, byte id){
 
     while(true){
       bool openDoor = checkHinge();
-      if (!openDoor){
+      if (openDoor){
         delay(1000);
         break;
       }

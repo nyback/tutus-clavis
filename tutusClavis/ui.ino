@@ -62,40 +62,85 @@ String newNameMenu() {
   return userName;
 }
 
-//Returns an array with the accessible keys
-byte keyAccessMenu() {
+//Returns a byte with the accessible keys represented as bits, if no keys are saved returns 0
+byte keyAccessMenu()
+{
+  char c;
 
-  //antingen skapas en temporär user som sedan raderas eller så hanteras ett word direkt
-  
-  byte choosenKey;
   String line0="Choose  x x x x";
   String line1="keys   x x x x ";
+  byte newAccess=0;
 
   while (true)
   {
-    for (byte i=1; i<5; i++)
+    for (byte i=0; i<4; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line0.setCharAt(6+i*2, char(i));
+        line0.setCharAt(7+i*2, char(i));
       }
     }
-    for (byte i=5; i<9; i++)
+    for (byte i=0; i<4; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line1.setCharAt(i*2-3, char(i));
+        line1.setCharAt(6+i*2, char(i));
       }
     }
-
-  bool Return;
 
     displayPrint(line0,0,0);
     displayPrint(line1,0,1);
     
-    Return=moveToKey(choosenKey, currentUser);
-    if (Return){return;}
+    c=keypadInput();
+
+    if (c=='#'){return newAccess;}
+    if (c=='*')
+    {
+      newAccess=0;
+      return newAccess;
+    }
+    if (c=='1')
+    {
+      if (B00000001 & newAccess==B00000001){newAccess-=B00000001;}
+      else{newAccess+=B00000001;}     
+    }
+    if (c=='2')
+    {
+      if (B00000010 & newAccess==B00000010){newAccess-=B00000010;}
+      else{newAccess+=B00000010;}     
+    }
+    if (c=='3')
+    {
+      if (B00000100 & newAccess==B00000100){newAccess-=B00000100;}
+      else{newAccess+=B00000100;}     
+    }
+    if (c=='4')
+    {
+      if (B00001000 & newAccess==B00001000){newAccess-=B00001000;}
+      else{newAccess+=B00001000;}     
+    }
+    if (c=='5')
+    {
+      if (B00010000 & newAccess==B00010000){newAccess-=B00010000;}
+      else{newAccess+=B00010000;}     
+    }
+    if (c=='6')
+    {
+      if (B00100000 & newAccess==B00100000){newAccess-=B00100000;}
+      else{newAccess+=B00100000;}     
+    }
+    if (c=='7')
+    {
+      if (B01000000 & newAccess==B01000000){newAccess-=B01000000;}
+      else{newAccess+=B01000000;}     
+    }
+    if (c=='8')
+    {
+      if (B10000000 & newAccess==B10000000){newAccess-=B10000000;}
+      else{newAccess+=B10000000;}     
+    }    
   }
+  return newAccess;
 }
 
 //Shows a message on what is missing from the user if something is missing
@@ -251,12 +296,12 @@ return passI;
 void addUserMenu() {
   //####### Or corresponding datatypes for a user
   char Name[9];
-  String test;
-  word pin;
-  byte access;
+  word pin=0;
+  byte access=0;
   bool Return = false;
   byte choice;
   String headlines[4];
+  String test;
 
   headlines[0]="Name";
   headlines[1]="Pin";
@@ -269,7 +314,7 @@ void addUserMenu() {
     switch (choice)
     {
       case 1:
-        test = newNameMenu();
+        String test = newNameMenu();
         
         test.toCharArray(Name, test.length());
         //strcpy(Name, test);
@@ -403,12 +448,24 @@ void logIn(bool firstStartup = false) {
 //Sets upp the first admin if no users exist
 void firstStartup() {
   //Calls 'newNameMenu' and 'newPinMenu'
-
+  char Name[9];
+  String test = newNameMenu();
+  test.toCharArray(Name, test.length());
+  word pin = newPinMenu();
+  userCreate(Name, pin, 0xFF, B11111111);
+  
   logIn(true);
 }
 
 // ui init function.
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
+  if (numberOfUsers() == 0){
+    firstStartup();
+  }
+  else{
+    Serial.println("inen");
+    mainMenu();
+  }
   debugPrintln("ui initialised.");
 }
