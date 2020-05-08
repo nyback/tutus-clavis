@@ -18,7 +18,7 @@
 
 #define MAX_USERS 30 // Do we need more than 30 users?
 
-byte currentUser;
+
 
 typedef struct userData
 {

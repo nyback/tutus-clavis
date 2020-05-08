@@ -23,7 +23,7 @@
 //Är det ett problem att röra sig runt i programmet endast genom att kalla nya funktioner eler bör en lösning baserad på att hoppa tillbaka implementeras
 //Skulle kunna ske med kod som gör att varje gång en funktion gås tillbaka till startar 'callern' om från början (Bör göras något liknande)
 
-
+byte currentUser;
 
 
 //Probably using pointer shenanigans to return a correct string

@@ -97,11 +97,11 @@ void moveToKey(int key, byte id){
  byte perm = userAccess(id, key);
   if(perm == 1){
     // Skriv access granted
-    gotoKey(key);
+    stepperKey(key);
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
     delay(9000);
-    gotoStart(steps);
+    stepperStart();
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
   } else {
     String acc = "Access";
