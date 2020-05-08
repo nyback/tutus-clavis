@@ -166,7 +166,7 @@ word newPinMenu()
   //return confirmed pin or none
 
   bool corr = false;
-  char pass[];
+  String pass;
 
   while(!corr){
 
@@ -176,39 +176,36 @@ word newPinMenu()
   displayPrint(enter, 0,0);
 
   pass = "";
-  int strl;
 
   while (true){
     char c = keypadInput();
     strl = sizeof pass / sizeof pass[0];
     if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
-      strncat(pass, &c, 1);
+      pass += c;
     }
-    else if(c == '#' | strl >= 16){
+    else if(c == '#' | pass.length() >= 16){
       break;
     }
   }
 
-  char conf[] = "";
-  int strlCon;
+  String conf = "";
 
   while (true){
     char c = keypadInput();
     strlCon = sizeof pass / sizeof pass[0];
     if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
-      strncat(conf, &c, 1);
+      conf += c;
     }
-    else if(c == '#' | strlCon >= 16){
+    else if(c == '#' | conf.length() >= 16){
       break;
     }
   }
   
-  if( strcmp(pass, conf) == 0){
+  if(pass == conf){
     corr = true;
   } else {
     corr = false
   }
- 
 }
 return pass;
 }
