@@ -131,13 +131,14 @@ void manageUsersMenu()
 void editUserMenu()
 {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
-  //alternativly could 
+  //alternativly could display current admin as well but just not allow changes
 }
 
 //
 void deleteUserMenu()
 {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
+  //alternativly could display current admin as well but just not allow changes
 }
 
 //Handles creating a new user
