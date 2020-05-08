@@ -93,18 +93,17 @@ void moveToKey(int key, byte id){
   if(perm == 1){
     // Skriv access granted
     gotoKey(key);
-    delay(5000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
+    delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
-    delay(10000);
+    delay(9000);
     gotoStart(steps);
-    delay(1000);
+    delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
   } else {
     String acc = "Access";
     String den = "Denied";
     displayPrint(acc,0,0);
     displayPrint(den,0,1);
   }
-  
 }
 
 void loop()
