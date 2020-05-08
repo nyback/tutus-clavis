@@ -51,12 +51,13 @@ void userSave()
 // Wipe all user entries.
 void userClean()
 {
-  for (byte i = 0; i < MAX_USERS; i++)
+  for (byte i = 0; i < MAX_USERS; i++) {
     users[i].id = 0;
     strcpy(users[i].uname, "");
     users[i].pass = 0;
     users[i].options = 0;
     users[i].access = 0;
+  }
 }
 
 // Creates new user.
