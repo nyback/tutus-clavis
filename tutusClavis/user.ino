@@ -32,6 +32,40 @@ typedef struct userData
 byte userNumber; // Number of users.
 struct userData users[MAX_USERS];
 
+// Initialise the user stuff.
+void userInit()
+{
+  userLoad(); // Load user table.
+  debugPrintln("user initialised.");
+}
+
+void userDebug(byte id)
+{
+  Serial.print("id: ");
+  Serial.println(users[id].id);
+
+  Serial.print("uname: ");
+  Serial.println(users[id].uname);
+
+  Serial.print("pass: ");
+  Serial.println(users[id].pass);
+
+  Serial.print("options: ");
+  Serial.println(users[id].options);
+
+  Serial.print("access: ");
+  Serial.println(users[id].access);
+}
+
+// Returns 1 if user is autorised for key.
+byte userAccess(byte id, byte key)
+{
+  if (users[id].access & userKeyToAccess(key)) {
+    return 1;
+  }
+  return 0;
+}
+
 // Loads all users from EEPROM.
 void userLoad()
 {
@@ -90,24 +124,6 @@ void userDelete(byte id)
     users[i+1].options = 0;
     users[i+1].access = 0;
   }
-}
-
-void userDebug(byte id)
-{
-  Serial.print("id: ");
-  Serial.println(users[id].id);
-
-  Serial.print("uname: ");
-  Serial.println(users[id].uname);
-
-  Serial.print("pass: ");
-  Serial.println(users[id].pass);
-
-  Serial.print("options: ");
-  Serial.println(users[id].options);
-
-  Serial.print("access: ");
-  Serial.println(users[id].access);
 }
 
 // Change users uname.
@@ -192,20 +208,4 @@ void userAuthorise(byte id, byte key)
 void userDeAuthorise(byte id, byte key)
 {
   users[id].access = users[id].access & (~userKeyToAccess(key));
-}
-
-// Returns 1 if user is autorised for key.
-byte userAccess(byte id, byte key)
-{
-  if (users[id].access & userKeyToAccess(key)) {
-    return 1;
-  }
-  return 0;
-}
-
-// Initialise the user stuff.
-void userInit()
-{
-  userLoad(); // Load user table.
-  debugPrintln("user initialised.");
 }

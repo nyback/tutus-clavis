@@ -20,6 +20,8 @@
 
 #include <Wire.h>   // Library for I2C.
 #include <EEPROM.h> // Flash memory access. (permanent-memory)
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 //int screenCursor = 0; // Position of "writing head" on screen. 0 being top left, 9 being top right and 39 being bottom right.
 char screen[40]; // This will be used by updateScreen() and written to display.

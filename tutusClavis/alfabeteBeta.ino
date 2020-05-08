@@ -40,7 +40,7 @@ String alphabetInit() {
 String useAlphabet() {
   // Uses 3 as move right, 2 as scroll up, 5 as scroll down, 1 as move left
   while (c != '*') {
-    char c = keyInput();
+    char c = keypadInput();
     if (c != -1) {
       if (c == '3') {
         username += alphabet[i];

@@ -44,7 +44,7 @@ void keypadInit()
 }
 
 //char keyInput()
-void keypadInput()
+char keypadInput()
 {
   // KEYPAD READ CODE GOES HERE. READ KEYPAD, CHECK WHERE WE ARE (WHAT SCREEN) AND SEND THE INPUT TO APPROPRIATE ROUTINE.
 
