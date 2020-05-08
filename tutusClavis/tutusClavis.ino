@@ -46,6 +46,8 @@ void setup()
   userDebug(1);
   userDebug(2);
 
+  stepperRight(8);
+
 //  userOP(0); // Makes user with id 0 admin.
 //  userSetUname(1, "Nyback"); // Sets uname.
 //  userAuthorise(1, 3); // Gives user access to key 3. Should print access: 4;
@@ -95,11 +97,11 @@ void moveToKey(int key, byte id){
  byte perm = userAccess(id, key);
   if(perm == 1){
     // Skriv access granted
-    gotoKey(key);
+    stepperKey(key);
     delay(5000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
     delay(10000);
-    gotoStart(steps);
+    stepperStart();
     delay(1000);
   } else {
     String acc = "Access";
