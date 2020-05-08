@@ -1,6 +1,8 @@
 /* Copyright (C) 2020 Noel Nyback
  * Copyright (C) 2020 Ludwig Gustafsson
  * Copyright (C) 2020 Gustav Thorén
+ * Copyright (C) 2020 Victor Engdahl
+ * Copyright (C) 2020 Alva Johansson Staaf
  * 
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,35 +23,8 @@
 //Är det ett problem att röra sig runt i programmet endast genom att kalla nya funktioner eler bör en lösning baserad på att hoppa tillbaka implementeras
 //Skulle kunna ske med kod som gör att varje gång en funktion gås tillbaka till startar 'callern' om från början (Bör göras något liknande)
 
-//Might have messed upp breaking from the while loop
+byte currentUser;
 
-
-
-//Confirms that the user wants to log out and if so logs the user out, otherwise calls 'mainMenu'
-bool logOut()
-{
-  //if logged out return true else return false
-}
-
-//The highest function in the ui hierarchy which handles logging in
-void logIn(bool firstStartup=false)
-{
-  if (firstStartup==true){mainMenu();}
-  while (true)
-  {
-    //Log in handling
-    //mainMenu();
-  }
-}
-
-
-//Sets upp the first admin if no users exist
-void firstStartup()
-{
-  //Calls 'newNameMenu' and 'newPinMenu'
-  
-  logIn(true);
-}
 
 //Probably using pointer shenanigans to return a correct string
 char * newNameMenu()
@@ -74,8 +49,8 @@ bool finishMenu(char Name[9], word pin, int access[8])
 }
 
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
-//Displays and handles the scrolling and chosing in a list of size n
-int scrollableList(/*list of option headlines*/)
+//Displays and handles the scrolling and chosing in a list of size options
+byte scrollableList(/*list of option headlines, */byte options)
 {
   
 }
@@ -95,37 +70,6 @@ word newPinMenu()
   //return confirmed pin or none
 }
 
-//Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
-void mainMenu()
-{
-  int choice;
-  while (true)
-  {
-    choice=scrollableList(/*list of available options*/);
-    switch(choice)
-    {
-      case 1:
-        keysMenu();
-        break;
-      case 3:
-        newPinMenu();
-        break;
-      case 4:
-        //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
-        manageUsersMenu();
-        break;
-      default:
-        //If chosen option is 2 or 0 it is interpretted as log out
-        if (logOut())
-          //if logged out return to 'logIn' else continue
-          return;
-        break;
-    }
-  }
-}
-
-
-
 //Handles creating a new user
 void addUserMenu()
 {
@@ -134,11 +78,11 @@ void addUserMenu()
   word pin;
   byte access;
   bool Return=false;
-  int choice;
+  byte choice;
   
   while (true)
   {
-    choice=scrollableList(/*list of available options*/);
+    choice=scrollableList(/*list of available options,*/ 4);
     switch(choice)
     {
       case 1:
@@ -162,24 +106,29 @@ void addUserMenu()
   }
 }
 
+//
 void editUserMenu()
 {
-  
+  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
+  //alternativly could display current admin as well but just not allow changes
 }
 
+//
 void deleteUserMenu()
 {
-  
-}
+  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
+  //alternativly could display current admin as well but just not allow changes
 
+  //Måste hantera att den inloggade usern fortsätter vara inloggad även efter att en user har raderats
+}
 
 //Handles the admin commands menu
 void manageUsersMenu()
 {
-  int choice;
+  byte choice;
   while (true)
   {
-    choice=scrollableList(/*list of available options*/);
+    choice=scrollableList(/*list of available options,*/ 3);
     switch(choice)
     {
       case 1:
@@ -198,8 +147,70 @@ void manageUsersMenu()
   }
 }
 
+//Confirms that the user wants to log out and if so logs the user out, otherwise calls 'mainMenu'
+bool logOut()
+{
+  //if logged out return true else return false
+}
+
+//Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
+void mainMenu()
+{
+  byte choice;
+  byte options=3;
+
+  if (userAdmin(currentUser)==255)
+  {
+    options++;
+  }
+  
+  while (true)
+  {
+    choice=scrollableList(/*list of available options,*/ options);
+    switch(choice)
+    {
+      case 1:
+        keysMenu();
+        break;
+      case 3:
+        newPinMenu();
+        break;
+      case 4:
+        //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
+        manageUsersMenu();
+        break;
+      default:
+        //If chosen option is 2 or 0 it is interpretted as log out
+        if (logOut())
+          //if logged out return to 'logIn' else continue
+          return;
+        break;
+    }
+  }
+}
+
+//The highest function in the ui hierarchy which handles logging in
+void logIn(bool firstStartup=false)
+{
+  if (firstStartup==true){mainMenu();}
+  while (true)
+  {
+    //Log in handling
+    //mainMenu();
+  }
+}
+
+//Sets upp the first admin if no users exist
+void firstStartup()
+{
+  //Calls 'newNameMenu' and 'newPinMenu'
+  
+  logIn(true);
+}
+
 // ui init function.
 void uiInit()
 {
+  //Kollar om det finns users och om det inte gör det startar firstStartup
   debugPrintln("ui initialised.");
 }

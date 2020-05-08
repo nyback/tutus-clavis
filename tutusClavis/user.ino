@@ -18,6 +18,8 @@
 
 #define MAX_USERS 30 // Do we need more than 30 users?
 
+
+
 typedef struct userData
 {
   byte id; // 0-255 (We can have no more than 255 users.)
@@ -57,6 +59,9 @@ void userClean()
     users[i].pass = 0;
     users[i].options = 0;
     users[i].access = 0;
+  }
+  userNumber = 0;
+
 }
 
 // Creates new user.
