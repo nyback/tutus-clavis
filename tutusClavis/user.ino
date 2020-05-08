@@ -153,6 +153,10 @@ void userDelete(byte id) {
   }
 }
 
+byte numberOfUsers(){
+  return userNumber;
+  }
+
 // Change users uname.
 void userSetUname(byte id, char* uname) {
   strcpy(users[id].uname, uname);
