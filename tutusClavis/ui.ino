@@ -301,6 +301,7 @@ void addUserMenu() {
   bool Return = false;
   byte choice;
   String headlines[4];
+  String test;
 
   headlines[0]="Name";
   headlines[1]="Pin";
