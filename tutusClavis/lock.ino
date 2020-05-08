@@ -19,11 +19,15 @@
  */
 
 int lock = 13; // Lock signal connected to digital 13.
+int hinge = 12; // Hinge signal connected to digital 12.
 
 void lockInit()
 {
   pinMode(lock, OUTPUT); //Initialize lock as output pin.
   debugPrintln("lock initialised.");
+
+  pinMode(hinge, INPUT); //Initialize hinge as input pin. (antingen tar vi en 5v(?) från vartsom o kör igenom "kortslutningen" när man stänger luckan eller en pin från arduinon).
+  debugPrintln("hinge initialised.");
 }
 
 void openLock()
@@ -32,4 +36,15 @@ void openLock()
   digitalWrite(lock, HIGH);
   delay (2000);
   digitalWrite(lock, LOW);
+}
+
+boolean checkHinge(){
+  //Denna funktion behövs egentligen inte men vi får bestämma på vilket sätt vi ska använda den.
+  if (digitalRead(hinge)){
+    return true;
+    }
+   else{
+    return false;
+   }  
+  
 }

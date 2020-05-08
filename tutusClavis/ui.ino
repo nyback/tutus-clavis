@@ -25,27 +25,42 @@
 
 byte currentUser;
 
-
 //Probably using pointer shenanigans to return a correct string
-char * newNameMenu()
+String newNameMenu()
 {
-  //Calling Keyboard function to get the string
-  //  displayPrint("Username:", 0, 0);
-  //  userName = useAlphabet();
+  char ans = 0;
+
+  displayPrint("Username:", 0, 0);
+  String userName = useAlphabet();
   displayClear();
   displayPrint(userName, 0, 0);
-  displayPrint("Confirm (*) Retry (#)", 0, 1);
-  char ans = keypadInput();
-  while (ans == '#'){
+  displayPrint("Conf(#) Retry(*)", 0, 1);
+  while (true) {
+    ans = keypadInput();
+    if (ans == '*' || ans == '#') {
+      break;
+    }
+  }
+
+  while (ans == '*') {
     displayClear();
     displayPrint("Username:", 0, 0);
     userName = useAlphabet();
     displayClear();
-  displayPrint(userName, 0, 0);
-  displayPrint("Confirm (*) Retry (#)", 0, 1);
-  ans = keypadInput();
+    displayPrint(userName, 0, 0);
+    displayPrint("Conf(#) Retry(*)", 0, 1);
+    while (true) {
+      ans = keypadInput();
+      if ( ans == '*' || ans == '#') {
+        break;
+      }
+    }
   }
+  displayClear();
+  displayPrint("Confirmed", 0, 0);
   //Confirming name to move on
+
+  return userName;
 }
 
 //Returns an array with the accessible keys
@@ -181,25 +196,60 @@ word newPinMenu()
 {
   //return confirmed pin or none
 
+  bool corr = false;
+  String pass;
+
+  while(!corr){
+
   String enter = "Enter new pin";
   String confirm = "Confirm pin";
 
   displayPrint(enter, 0,0);
-  char pass[] = "";
+
+  pass = "";
 
   while (true){
     char c = keypadInput();
+    //strl = sizeof pass / sizeof pass[0];
     if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
-      strncat(pass, &ch, 1);
+      pass += c;
     }
-    else if(c == '#'){
+    else if(c == '#' | pass.length() >= 16){
       break;
     }
   }
+  displayClear();
+  displayPrint(confirm,0,0);
+  String conf = "";
 
-  return pass;
+  while (true){
+    char c = keypadInput();
+    //strlCon = sizeof pass / sizeof pass[0];
+    if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
+      conf += c;
+    }
+    else if(c == '#' | conf.length() >= 16){
+      break;
+    }
+  }
   
+  if(pass == conf){
+    corr = true;
+    displayClear();
+    displayPrint("Pin set", 0,0);
+    delay(2000);
+    displayClear();
+  } else {
+    corr = false;
+    displayClear();
+    displayPrint("Error", 0,0);
+    delay(2000);
+    displayClear();
+  }
 }
+return pass;
+}
+
 
 //Handles creating a new user
 void addUserMenu()
