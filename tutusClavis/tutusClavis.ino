@@ -115,7 +115,16 @@ bool moveToKey(int key, byte id){
     stepperKey(key);
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
-    delay(9000);
+    delay(1000);
+
+    while(true){
+      bool openDoor = checkHinge();
+      if (!openDoor){
+        delay(1000);
+        break;
+      }
+    }
+    
     stepperStart();
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     return true;
