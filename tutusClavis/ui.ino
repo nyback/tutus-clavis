@@ -178,8 +178,8 @@ word newPinMenu()
   pass = "";
 
   while (true){
-    char c = keypadInput();
-    strl = sizeof pass / sizeof pass[0];
+    char c = keyInput();
+    //strl = sizeof pass / sizeof pass[0];
     if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
       pass += c;
     }
@@ -187,12 +187,13 @@ word newPinMenu()
       break;
     }
   }
-
+  displayClear();
+  displayPrint(confirm,0,0);
   String conf = "";
 
   while (true){
-    char c = keypadInput();
-    strlCon = sizeof pass / sizeof pass[0];
+    char c = keyInput();
+    //strlCon = sizeof pass / sizeof pass[0];
     if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
       conf += c;
     }
@@ -204,7 +205,7 @@ word newPinMenu()
   if(pass == conf){
     corr = true;
   } else {
-    corr = false
+    corr = false;
   }
 }
 return pass;
