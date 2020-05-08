@@ -60,6 +60,7 @@ void userClean()
     users[i].options = 0;
     users[i].access = 0;
   }
+  userNumber = 0;
 }
 
 // Creates new user.

@@ -41,10 +41,16 @@ void setup()
 //  userCreate("Noel", 1122, 0xFF, 17); // Has access to key number 1 and 5. Is admin. (Should be admin as long as anything but 0 is entered as third argument.)
 //  userCreate("Ludwig", 1122, 0xFF, 17);
 //  userCreate("Victor", 7666, 0xFF, 17);
+
+//  userSetPass(2, 1234);
   
   userDebug(0); // Prints out everything about user 0.
   userDebug(1);
   userDebug(2);
+  userDebug(3);
+  userDebug(4);
+
+//  userClean();
 
 //  userOP(0); // Makes user with id 0 admin.
 //  userSetUname(1, "Nyback"); // Sets uname.
