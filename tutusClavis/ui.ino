@@ -146,6 +146,26 @@ void keysMenu()
 word newPinMenu()
 {
   //return confirmed pin or none
+
+  String enter = "Enter new pin";
+  String confirm = "Confirm pin";
+
+  displayPrint(enter, 0,0);
+  char pass[] = "";
+
+  while (true){
+    char c = keypadInput();
+    if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
+      strncat(pass, &ch, 1);
+    }
+    else if(c == '#'){
+      break;
+    }
+  }
+
+  return pass;
+  
+  
 }
 
 //Handles creating a new user
@@ -191,6 +211,9 @@ void editUserMenu()
 {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
+
+  
+  
 }
 
 //
