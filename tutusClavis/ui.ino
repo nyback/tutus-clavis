@@ -257,7 +257,7 @@ void addUserMenu() {
   byte choice;
   String headlines[4];
 
-  headlines[0]="Nem";
+  headlines[0]="Name";
   headlines[1]="Pin";
   headlines[2]="Key access";
   headlines[3]="Finish";
