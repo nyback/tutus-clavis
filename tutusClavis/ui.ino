@@ -30,8 +30,21 @@ byte currentUser;
 char * newNameMenu()
 {
   //Calling Keyboard function to get the string
-  //  displayPrint("Username:");
+  //  displayPrint("Username:", 0, 0);
   //  userName = useAlphabet();
+  displayClear();
+  displayPrint(userName, 0, 0);
+  displayPrint("Confirm (*) Retry (#)", 0, 1);
+  char ans = keypadInput();
+  while (ans == '#'){
+    displayClear();
+    displayPrint("Username:", 0, 0);
+    userName = useAlphabet();
+    displayClear();
+  displayPrint(userName, 0, 0);
+  displayPrint("Confirm (*) Retry (#)", 0, 1);
+  ans = keypadInput();
+  }
   //Confirming name to move on
 }
 
@@ -65,7 +78,7 @@ byte scrollableList(String headlines[], byte options)
     down = false;
     String s1;
     String s2;
-    s1 = ">" + headlines[i];                                          //Gjorde så att man kan scrolla. * används för att välja markerat alternativ i listan
+    s1 = ">" + headlines[i];                                          //Gjorde så att man kan scrolla. # används för att välja markerat alternativ i listan
     s2 = headlines[i + 1];                                            //Listan ser ut:
     if (i == options - 1) {                                           // >Markerat alternativ
       s2 = " ";                                                       // Annat alternativ
@@ -84,7 +97,7 @@ byte scrollableList(String headlines[], byte options)
 
         break;
       }
-      else if (c == '*') {
+      else if (c == '#') {
         displayClear();
         return i;
       }
