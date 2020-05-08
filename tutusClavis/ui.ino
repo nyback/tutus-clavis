@@ -251,6 +251,7 @@ return passI;
 void addUserMenu() {
   //####### Or corresponding datatypes for a user
   char Name[9];
+  String test;
   word pin;
   byte access;
   bool Return = false;
@@ -268,7 +269,10 @@ void addUserMenu() {
     switch (choice)
     {
       case 1:
-        strcpy(Name, newNameMenu());
+        test = newNameMenu();
+        
+        test.toCharArray(Name, test.length());
+        //strcpy(Name, test);
         break;
       case 2:
         pin = newPinMenu();
@@ -295,10 +299,10 @@ void editUserMenu() {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
 
-  for (byte i=0; i<30)
-  {
-    
-  }
+//  for (byte i=0; i<30)
+//  {
+//    
+//  }
 }
 
 //
