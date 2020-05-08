@@ -23,7 +23,7 @@
 #include "SparkFun_Qwiic_Keypad_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_keypad
 KEYPAD keypad1;
 
-char keypadPressedKey;
+volatile char keypadPressedKey;
 
 void keypadInit()
 {

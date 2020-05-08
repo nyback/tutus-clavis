@@ -23,35 +23,8 @@
 //Är det ett problem att röra sig runt i programmet endast genom att kalla nya funktioner eler bör en lösning baserad på att hoppa tillbaka implementeras
 //Skulle kunna ske med kod som gör att varje gång en funktion gås tillbaka till startar 'callern' om från början (Bör göras något liknande)
 
-//Might have messed upp breaking from the while loop
 
 
-
-//Confirms that the user wants to log out and if so logs the user out, otherwise calls 'mainMenu'
-bool logOut()
-{
-  //if logged out return true else return false
-}
-
-//The highest function in the ui hierarchy which handles logging in
-void logIn(bool firstStartup=false)
-{
-  if (firstStartup==true){mainMenu();}
-  while (true)
-  {
-    //Log in handling
-    //mainMenu();
-  }
-}
-
-
-//Sets upp the first admin if no users exist
-void firstStartup()
-{
-  //Calls 'newNameMenu' and 'newPinMenu'
-  
-  logIn(true);
-}
 
 //Probably using pointer shenanigans to return a correct string
 char * newNameMenu()
@@ -97,37 +70,6 @@ word newPinMenu()
   //return confirmed pin or none
 }
 
-//Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
-void mainMenu()
-{
-  int choice;
-  while (true)
-  {
-    choice=scrollableList(/*list of available options*/);
-    switch(choice)
-    {
-      case 1:
-        keysMenu();
-        break;
-      case 3:
-        newPinMenu();
-        break;
-      case 4:
-        //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
-        manageUsersMenu();
-        break;
-      default:
-        //If chosen option is 2 or 0 it is interpretted as log out
-        if (logOut())
-          //if logged out return to 'logIn' else continue
-          return;
-        break;
-    }
-  }
-}
-
-
-
 //Handles creating a new user
 void addUserMenu()
 {
@@ -164,16 +106,19 @@ void addUserMenu()
   }
 }
 
+//
 void editUserMenu()
 {
-  
+  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
+  //alternativly could display current admin as well but just not allow changes
 }
 
+//
 void deleteUserMenu()
 {
-  
+  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
+  //alternativly could display current admin as well but just not allow changes
 }
-
 
 //Handles the admin commands menu
 void manageUsersMenu()
@@ -198,6 +143,60 @@ void manageUsersMenu()
         return;
     }
   }
+}
+
+//Confirms that the user wants to log out and if so logs the user out, otherwise calls 'mainMenu'
+bool logOut()
+{
+  //if logged out return true else return false
+}
+
+//Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
+void mainMenu()
+{
+  int choice;
+  while (true)
+  {
+    choice=scrollableList(/*list of available options*/);
+    switch(choice)
+    {
+      case 1:
+        keysMenu();
+        break;
+      case 3:
+        newPinMenu();
+        break;
+      case 4:
+        //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
+        manageUsersMenu();
+        break;
+      default:
+        //If chosen option is 2 or 0 it is interpretted as log out
+        if (logOut())
+          //if logged out return to 'logIn' else continue
+          return;
+        break;
+    }
+  }
+}
+
+//The highest function in the ui hierarchy which handles logging in
+void logIn(bool firstStartup=false)
+{
+  if (firstStartup==true){mainMenu();}
+  while (true)
+  {
+    //Log in handling
+    //mainMenu();
+  }
+}
+
+//Sets upp the first admin if no users exist
+void firstStartup()
+{
+  //Calls 'newNameMenu' and 'newPinMenu'
+  
+  logIn(true);
 }
 
 // ui init function.

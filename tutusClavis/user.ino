@@ -53,12 +53,13 @@ void userSave()
 // Wipe all user entries.
 void userClean()
 {
-  for (byte i = 0; i < MAX_USERS; i++)
+  for (byte i = 0; i < MAX_USERS; i++) {
     users[i].id = 0;
     strcpy(users[i].uname, "");
     users[i].pass = 0;
     users[i].options = 0;
     users[i].access = 0;
+  }
 }
 
 // Creates new user.
@@ -79,6 +80,7 @@ void userDelete(byte id)
   // Deletes user from array and subs one from userNumber.
   for (byte i = id; i < userNumber; i++) {
     users[i] = users[i+1];
+    users[i-1].id--;
 
     // Clears info from last user.
     users[i+1].id = 0;
