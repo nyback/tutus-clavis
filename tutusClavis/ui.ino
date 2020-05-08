@@ -49,8 +49,8 @@ bool finishMenu(char Name[9], word pin, int access[8])
 }
 
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
-//Displays and handles the scrolling and chosing in a list of size n
-int scrollableList(/*list of option headlines*/)
+//Displays and handles the scrolling and chosing in a list of size options
+byte scrollableList(/*list of option headlines, */byte options)
 {
   
 }
@@ -78,11 +78,11 @@ void addUserMenu()
   word pin;
   byte access;
   bool Return=false;
-  int choice;
+  byte choice;
   
   while (true)
   {
-    choice=scrollableList(/*list of available options*/);
+    choice=scrollableList(/*list of available options,*/ 4);
     switch(choice)
     {
       case 1:
@@ -118,15 +118,17 @@ void deleteUserMenu()
 {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
+
+  //Måste hantera att den inloggade usern fortsätter vara inloggad även efter att en user har raderats
 }
 
 //Handles the admin commands menu
 void manageUsersMenu()
 {
-  int choice;
+  byte choice;
   while (true)
   {
-    choice=scrollableList(/*list of available options*/);
+    choice=scrollableList(/*list of available options,*/ 3);
     switch(choice)
     {
       case 1:
@@ -154,10 +156,17 @@ bool logOut()
 //Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
 void mainMenu()
 {
-  int choice;
+  byte choice;
+  byte options=3;
+
+  if (userAdmin(currentUser)==255)
+  {
+    options++;
+  }
+  
   while (true)
   {
-    choice=scrollableList(/*list of available options*/);
+    choice=scrollableList(/*list of available options,*/ options);
     switch(choice)
     {
       case 1:
@@ -202,5 +211,6 @@ void firstStartup()
 // ui init function.
 void uiInit()
 {
+  //Kollar om det finns users och om det inte gör det startar firstStartup
   debugPrintln("ui initialised.");
 }
