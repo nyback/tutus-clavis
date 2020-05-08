@@ -314,7 +314,7 @@ void addUserMenu() {
     switch (choice)
     {
       case 1:
-        test = newNameMenu();
+        String test = newNameMenu();
         
         test.toCharArray(Name, test.length());
         //strcpy(Name, test);
@@ -452,8 +452,8 @@ void firstStartup() {
   String test = newNameMenu();
   test.toCharArray(Name, test.length());
   word pin = newPinMenu();
-
   userCreate(Name, pin, 0xFF, B11111111);
+  
   logIn(true);
 }
 
@@ -464,6 +464,7 @@ void uiInit() {
     firstStartup();
   }
   else{
+    Serial.println("inen");
     mainMenu();
   }
   debugPrintln("ui initialised.");
