@@ -162,6 +162,7 @@ void userSetUname(byte id, char* uname) {
   strcpy(users[id].uname, uname);
 }
 
+// Get users name.
 char* userGetUname(byte id) {
   return users[id].uname;
 }
