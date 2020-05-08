@@ -59,14 +59,30 @@ byte scrollableList(/*list of option headlines, */byte options)
 void keysMenu()
 {
   byte choosenKey;
-  String line1="Choose  x x x x ";
-  String line2="a key  x x x x  ";
+  String line1="Choose  x x x x";
+  String line2="a key  x x x x ";
+  
+  for (byte i=1; i<5; i++)
+  {
+    if (userAccess(currentUser, i))
+    {
+      line1.setCharAt(6+i*2, char(i));
+    }
+  }
+  for (byte i=5; i<9; i++)
+  {
+    if (userAccess(currentUser, i))
+    {
+      line2.setCharAt(i*2-3, char(i));
+    }
+  }
   
   bool Return;
   
   while (true)
   {
-    //Prints available keys on the screen
+    displayPrint(line1,0,0);
+    displayPrint(line2,0,1);
     
     Return=moveToKey(choosenKey, currentUser);
     if (Return){return;}
