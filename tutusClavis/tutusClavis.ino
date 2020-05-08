@@ -96,7 +96,10 @@ void setup()
 void moveToKey(int key, byte id){
  byte perm = userAccess(id, key);
   if(perm == 1){
-    // Skriv access granted
+    String acc = "Access";
+    String den = "Granted";
+    displayPrint(acc,0,0);
+    displayPrint(den,0,1);
     gotoKey(key);
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
