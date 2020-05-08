@@ -20,8 +20,7 @@
 
 
 
-typedef struct userData
-{
+typedef struct userData {
   byte id; // 0-255 (We can have no more than 255 users.)
   char uname[10];
   word pass; // 0000-9999
@@ -33,14 +32,12 @@ byte userNumber; // Number of users.
 struct userData users[MAX_USERS];
 
 // Initialise the user stuff.
-void userInit()
-{
+void userInit() {
   userLoad(); // Load user table.
   debugPrintln("user initialised.");
 }
 
-void userDebug(byte id)
-{
+void userDebug(byte id) {
   Serial.print("id: ");
   Serial.println(users[id].id);
 
@@ -57,8 +54,7 @@ void userDebug(byte id)
   Serial.println(users[id].access);
 }
 
-byte userKeyToAccess(byte key)
-{
+byte userKeyToAccess(byte key) {
   switch(key) {
     case 1:
       return B00000001;
@@ -89,8 +85,7 @@ byte userKeyToAccess(byte key)
 }
 
 // Returns 1 if user is autorised for key.
-byte userAccess(byte id, byte key)
-{
+byte userAccess(byte id, byte key) {
   if (users[id].access & userKeyToAccess(key)) {
     return 1;
   }
@@ -98,14 +93,12 @@ byte userAccess(byte id, byte key)
 }
 
 // Returns 255 (1111 1111) if user is admin, 0 (0000 0000) if not.
-byte userAdmin(byte id)
-{
+byte userAdmin(byte id) {
   return users[id].options;
 }
 
 // Loads all users from EEPROM.
-void userLoad()
-{
+void userLoad() {
   userNumber = EEPROM.read(0); // Loads number of users.
   for (byte i = 0; i < userNumber; i++) {
     EEPROM.get(sizeof(userData)*i+1, users[i]);
@@ -113,8 +106,7 @@ void userLoad()
 }
 
 // Saves all users to EEPROM. Perhaps after creating first user and when exiting user settings?
-void userSave()
-{
+void userSave() {
   EEPROM.write(0, userNumber); // Saves number of users
   for (byte i = 0; i < userNumber; i++) {
     EEPROM.put(sizeof(userData)*i+1, users[i]);
@@ -122,8 +114,7 @@ void userSave()
 }
 
 // Wipe all user entries.
-void userClean()
-{
+void userClean() {
   for (byte i = 0; i < MAX_USERS; i++)
   {
     users[i].id = 0;
@@ -137,8 +128,7 @@ void userClean()
 }
 
 // Creates new user.
-void userCreate(char* uname, word pass, byte options, byte access)
-{
+void userCreate(char* uname, word pass, byte options, byte access) {
   users[userNumber].id = userNumber;
   strcpy(users[userNumber].uname, uname);
   users[userNumber].pass = pass;
@@ -149,8 +139,7 @@ void userCreate(char* uname, word pass, byte options, byte access)
 }
 
 // Delete user by id.
-void userDelete(byte id)
-{
+void userDelete(byte id) {
   // Deletes user from array and subs one from userNumber.
   for (byte i = id; i < userNumber; i++) {
     users[i] = users[i+1];
@@ -165,52 +154,40 @@ void userDelete(byte id)
 }
 
 // Change users uname.
-void userSetUname(byte id, char* uname)
-{
+void userSetUname(byte id, char* uname) {
   strcpy(users[id].uname, uname);
 }
 
-char* userGetUname(byte id)
-{
+char* userGetUname(byte id) {
   return users[id].uname;
 }
 
 // Change pass.
-void userSetPass(byte id, word pass)
-{
+void userSetPass(byte id, word pass) {
   users[id].pass = pass;
 }
 
 // Returns user password.
-byte userGetPass(byte id)
-{
+byte userGetPass(byte id) {
   return users[id].pass;
 }
 
 // Make admin.
-void userOP(byte id)
-{
+void userOP(byte id) {
   users[id].options = 0xFF;
 }
 
 // Make user admin no longer.
-void userDEOP(byte id)
-{
+void userDEOP(byte id) {
   users[id].options = 0;
 }
 
-
-
-
-
 // Gives user access to key.
-void userAuthorise(byte id, byte key)
-{
+void userAuthorise(byte id, byte key) {
   users[id].access = users[id].access | userKeyToAccess(key);
 }
 
 // Takes away a users access to key.
-void userDeAuthorise(byte id, byte key)
-{
+void userDeAuthorise(byte id, byte key) {
   users[id].access = users[id].access & (~userKeyToAccess(key));
 }

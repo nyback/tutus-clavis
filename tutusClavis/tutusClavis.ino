@@ -20,6 +20,7 @@
 
 #include <Wire.h>   // Library for I2C.
 #include <EEPROM.h> // Flash memory access. (permanent-memory)
+#include <LCD.h>
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
@@ -114,7 +115,16 @@ bool moveToKey(int key, byte id){
     stepperKey(key);
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
-    delay(9000);
+    delay(1000);
+
+    while(true){
+      bool openDoor = checkHinge();
+      if (openDoor){
+        delay(1000);
+        break;
+      }
+    }
+    
     stepperStart();
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     return true;
