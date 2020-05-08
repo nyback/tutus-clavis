@@ -58,8 +58,10 @@ String newNameMenu() {
   displayClear();
   displayPrint("Confirmed", 0, 0);
   //Confirming name to move on
+  
+  char* test = (char*) userName.c_str();
 
-  return userName;
+  return test;
 }
 
 //Returns an array with the accessible keys
