@@ -147,26 +147,54 @@ word newPinMenu()
 {
   //return confirmed pin or none
 
+  bool corr = false;
+  char pass[];
+
+  while(!corr){
+
   String enter = "Enter new pin";
   String confirm = "Confirm pin";
 
   displayPrint(enter, 0,0);
-  char pass[] = "";
+
+  pass = "";
+  int strl;
 
   while (true){
     char c = keypadInput();
+    strl = sizeof pass / sizeof pass[0];
     if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
-      strncat(pass, &ch, 1);
+      strncat(pass, &c, 1);
     }
-    else if(c == '#'){
+    else if(c == '#' | strl >= 16){
       break;
     }
   }
 
-  return pass;
+  char conf[] = "";
+  int strlCon;
+
+  while (true){
+    char c = keypadInput();
+    strlCon = sizeof pass / sizeof pass[0];
+    if(c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9'){
+      strncat(conf, &c, 1);
+    }
+    else if(c == '#' | strlCon >= 16){
+      break;
+    }
+  }
   
-  
+  if( strcmp(pass, conf) == 0){
+    corr = true;
+  } else {
+    corr = false
+  }
+ 
 }
+return pass;
+}
+
 
 //Handles creating a new user
 void addUserMenu()
