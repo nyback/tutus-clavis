@@ -41,10 +41,16 @@ void setup()
 //  userCreate("Noel", 1122, 0xFF, 17); // Has access to key number 1 and 5. Is admin. (Should be admin as long as anything but 0 is entered as third argument.)
 //  userCreate("Ludwig", 1122, 0xFF, 17);
 //  userCreate("Victor", 7666, 0xFF, 17);
+
+//  userSetPass(2, 1234);
   
   userDebug(0); // Prints out everything about user 0.
   userDebug(1);
   userDebug(2);
+  userDebug(3);
+  userDebug(4);
+
+//  userClean();
 
   stepperRight(8);
 
@@ -100,11 +106,12 @@ void moveToKey(int key, byte id){
     String den = "Granted";
     displayPrint(acc,0,0);
     displayPrint(den,0,1);
-    gotoKey(key);
+    
+    stepperKey(key);
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     openLock();
     delay(9000);
-    gotoStart(steps);
+    stepperStart();
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
   } else {
     String acc = "Access";
