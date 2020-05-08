@@ -34,6 +34,8 @@ void setup()
   stepperInit();
   keypadInit();
   uiInit();
+  displayInit();
+  alphabetInit();
 
 // Everything below is only for testing!
 
