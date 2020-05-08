@@ -444,6 +444,7 @@ void mainMenu() {
 
 //The highest function in the ui hierarchy which handles logging in
 void logIn(bool firstStartup = false) {
+  //userDebug(0);
   if (firstStartup == true) {
     mainMenu();
   }
@@ -462,11 +463,13 @@ void firstStartup() {
   Serial.println("newName");
   String test = newNameMenu();
   Serial.println("newNameUnder");
-  test.toCharArray(Name, test.length());
+  test.toCharArray(Name, test.length()+1);
   Serial.println("toChar");
   word pin = newPinMenu();
   Serial.println("firstStart");
   userCreate(Name, pin, 0xFF, B11111111);
+  userSave();
+  //userDebug(0);
   Serial.println("userCreate");
   logIn(true);
 }
