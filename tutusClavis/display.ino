@@ -33,3 +33,12 @@ void displayPrint(String printThis, int column, int row){
   lcd.setCursor(column, row);
   lcd.print(printThis);
 }
+
+void displayClear(){
+  lcd.clear();
+}
+
+void displayClearRow(int row){
+  lcd.setCursor(0,row);
+  lcd.print("                ");
+}
