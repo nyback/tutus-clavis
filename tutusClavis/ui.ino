@@ -25,27 +25,42 @@
 
 byte currentUser;
 
-
 //Probably using pointer shenanigans to return a correct string
-char * newNameMenu()
+String newNameMenu()
 {
-  //Calling Keyboard function to get the string
-  //  displayPrint("Username:", 0, 0);
-  //  userName = useAlphabet();
+  char ans = 0;
+
+  displayPrint("Username:", 0, 0);
+  String userName = useAlphabet();
   displayClear();
   displayPrint(userName, 0, 0);
-  displayPrint("Confirm (*) Retry (#)", 0, 1);
-  char ans = keypadInput();
-  while (ans == '#'){
+  displayPrint("Conf(#) Retry(*)", 0, 1);
+  while (true) {
+    ans = keypadInput();
+    if (ans == '*' || ans == '#') {
+      break;
+    }
+  }
+
+  while (ans == '*') {
     displayClear();
     displayPrint("Username:", 0, 0);
     userName = useAlphabet();
     displayClear();
-  displayPrint(userName, 0, 0);
-  displayPrint("Confirm (*) Retry (#)", 0, 1);
-  ans = keypadInput();
+    displayPrint(userName, 0, 0);
+    displayPrint("Conf(#) Retry(*)", 0, 1);
+    while (true) {
+      ans = keypadInput();
+      if ( ans == '*' || ans == '#') {
+        break;
+      }
+    }
   }
+  displayClear();
+  displayPrint("Confirmed", 0, 0);
   //Confirming name to move on
+
+  return userName;
 }
 
 //Returns an array with the accessible keys
