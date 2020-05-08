@@ -204,8 +204,16 @@ word newPinMenu()
   
   if(pass == conf){
     corr = true;
+    displayClear();
+    displayPrint("Pin set", 0,0);
+    delay(1000);
+    displayClear();
   } else {
     corr = false;
+    displayClear();
+    displayPrint("Error", 0,0);
+    delay(1000);
+    displayClear();
   }
 }
 return pass;
