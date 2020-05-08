@@ -72,9 +72,41 @@ String newNameMenu()
 }
 
 //Returns an array with the accessible keys
-int * keyAccessMenu()
+byte keyAccessMenu()
 {
 
+  //antingen skapas en temporär user som sedan raderas eller så hanteras ett word direkt
+  
+  byte choosenKey;
+  String line0="Choose  x x x x";
+  String line1="keys   x x x x ";
+
+  while (true)
+  {
+    for (byte i=1; i<5; i++)
+    {
+      if (userAccess(currentUser, i))
+      {
+        line0.setCharAt(6+i*2, char(i));
+      }
+    }
+    for (byte i=5; i<9; i++)
+    {
+      if (userAccess(currentUser, i))
+      {
+        line1.setCharAt(i*2-3, char(i));
+      }
+    }
+
+  bool Return;
+
+    displayPrint(line0,0,0);
+    displayPrint(line1,0,1);
+    
+    Return=moveToKey(choosenKey, currentUser);
+    if (Return){return;}
+  }
+}
 }
 
 //Shows a message on what is missing from the user if something is missing
@@ -137,21 +169,21 @@ byte scrollableList(String headlines[], byte options)
 void keysMenu()
 {
   byte choosenKey;
-  String line1="Choose  x x x x";
-  String line2="a key  x x x x ";
+  String line0="Choose  x x x x";
+  String line1="a key  x x x x ";
   
   for (byte i=1; i<5; i++)
   {
     if (userAccess(currentUser, i))
     {
-      line1.setCharAt(6+i*2, char(i));
+      line0.setCharAt(6+i*2, char(i));
     }
   }
   for (byte i=5; i<9; i++)
   {
     if (userAccess(currentUser, i))
     {
-      line2.setCharAt(i*2-3, char(i));
+      line1.setCharAt(i*2-3, char(i));
     }
   }
 
@@ -159,12 +191,11 @@ void keysMenu()
 
   while (true)
   {
-    displayPrint(line1,0,0);
-    displayPrint(line2,0,1);
+    displayPrint(line0,0,0);
+    displayPrint(line1,0,1);
     
     Return=moveToKey(choosenKey, currentUser);
     if (Return){return;}
-
   }
 }
 
@@ -278,8 +309,10 @@ void editUserMenu()
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
 
-  
-  
+  for (byte i=0; i<30)
+  {
+    
+  }
 }
 
 //
