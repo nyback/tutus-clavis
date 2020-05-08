@@ -48,4 +48,3 @@ boolean checkHinge(){
    }  
   
 }
-}
