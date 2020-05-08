@@ -1,4 +1,3 @@
-
 /* Copyright (C) 2020 Noel Nyback
  * Copyright (C) 2020 Ludwig Gustafsson
  * Copyright (C) 2020 Gustav Thorén
@@ -28,7 +27,7 @@
 
 //int addressPosition = 0; // Contains EEPROM address for stepper position.
 //int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
-int lock = 13; // Lock signal connected to digital 13.
+
 int steps;
 
 
@@ -38,7 +37,7 @@ char screen[40]; // This will be used by updateScreen() and written to display.
 void setup()
 {
   debugInit();
-  createUserInit();
+  userInit();
   Serial.println("efter user");
   stepperInit();
   Serial.println("efter stepper");
@@ -53,37 +52,37 @@ void setup()
 
 void loop()
 {
-  steps = 0;
-
-  steps = gotoKey(1);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(2);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(3);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(4);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(5);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(6);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(7);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  
+//  steps = 0;
+//
+//  steps = gotoKey(1);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  steps = gotoKey(2);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  steps = gotoKey(3);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  steps = gotoKey(4);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  steps = gotoKey(5);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  steps = gotoKey(6);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  steps = gotoKey(7);
+//  delay(1000);
+//  gotoStart(steps);
+//  delay(1000);
+//  
 }
 
 void updateScreen()// Alt 1
@@ -96,14 +95,4 @@ void updateScreen()// Alt 1
 void writeScreen(int cursorPosition, char c)// Alt 2
 {
   // TAKES ARGS AND WRITES TO SCREEN?
-}
-
-
-
-void openLock()
-{
-  // The door lock opens when calling this function. It closes after 2s, enough for the hatch to fall down.
-  digitalWrite(lock, HIGH);
-  delay (2000);
-  digitalWrite(lock, LOW);
 }

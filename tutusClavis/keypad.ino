@@ -31,7 +31,7 @@ void keypadInit()
   //pinMode(INT_PIN, INPUT_PULLUP);
   //attachInterrupt(digitalPinToInterrupt(INT_PIN), keyInput, FALLING);
 
-  //pinMode(lock, OUTPUT); //Initialize lock as output pin.
+
 
   //Här nedan är koden jag använt!!!! Kommenterade bort allt annat men sätt tillbaka om behövs //Alva ################################
 //  Serial.begin(9600);
