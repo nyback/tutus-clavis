@@ -1,4 +1,3 @@
-
 /* Copyright (C) 2020 Noel Nyback
  * Copyright (C) 2020 Ludwig Gustafsson
  * Copyright (C) 2020 Gustav Thorén
@@ -20,90 +19,74 @@
 #include <Wire.h>   // Library for I2C.
 #include <EEPROM.h> // Flash memory access. (permanent-memory)
 
-#define INT_PIN 2
-
-
-//byte I2C_display = 0; // this will contain I2C address for the display.
-//byte I2C_keypad = 0; // this the address for the keypad.
-
-//int addressPosition = 0; // Contains EEPROM address for stepper position.
-//int addressUserTable = 1; // Address marks start of user table. The byte contains number of users.
-int lock = 13; // Lock signal connected to digital 13.
-int steps;
-
-
 //int screenCursor = 0; // Position of "writing head" on screen. 0 being top left, 9 being top right and 39 being bottom right.
 char screen[40]; // This will be used by updateScreen() and written to display.
 
 void setup()
 {
   debugInit();
-  createUserInit();
-  Serial.println("efter user");
+  userInit(); // For now only loads users from EEPROM.
+  lockInit();
   stepperInit();
-  Serial.println("efter stepper");
   keypadInit();
-  Serial.println("efter keypad");
-//
-//  
-//  // IF NO ADMIN RUN firstUse()
-//  stepperRight(1);
-//  stepperLeft(2);
+  uiInit();
+
+// Everything below is only for testing!
+
+
+  // I uncommented these because I already created and saved them to EEPROM. First time running you should probably create som users.
+//  userCreate("Alexander", 5684, 0, B00101001); // Has access to key 1, 4 and 6. Is not admin.
+//  userCreate("Noel", 1122, 0xFF, 17); // Has access to key number 1 and 5. Is admin. (Should be admin as long as anything but 0 is entered as third argument.)
+  
+  userDebug(0); // Prints out everything about user 0.
+  userDebug(1);
+
+  userOP(0); // Makes user with id 0 admin.
+  userSetUname(1, "Nyback"); // Sets uname.
+  userAuthorise(1, 3); // Gives user access to key 3. Should print access: 4;
+
+  userDebug(0);
+  userDebug(1);
+
+  // checks if user 1 has access to key first key. userAccess() should return true (1) if access is granted and false (0) if not.
+  if (userAccess(1, 1)) { 
+    debugPrintln("User 1 has access to key 1!");
+  } else {
+    debugPrintln("User 1 did not have access to key 1!");
+  }
+  if (userAccess(1, 3)) { 
+    debugPrintln("User 1 has access to key 3!");
+  } else {
+    debugPrintln("User 1 did not have access to key 3!");
+  }
+
+  userDeAuthorise(1, 3); // 
+
+  if (userAccess(1, 1)) { 
+    debugPrintln("User 1 has access to key 1!");
+  } else {
+    debugPrintln("User 1 did not have access to key 1!");
+  }
+  if (userAccess(1, 3)) { 
+    debugPrintln("User 1 has access to key 3!");
+  } else {
+    debugPrintln("User 1 did not have access to key 3!");
+  }
+
+  userDebug(0);
+  userDebug(1);
+
+  userDelete(0);
+
+  userDebug(0);
+  userDebug(1);
+  
+//  userSave(); // Writes users to EEPROM.
+
+//  stepperTest();
 }
 
 void loop()
 {
-  steps = 0;
 
-  steps = gotoKey(1);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(2);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(3);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(4);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(5);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(6);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  steps = gotoKey(7);
-  delay(1000);
-  gotoStart(steps);
-  delay(1000);
-  
-}
-
-void updateScreen()// Alt 1
-{
-  for (int i = 0; i < 40; i++) {
-    writeScreen(i, screen[i]);
-  }
-}
-
-void writeScreen(int cursorPosition, char c)// Alt 2
-{
-  // TAKES ARGS AND WRITES TO SCREEN?
-}
-
-
-
-void openLock()
-{
-  // The door lock opens when calling this function. It closes after 2s, enough for the hatch to fall down.
-  digitalWrite(lock, HIGH);
-  delay (2000);
-  digitalWrite(lock, LOW);
 }

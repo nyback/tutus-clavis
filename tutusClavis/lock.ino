@@ -16,34 +16,18 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-char debug = 0;
+int lock = 13; // Lock signal connected to digital 13.
 
-// Init serial debugging.
-void debugInit()
+void lockInit()
 {
-  debug = 1;
-  Serial.begin(9600);
-  Serial.println("debug initialised.");
-  
+  pinMode(lock, OUTPUT); //Initialize lock as output pin.
+  debugPrintln("lock initialised.");
 }
 
-void debugStep(char steps, char lr)
+void openLock()
 {
-  if (debug) {
-    char str[21];
-    if (lr == 'l') {
-      strcpy(str, "Rotating   steps left.");
-    } else {
-      strcpy(str, "Rotating   steps right.");
-    }
-    str[9] = steps+'0';
-    Serial.println(str);
-  }
-}
-
-void debugPrintln(char *string)
-{
-  if (debug) {
-    Serial.println(string);
-  }
+  // The door lock opens when calling this function. It closes after 2s, enough for the hatch to fall down.
+  digitalWrite(lock, HIGH);
+  delay (2000);
+  digitalWrite(lock, LOW);
 }

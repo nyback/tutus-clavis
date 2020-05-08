@@ -23,12 +23,24 @@
 #define STEP_SIZE 25 // 200/8
 
 AF_Stepper stepper(MOTOR_STEPS_ROTATION, MOTOR_NUMBER);
+int steps;
 
 // Stepper setup.
 void stepperInit()
 {
-//  Serial.begin(9600);
   stepper.setSpeed(8);
+  debugPrintln("stepper initialised.");
+}
+
+void stepperTest()
+{
+  steps = 0;
+
+  for (byte i = 2; i < 9; i++) {
+    stepperKey(i);
+    delay(1000);
+    stepperStart();
+  }
 }
 
 // Step right.
@@ -45,20 +57,18 @@ void stepperLeft(int steps)
   stepper.step(steps*STEP_SIZE, BACKWARD, SINGLE);
 }
 
-//för nycklar 0-7
-int gotoKey(int key){
-
-  int steps = key * STEP_SIZE;
+// For keys 1-8.
+void stepperKey(int key)
+{
+  key--;
+  steps = key * STEP_SIZE;
   stepper.step(steps, FORWARD, SINGLE);
   stepper.release();
-
-  return steps;
-  
 }
 
-void gotoStart(int steps){
-
+// Should run as soon as hatch is secured.
+void stepperStart()
+{
   stepper.step(steps, BACKWARD, SINGLE);
   stepper.release();
-  
 }
