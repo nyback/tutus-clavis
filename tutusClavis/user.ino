@@ -16,6 +16,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#define MAX_USERS 30 // Do we need more than 30 users?
+
 typedef struct userData
 {
   byte id; // 0-255 (We can have no more than 255 users.)
@@ -26,22 +28,35 @@ typedef struct userData
 };
 
 byte userNumber; // Number of users.
-struct userData users[20];
+struct userData users[MAX_USERS];
 
 // Loads all users from EEPROM.
 void userLoad()
 {
+  userNumber = EEPROM.read(0); // Loads number of users.
   for (byte i = 0; i < userNumber; i++) {
-    EEPROM.get(sizeof(userData)*i, users[i]);
+    EEPROM.get(sizeof(userData)*i+1, users[i]);
   }
 }
 
 // Saves all users to EEPROM. Perhaps after creating first user and when exiting user settings?
 void userSave()
 {
+  EEPROM.write(0, userNumber); // Saves number of users.
   for (byte i = 0; i < userNumber; i++) {
-    EEPROM.put(sizeof(userData)*i, users[i]);
+    EEPROM.put(sizeof(userData)*i+1, users[i]);
   }
+}
+
+// Wipe all user entries.
+void userClean()
+{
+  for (byte i = 0; i < MAX_USERS; i++)
+    users[i].id = 0;
+    strcpy(users[i].uname, "");
+    users[i].pass = 0;
+    users[i].options = 0;
+    users[i].access = 0;
 }
 
 // Creates new user.
@@ -56,10 +71,20 @@ void userCreate(char* uname, word pass, byte options, byte access)
   userNumber++;
 }
 
-// Delete user.
+// Delete user by id.
 void userDelete(byte id)
 {
   // Deletes user from array and subs one from userNumber.
+  for (byte i = id; i < userNumber; i++) {
+    users[i] = users[i+1];
+
+    // Clears info from last user.
+    users[i+1].id = 0;
+    strcpy(users[i+1].uname, "");
+    users[i+1].pass = 0;
+    users[i+1].options = 0;
+    users[i+1].access = 0;
+  }
 }
 
 void userDebug(byte id)
@@ -84,6 +109,11 @@ void userDebug(byte id)
 void userSetUname(byte id, char* uname)
 {
   strcpy(users[id].uname, uname);
+}
+
+char* userGetUname(byte id)
+{
+  return users[id].uname;
 }
 
 // Change pass.
@@ -171,86 +201,6 @@ byte userAccess(byte id, byte key)
 // Initialise the user stuff.
 void userInit()
 {
-  userNumber = EEPROM.read(0);
-  userLoad();
+  userLoad(); // Load user table.
+  debugPrintln("user initialised.");
 }
-
-//void createUser(char namn[], word pass, int options, int access[]){
-//  EEPROM.get(1023, nrUsers);
-//  nrUsers++;
-//  EEPROM.put(1023, nrUsers);
-//  int idu = (nrUsers-1);
-//  userData user = {idu, {}, pass, options, {}};
-//  
-//  Serial.println(sizeof(userData));
-//  
-//  for (int i = 0; i < 8; i++) {
-//    user.uname[i]=namn[i];
-//  }
-//  for (int i = 0; i < 8; i++) {
-//    user.access[i]=access[i];
-//  }
-//  Serial.println(user.id);
-//  Serial.println(user.uname);
-//  Serial.println(user.pass);
-//  Serial.println(user.options);
-//  
-//  for (int i = 0; i < 8; i++) {
-//    Serial.print(user.access[i]);
-//  }
-//    Serial.println();
-//  
-//    EEPROM.put((user.id*sizeof(userData)), user);
-//}
-//
-//void createUserInit() {
-//  // put your setup code here, to run once:
-//  char namn[] = "per";
-//  word pass = 1235;
-//  int options = 8;
-//  int access[] = {1,0,1,1,1,1,0,1};
-//  
-//  createUser(namn, pass, options, access);
-//
-//  Serial.println("User0:");
-//  userData readUser;
-//  EEPROM.get((0*sizeof(userData)), readUser);
-//
-//  Serial.println(readUser.id);
-//  Serial.println(readUser.uname);
-//  Serial.println(readUser.pass);
-//  Serial.println(readUser.options);
-//
-//  for (int i = 0; i < 8; i++) {
-//    Serial.print(readUser.access[i]);
-//  }
-//    Serial.println();
-//
-//  Serial.println("User1:");
-//  EEPROM.get((1*sizeof(userData)), readUser);
-//
-//  Serial.println(readUser.id);
-//  Serial.println(readUser.uname);
-//  Serial.println(readUser.pass);
-//  Serial.println(readUser.options);
-//
-//  for (int i = 0; i < 8; i++) {
-//    Serial.print(readUser.access[i]);
-//  }
-//    Serial.println();
-//
-//
-//
-//  Serial.println("User2:");
-//  EEPROM.get((2*sizeof(userData)), readUser);
-//
-//  Serial.println(readUser.id);
-//  Serial.println(readUser.uname);
-//  Serial.println(readUser.pass);
-//  Serial.println(readUser.options);
-//
-//  for (int i = 0; i < 8; i++) {
-//    Serial.print(readUser.access[i]);
-//  }
-//    Serial.println();
-//}

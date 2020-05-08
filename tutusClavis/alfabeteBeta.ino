@@ -16,7 +16,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
@@ -27,51 +26,50 @@ char c = '0';
 String username;
 
 String alphabetInit() {
-
-//  Serial.begin(9600);
+  
   // Set up the LCD's number of columns and rows
   lcd.begin(16, 2);
   keypadInit();
 }
 
-void useAlphabet() {
-  // Uses 3 as move right, 2 as scroll up, 5 as scroll down, 1 as move left
-  while (c != '*') {
-    char c = keyInput();
-    if (c != -1) {
-      if (c == '3') {
-        username += alphabet[i];
-        moveRight();
-      }
-      else if (c == '2') {
-        scrollUp();
-      }
-      else if (c == '5') {
-        scrollDown();
-      }
-      else if (c == '1') {
-        moveLeft();
-      }
-    }
-
-    // Print on display
-    lcd.setCursor(column, 1);
-    lcd.print(alphabet[i]);
-    lcd.setCursor(column, 1);
-
-    // Turn off the cursor
-    lcd.noCursor();
-    delay(400);
-    // Turn on the cursor
-    lcd.cursor();
-    delay(400);
-
-    //Debug
-    Serial.print(username + '\n');
-
-  }
-  return username;
-}
+//void useAlphabet() {
+//  // Uses 3 as move right, 2 as scroll up, 5 as scroll down, 1 as move left
+//  while (c != '*') {
+//    char c = keyInput();
+//    if (c != -1) {
+//      if (c == '3') {
+//        username += alphabet[i];
+//        moveRight();
+//      }
+//      else if (c == '2') {
+//        scrollUp();
+//      }
+//      else if (c == '5') {
+//        scrollDown();
+//      }
+//      else if (c == '1') {
+//        moveLeft();
+//      }
+//    }
+//
+//    // Print on display
+//    lcd.setCursor(column, 1);
+//    lcd.print(alphabet[i]);
+//    lcd.setCursor(column, 1);
+//
+//    // Turn off the cursor
+//    lcd.noCursor();
+//    delay(400);
+//    // Turn on the cursor
+//    lcd.cursor();
+//    delay(400);
+//
+//    //Debug
+//    Serial.print(username + '\n');
+//
+//  }
+//  return username;
+//}
 
 void moveLeft() {
   column -= 1;

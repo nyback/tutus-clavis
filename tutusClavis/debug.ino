@@ -23,7 +23,7 @@ void debugInit()
 {
   debug = 1;
   Serial.begin(9600);
-  Serial.println("debug started");
+  Serial.println("debug initialised.");
   
 }
 
