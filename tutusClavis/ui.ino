@@ -206,13 +206,13 @@ word newPinMenu()
     corr = true;
     displayClear();
     displayPrint("Pin set", 0,0);
-    delay(1000);
+    delay(2000);
     displayClear();
   } else {
     corr = false;
     displayClear();
     displayPrint("Error", 0,0);
-    delay(1000);
+    delay(2000);
     displayClear();
   }
 }
