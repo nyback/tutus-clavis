@@ -25,6 +25,14 @@
 
 byte currentUser;
 
+// ui init function.
+void uiInit()
+{
+  //Kollar om det finns users och om det inte gör det startar firstStartup
+  debugPrintln("ui initialised.");
+  firstStartup();
+}
+
 //Probably using pointer shenanigans to return a correct string
 String newNameMenu()
 {
@@ -378,13 +386,7 @@ void logIn(bool firstStartup = false)
 void firstStartup()
 {
   //Calls 'newNameMenu' and 'newPinMenu'
-
+  String userName = newNameMenu();
+  word pass = newPinMenu();
   logIn(true);
-}
-
-// ui init function.
-void uiInit()
-{
-  //Kollar om det finns users och om det inte gör det startar firstStartup
-  debugPrintln("ui initialised.");
 }
