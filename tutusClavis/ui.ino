@@ -52,31 +52,45 @@ bool finishMenu(char Name[9], word pin, int access[8])
 //Displays and handles the scrolling and chosing in a list of size options
 byte scrollableList(String headlines[], byte options)
 {
-  for (int i = 0; i < options; i++) {
+  boolean down = false;
+  for (int i = 0; i <= options; i++) {
+    if (down) {
+      if (i <= 2) {
+        i = 0;
+      }
+      else {
+        i -= 2;
+      }
+    }
+    down = false;
     String s1;
     String s2;
-    s1 = ">" + headlines[i];                                //Gjorde istället så att man scrollar och väljer enter med *. Returnerar alltså 0-längden på headlines.
-    s2 = headlines[i + 1];
-    if (i == options - 1) {
-      s2 = " ";
-    }
-
+    s1 = ">" + headlines[i];                                          //Gjorde så att man kan scrolla. * används för att välja markerat alternativ i listan
+    s2 = headlines[i + 1];                                            //Listan ser ut:
+    if (i == options - 1) {                                           // >Markerat alternativ
+      s2 = " ";                                                       // Annat alternativ
+    }                                                                 //Returnerar alternativets index i arrayen som skickas med
+    displayClear();
     displayPrint(s1, 0, 0);
     displayPrint(s2, 0, 1);
 
     while (true) {
       char c = keypadInput();
       if (c == '5') {
-        //Serial.println("Inne i =5");
+        break;
+      }
+      else if (c == '2') {
+        down = true;
+
         break;
       }
       else if (c == '*') {
-        //Serial.println("Inne i =*");
         displayClear();
         return i;
       }
     }
   }
+  return 0;
 }
 
 
