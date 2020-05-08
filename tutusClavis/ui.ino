@@ -28,11 +28,14 @@ byte currentUser;
 //Probably using pointer shenanigans to return a correct string
 String newNameMenu() {
   char ans = 0;
-
+  Serial.println("a");
   displayPrint("Username:", 0, 0);
+  Serial.println("b");
   String userName = useAlphabet();
+  Serial.println("c");
   displayClear();
   displayPrint(userName, 0, 0);
+  Serial.println("d");
   displayPrint("Conf(#) Retry(*)", 0, 1);
   while (true) {
     ans = keypadInput();
@@ -40,6 +43,7 @@ String newNameMenu() {
       break;
     }
   }
+  Serial.println("e");
 
   while (ans == '*') {
     displayClear();
@@ -152,6 +156,7 @@ bool finishMenu(char Name[9], word pin, int access[8]) {
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
 //Displays and handles the scrolling and chosing in a list of size options
 byte scrollableList(String headlines[], byte options) {
+  Serial.println("Scrolll");
   boolean down = false;
   for (int i = 0; i <= options; i++) {
     if (down) {
@@ -162,6 +167,7 @@ byte scrollableList(String headlines[], byte options) {
         i -= 2;
       }
     }
+    Serial.println("w");
     down = false;
     String s1;
     String s2;
@@ -169,11 +175,12 @@ byte scrollableList(String headlines[], byte options) {
     s2 = headlines[i + 1];                                            //Listan ser ut:
     if (i == options - 1) {                                           // >Markerat alternativ
       s2 = " ";                                                       // Annat alternativ
-    }                                                                 //Returnerar alternativets index i arrayen som skickas med
+    }
+    Serial.println("x");                                              //Returnerar alternativets index i arrayen som skickas med
     displayClear();
     displayPrint(s1, 0, 0);
     displayPrint(s2, 0, 1);
-
+    Serial.println("t");
     while (true) {
       char c = keypadInput();
       if (c == '5') {
@@ -409,7 +416,9 @@ void mainMenu() {
 
   while (true)
   {
+    //Serial.println("KOmemr den hit");
     choice = scrollableList(headlines, options);
+    //Serial.println("efterscr");
     switch (choice)
     {
       case 1:
@@ -447,23 +456,31 @@ void logIn(bool firstStartup = false) {
 //Sets upp the first admin if no users exist
 void firstStartup() {
   //Calls 'newNameMenu' and 'newPinMenu'
-  char Name[9];
-  String test = newNameMenu();
-  test.toCharArray(Name, test.length());
-  word pin = newPinMenu();
-  userCreate(Name, pin, 0xFF, B11111111);
   
+  char Name[9];
+  Serial.println("newName");
+  String test = newNameMenu();
+  Serial.println("newNameUnder");
+  test.toCharArray(Name, test.length());
+  Serial.println("toChar");
+  word pin = newPinMenu();
+  Serial.println("firstStart");
+  userCreate(Name, pin, 0xFF, B11111111);
+  Serial.println("userCreate");
   logIn(true);
 }
 
 // ui init function.
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
+  Serial.println(numberOfUsers());
   if (numberOfUsers() == 0){
+    
     firstStartup();
+    
   }
   else{
-    Serial.println("inen");
+    Serial.println("inne");
     mainMenu();
   }
   debugPrintln("ui initialised.");

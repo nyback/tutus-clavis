@@ -30,13 +30,14 @@ char screen[40]; // This will be used by updateScreen() and written to display.
 void setup()
 {
   debugInit();
+  alphabetInit();
   userInit(); // For now only loads users from EEPROM.
   lockInit();
   stepperInit();
   keypadInit();
-  uiInit();
+  
   displayInit();
-  alphabetInit();
+  uiInit();
 
 // Everything below is only for testing!
 
