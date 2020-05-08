@@ -26,8 +26,7 @@
 byte currentUser;
 
 //Probably using pointer shenanigans to return a correct string
-String newNameMenu()
-{
+String newNameMenu() {
   char ans = 0;
 
   displayPrint("Username:", 0, 0);
@@ -64,8 +63,7 @@ String newNameMenu()
 }
 
 //Returns an array with the accessible keys
-byte keyAccessMenu()
-{
+byte keyAccessMenu() {
 
   //antingen skapas en temporär user som sedan raderas eller så hanteras ett word direkt
   
@@ -102,15 +100,13 @@ byte keyAccessMenu()
 
 //Shows a message on what is missing from the user if something is missing
 //Returns true if Name, pin and access are set otherwise returns false
-bool finishMenu(char Name[9], word pin, int access[8])
-{
+bool finishMenu(char Name[9], word pin, int access[8]) {
   //if everything set creates new user
 }
 
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
 //Displays and handles the scrolling and chosing in a list of size options
-byte scrollableList(String headlines[], byte options)
-{
+byte scrollableList(String headlines[], byte options) {
   boolean down = false;
   for (int i = 0; i <= options; i++) {
     if (down) {
@@ -157,8 +153,7 @@ byte scrollableList(String headlines[], byte options)
 
 
 //Displays available keys##########
-void keysMenu()
-{
+void keysMenu() {
   byte choosenKey;
   String line0="Choose  x x x x";
   String line1="a key  x x x x ";
@@ -191,8 +186,7 @@ void keysMenu()
 }
 
 //Asks for a new pin and then confirmitaion, upon correct confirmation rewrites pin
-word newPinMenu()
-{
+word newPinMenu() {
   //return confirmed pin or none
 
   bool corr = false;
@@ -246,13 +240,15 @@ word newPinMenu()
     displayClear();
   }
 }
-return pass;
+
+int passI = pass.toInt();
+
+return passI;
 }
 
 
 //Handles creating a new user
-void addUserMenu()
-{
+void addUserMenu() {
   //####### Or corresponding datatypes for a user
   char Name[9];
   word pin;
@@ -295,8 +291,7 @@ void addUserMenu()
 }
 
 //
-void editUserMenu()
-{
+void editUserMenu() {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
 
@@ -307,8 +302,7 @@ void editUserMenu()
 }
 
 //
-void deleteUserMenu()
-{
+void deleteUserMenu() {
   //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
   //alternativly could display current admin as well but just not allow changes
 
@@ -316,8 +310,7 @@ void deleteUserMenu()
 }
 
 //Handles the admin commands menu
-void manageUsersMenu()
-{
+void manageUsersMenu() {
   byte choice;
   String headlines[3];
 
@@ -346,14 +339,12 @@ void manageUsersMenu()
 }
 
 //Confirms that the user wants to log out and if so logs the user out, otherwise calls 'mainMenu'
-bool logOut()
-{
+bool logOut() {
   //if logged out return true else return false
 }
 
 //Gives options 'Keys', 'Log out', 'Change pin' and if user is admin 'Manage users'
-void mainMenu()
-{
+void mainMenu() {
   byte choice;
   byte options = 3;
   String headlines[4];
@@ -394,8 +385,7 @@ void mainMenu()
 }
 
 //The highest function in the ui hierarchy which handles logging in
-void logIn(bool firstStartup = false)
-{
+void logIn(bool firstStartup = false) {
   if (firstStartup == true) {
     mainMenu();
   }
@@ -407,16 +397,14 @@ void logIn(bool firstStartup = false)
 }
 
 //Sets upp the first admin if no users exist
-void firstStartup()
-{
+void firstStartup() {
   //Calls 'newNameMenu' and 'newPinMenu'
 
   logIn(true);
 }
 
 // ui init function.
-void uiInit()
-{
+void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
   debugPrintln("ui initialised.");
 }
