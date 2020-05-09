@@ -426,6 +426,7 @@ void editUserMenu() {
 //  Serial.println("Uname changed");
   
   word pin = newPinMenu();
+  userSetPass(pin);
 //  Serial.println("pin changed");
   
   byte access = keyAccessMenu();
