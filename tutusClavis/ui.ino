@@ -29,6 +29,7 @@ byte currentUser;
 String newNameMenu() {
   char ans = 0;
 //  Serial.println("a");
+  displayClear();
   displayPrint("Username:", 0, 0);
 //  Serial.println("b");
   String userName = useAlphabet();
@@ -78,17 +79,17 @@ byte keyAccessMenu()
     {
       if (userAccess(currentUser, i))
       {
-        line0.setCharAt(7 + i * 2, char(i));
+        line0.setCharAt(7 + i * 2, char(i+48));
       }
     }
     for (byte i = 0; i < 4; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line1.setCharAt(6 + i * 2, char(i));
+        line1.setCharAt(6 + i * 2, char(i+48));
       }
     }
-
+    displayClear();
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
@@ -303,6 +304,7 @@ word newPinMenu() {
     String enter = "Enter new pin";
     String confirm = "Confirm pin";
 
+    displayClear();
     displayPrint(enter, 0, 0);
 
     pass = "";
@@ -459,11 +461,14 @@ void deleteUserMenu(byte id) {
   if (id<currentUser)
   {
     userDelete(id);
+    userSave();
     currentUser--;
+    
   }
   else
   {
     userDelete(id);
+    userSave();
   }
   return;
 }
@@ -504,6 +509,7 @@ void accessUserMenu(byte function) {
       }
       else {
         deleteUserMenu(choice-1);
+        amountOfUsers--;
       }
     }
     else    //if input = '*' return
@@ -572,6 +578,7 @@ void mainMenu() {
         keysMenu();
         break;
       case 2:
+        displayClear();
         displayPrint("Logging off",0,0);
         delay(1500);
         return;   
