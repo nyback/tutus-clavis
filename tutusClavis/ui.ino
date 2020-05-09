@@ -28,14 +28,14 @@ byte currentUser;
 //Probably using pointer shenanigans to return a correct string
 String newNameMenu() {
   char ans = 0;
-  Serial.println("a");
+//  Serial.println("a");
   displayPrint("Username:", 0, 0);
-  Serial.println("b");
+//  Serial.println("b");
   String userName = useAlphabet();
-  Serial.println("c");
+//  Serial.println("c");
   displayClear();
   displayPrint(userName, 0, 0);
-  Serial.println("d");
+//  Serial.println("d");
   displayPrint("Conf(#) Retry(*)", 0, 1);
   while (true) {
     ans = keypadInput();
@@ -43,7 +43,7 @@ String newNameMenu() {
       break;
     }
   }
-  Serial.println("e");
+//  Serial.println("e");
 
   while (ans == '*') {
     displayClear();
@@ -182,7 +182,7 @@ bool finishMenu(char Name[9], word pin, int access[8]) {
 //Takes option "headlines" as parameters and returns which option chosen (∗ returns 0)
 //Displays and handles the scrolling and chosing in a list of size options
 byte scrollableList(String headlines[], byte options) {
-  Serial.println("Scrolll");
+  Serial.println("Scr");
   boolean down = false;
   for (int i = 0; i < options; i++) {
 //    if (down) {
@@ -193,7 +193,7 @@ byte scrollableList(String headlines[], byte options) {
 //        i -= 2;
 //      }
 //    }
-    Serial.println("w");
+//    Serial.println("w");
     down = false;
     String s1;
     String s2;
@@ -202,11 +202,11 @@ byte scrollableList(String headlines[], byte options) {
     if (i == options - 1) {                                           // >Markerat alternativ
       s2 = " ";                                                       // Annat alternativ
     }
-    Serial.println("x");                                              //Returnerar alternativets index i arrayen som skickas med
+//    Serial.println("x");                                              //Returnerar alternativets index i arrayen som skickas med
     displayClear();
     displayPrint(s1, 0, 0);
     displayPrint(s2, 0, 1);
-    Serial.println("t");
+//    Serial.println("t");
     while (true) {
       char c = keypadInput();
       if (c == '5') { //neråt
@@ -273,11 +273,11 @@ void keysMenu() {
     else if (c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8'){
       //calclates the numeric value of char c
       int nyckel = (int) c;
-      Serial.println(c);
+//      Serial.println(c);
 
       nyckel = nyckel-48;
 
-      Serial.println(nyckel);
+//     Serial.println(nyckel);
       
       choosenKey = (byte) nyckel;
 
@@ -414,19 +414,19 @@ void editUserMenu() {
   delay(3000);
 
   char Name[9];
-  Serial.println("editName");
+//  Serial.println("editName");
   String test = newNameMenu();
-  Serial.println("editNameUnder");
+//  Serial.println("editNameUnder");
   test.toCharArray(Name, test.length() + 1);
   userSetUname(currentUser, Name);
-  Serial.println("Uname changed");
+//  Serial.println("Uname changed");
   
   word pin = newPinMenu();
-  Serial.println("pin changed");
+//  Serial.println("pin changed");
   
   byte access = keyAccessMenu();
   userAuthorise(currentUser, access);
-  Serial.println("pin changed");
+//  Serial.println("pin changed");
 
   line0="Make user admin?";
   line1="#=yes  *=no";
@@ -449,7 +449,7 @@ void editUserMenu() {
   }
   
   userSave();
-  Serial.println("userEdited");
+  Serial.println("Edit");
 }
 
 //Asks for confirmation and the deletes the user
@@ -602,7 +602,7 @@ void logIn(bool firstStartup = false) {
   //userDebug(0);
 
   if (firstStartup == true) {
-    Serial.print("första");
+//    Serial.print("första");
     delay(25);
     currentUser = 0; //what
     mainMenu();
@@ -636,7 +636,7 @@ void logIn(bool firstStartup = false) {
       currentUser = userFind(pass.toInt());
       Serial.println(currentUser);
       if (currentUser == 255) {
-        Serial.println("inte correct");
+//        Serial.println("inte correct");
         delay(25);
         displayClear();
         displayPrint("Wrong pin", 0, 0);
@@ -657,17 +657,17 @@ void firstStartup() {
   //Calls 'newNameMenu' and 'newPinMenu'
 
   char Name[9];
-  Serial.println("newName");
+//  Serial.println("newName");
   String test = newNameMenu();
-  Serial.println("newNameUnder");
+//  Serial.println("newNameUnder");
   test.toCharArray(Name, test.length() + 1);
-  Serial.println("toChar");
+//  Serial.println("toChar");
   word pin = newPinMenu();
-  Serial.println("firstStart");
+//  Serial.println("firstStart");
   userCreate(Name, pin, 0xFF, B11111111);
   userSave();
   //userDebug(0);
-  Serial.println("userCreate");
+//  Serial.println("userCreate");
   logIn(true);
 }
 
@@ -675,7 +675,7 @@ void firstStartup() {
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
 
-  Serial.println(numberOfUsers());
+//  Serial.println(numberOfUsers());
   if (numberOfUsers() == 0) {
 
     firstStartup();

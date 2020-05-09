@@ -37,22 +37,22 @@ void userInit() {
   debugPrintln("user initialised.");
 }
 
-void userDebug(byte id) {
-  Serial.print("id: ");
-  Serial.println(users[id].id);
-
-  Serial.print("uname: ");
-  Serial.println(users[id].uname);
-
-  Serial.print("pass: ");
-  Serial.println(users[id].pass);
-
-  Serial.print("options: ");
-  Serial.println(users[id].options);
-
-  Serial.print("access: ");
-  Serial.println(users[id].access);
-}
+//void userDebug(byte id) {
+//  Serial.print("id: ");
+//  Serial.println(users[id].id);
+//
+//  Serial.print("uname: ");
+//  Serial.println(users[id].uname);
+//
+//  Serial.print("pass: ");
+//  Serial.println(users[id].pass);
+//
+//  Serial.print("options: ");
+//  Serial.println(users[id].options);
+//
+//  Serial.print("access: ");
+//  Serial.println(users[id].access);
+//}
 
 byte userKeyToAccess(byte key) {
   switch(key) {
@@ -87,12 +87,12 @@ byte userKeyToAccess(byte key) {
 // Returns 1 if user is autorised for key.
 byte userAccess(byte id, byte key) {
   //key = key-48;
-  Serial.print("id: ");
-  Serial.println(id);
-  Serial.print("key: ");
-  Serial.println(key);
-  Serial.print("access: ");
-  Serial.println(users[id].access);
+//  Serial.print("id: ");
+//  Serial.println(id);
+//  Serial.print("key: ");
+//  Serial.println(key);
+//  Serial.print("access: ");
+//  Serial.println(users[id].access);
   if (users[id].access & userKeyToAccess(key)) {
     return 1;
   }

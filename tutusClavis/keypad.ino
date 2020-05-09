@@ -44,9 +44,9 @@ void keypadInit()
     Serial.println("Keypad does not appear to be connected. Please check wiring. Freezing...");
     while (1);
   }
-  Serial.print("Initialized. Firmware Version: ");
-  Serial.println(keypad1.getVersion());
-  Serial.println("Press a button: * to do a space. # to go to next line.");
+  Serial.print("Initialized");
+//  Serial.println(keypad1.getVersion());
+//  Serial.println("Press a button: * to do a space. # to go to next line.");
 }
 
  char keypadInput()
