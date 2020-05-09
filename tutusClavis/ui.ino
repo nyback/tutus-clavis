@@ -414,7 +414,7 @@ void editUserMenu() {
 
   displayClear();
   displayPrint(line0, 0, 0);
-  displayPrint(line1, 0, 0);
+  displayPrint(line1, 0, 1);
   delay(3000);
 
   char Name[9];
@@ -508,6 +508,7 @@ void accessUserMenu(byte function) {
       if (function==0) {
         loggedInUser=currentUser;
         currentUser=choice-1;
+        Serial.println("innan edit user menu");
         editUserMenu();
         userSave();
         currentUser=loggedInUser;
@@ -543,6 +544,7 @@ void manageUsersMenu() {
         addUserMenu();
         break;
       case 2:
+        Serial.println("inne i andra alt");
         accessUserMenu(0);
         break;
       case 3:
