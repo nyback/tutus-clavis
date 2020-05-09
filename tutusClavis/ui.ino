@@ -299,6 +299,7 @@ word newPinMenu() {
         break;
       }
     }
+    delay(1000);
     displayClear();
     displayPrint(confirm, 0, 0);
     String conf = "";
@@ -328,12 +329,22 @@ word newPinMenu() {
       displayClear();
     }
   }
+//
 
-  int passI = pass.toInt();
+  //Serial.print(pass);
+  
+//  int passI = pass.toInt();
+//
+//  word passW = (word) passI;
+//
+//  Serial.print(passW);
+//
+//  userSetPass(currentUser, passW);
 
-  word passW = (word) passI;
-
-  return passW;
+    word W = 0000;
+//    users[currentUser].pass = 
+//    userSave();
+  return W;
 }
 
 
@@ -499,8 +510,10 @@ void mainMenu() {
         break;
       case 3:
         //delay(5000);
-        //word pass = 
+//        word pass = 
         newPinMenu();
+
+        delay(1000);
         //userSetPass(currentUser, pass);
         //userSave();
         break;
@@ -522,6 +535,7 @@ void mainMenu() {
 void logIn(bool firstStartup = false) {
   //userDebug(0);
   if (firstStartup == true) {
+    currentUser = 0;
     mainMenu();
   }
   else {
