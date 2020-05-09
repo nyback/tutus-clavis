@@ -587,12 +587,11 @@ void mainMenu() {
         return;   
       case 3:
         //delay(5000);
-//        word pass = 
-        newPinMenu();
+        word pass = newPinMenu();
 
         delay(1000);
-        //userSetPass(currentUser, pass);
-        //userSave();
+        userSetPass(currentUser, pass);
+        userSave();
         break;
       case 4:
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
