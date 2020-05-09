@@ -175,6 +175,10 @@ byte numberOfUsers(){
   return userNumber;
   }
 
+void reduceUsers(){
+  userNumber--;
+  }
+
 // Change users uname.
 void userSetUname(byte id, char* uname) {
   strcpy(users[id].uname, uname);

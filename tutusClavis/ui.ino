@@ -511,6 +511,7 @@ void accessUserMenu(byte function) {
       else {
         deleteUserMenu(choice-1);
         amountOfUsers--;
+        reduceUsers();
       }
     }
     else    //if input = '*' return
