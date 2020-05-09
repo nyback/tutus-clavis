@@ -241,7 +241,6 @@ byte scrollableList(String headlines[], byte options) {
 //Displays available keys and calls 'moveToKey'
 void keysMenu() {
   byte choosenKey;
-  char c;
   String line0 = "Choose  x x x x";
   String line1 = "a key  x x x x ";
 
@@ -264,9 +263,9 @@ void keysMenu() {
 
   bool Return;
 
+  displayClear();
   while (true)
   {
-    displayClear();
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
@@ -279,13 +278,21 @@ void keysMenu() {
       //go back to previous menu
       Return = true;
     }
-    else {
+    else if (c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8'){
       //calclates the numeric value of char c
-      choosenKey=c-'0';
+      int nyckel = (int) c;
+      Serial.println(c);
+
+      nyckel = nyckel-48;
+
+      Serial.println(nyckel);
+      
+      choosenKey = (byte) nyckel;
+
+      Serial.println(choosenKey);
       
       Return = moveToKey(choosenKey, currentUser);
     }
-    
     if (Return) {
       return;
     }
@@ -310,22 +317,20 @@ word newPinMenu() {
 
     while (true) {
       char c = keypadInput();
-      //strl = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         pass += c;
+        //Serial.print(pass.length());
       }
       else if (c == '#' | pass.length() >= 16) {
         break;
       }
     }
-    delay(1000);
     displayClear();
     displayPrint(confirm, 0, 0);
     String conf = "";
 
     while (true) {
       char c = keypadInput();
-      //strlCon = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         conf += c;
       }
@@ -348,6 +353,7 @@ word newPinMenu() {
       displayClear();
     }
   }
+  
     int passI = pass.toInt();
     word passW = (word) passI;
 
@@ -449,7 +455,6 @@ void accessUserMenu(byte function) {
       }
       else {
         deleteUserMenu();
-        //Måste hantera att current users id kan ändras beroende på vilken user som raderas
       }
       currentUser=loggedInUser;
     }
@@ -519,9 +524,13 @@ void mainMenu() {
         keysMenu();
         break;
       case 3:
+        //delay(5000);
+//        word pass = 
         newPinMenu();
 
         delay(1000);
+        //userSetPass(currentUser, pass);
+        //userSave();
         break;
       case 4:
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
@@ -567,14 +576,15 @@ void logIn(bool firstStartup = false) {
         }
       }
       displayClear();
-      currentUser = userFind(word(pass.toInt()));
+
+      currentUser = userFind(pass.toInt());
       Serial.println(currentUser);
       if (currentUser == 255) {
         Serial.println("inte correct");
-        delay(2000);
+        delay(25);
         displayClear();
         displayPrint("Wrong pin", 0, 0);
-        delay(6000);
+        delay(1500);
       }
       else {
         mainMenu();
