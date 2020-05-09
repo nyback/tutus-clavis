@@ -30,15 +30,21 @@ char screen[40]; // This will be used by updateScreen() and written to display.
 void setup()
 {
   debugInit();
+  delay(25);
   userInit(); // For now only loads users from EEPROM.
+  delay(25);
   //userDebug(0);
+  delay(25);
   alphabetInit();
-  
+  delay(25);  
   lockInit();
+  delay(25);
   stepperInit();
+  delay(25);
   keypadInit();
-  
+  delay(25);
   displayInit();
+  delay(25);
   uiInit();
 
 // Everything below is only for testing!
@@ -57,9 +63,6 @@ void setup()
 //  userDebug(2);
 //  userDebug(3);
 //  userDebug(4);
-//  userDebug(5);
-//  userDebug(6);
-//  userDebug(7);
 
 //  userClean();
 
@@ -100,7 +103,7 @@ void setup()
 //  userDebug(0);
 //  userDebug(1);
 //
-//  userDelete(2);
+//  userDelete(0);
 //
 //  userDebug(0);
 //  userDebug(1);
@@ -112,8 +115,11 @@ void setup()
 
 bool moveToKey(byte key, byte id){
  byte perm = userAccess(id, key);
+ Serial.print("byte: ");
+ Serial.println(perm);
   if(perm == 1){
     displayClear();
+    delay(25);
     String acc = "Access";
     String den = "Granted";
     displayPrint(acc,0,0);
@@ -136,7 +142,6 @@ bool moveToKey(byte key, byte id){
     delay(9000); // Bör ändras sen till maxtiden för den att gå till nyckel 8
     return true;
   } else {
-    displayClear();
     String acc = "Access";
     String den = "Denied";
     displayPrint(acc,0,0);

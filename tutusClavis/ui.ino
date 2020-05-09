@@ -318,14 +318,12 @@ word newPinMenu() {
         break;
       }
     }
-    delay(1000);
     displayClear();
     displayPrint(confirm, 0, 0);
     String conf = "";
 
     while (true) {
       char c = keypadInput();
-      //strlCon = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         conf += c;
       }
@@ -353,7 +351,7 @@ word newPinMenu() {
 
     userSetPass(currentUser, passW);
     userSave();
-  return passI;
+    return passI;
 }
 
 
@@ -546,6 +544,7 @@ void logIn(bool firstStartup = false) {
   }
   else {
 
+    Serial.println("inne i login");
     bool corr = false;
     String pass;
 
@@ -561,7 +560,6 @@ void logIn(bool firstStartup = false) {
 
       while (true) {
         char c = keypadInput();
-        //strl = sizeof pass / sizeof pass[0];
         if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
           pass += c;
         }
