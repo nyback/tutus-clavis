@@ -99,6 +99,14 @@ byte userAccess(byte id, byte key) {
   return 0;
 }
 
+//Checks if a temporary access byte has acces to a specified key
+byte checkAccess(byte checkedByte, byte key) {
+  if (checkedByte & userKeyToAccess(key)) {
+    return 1;
+  }
+  return 0;
+}
+
 // Returns 255 (1111 1111) if user is admin, 0 (0000 0000) if not.
 byte userAdmin(byte id) {
   return users[id].options;

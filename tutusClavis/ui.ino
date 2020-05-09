@@ -77,16 +77,15 @@ byte keyAccessMenu()
   {
     for (byte i = 1; i < 5; i++)
     {
-      if (userAccess(currentUser, i))
+      if (checkAccess(newAccess, i))
       {
         line0.setCharAt(6 + i * 2, char(i+48));
       }
     }
     for (byte i = 5; i < 9; i++)
     {
-      if (userAccess(currentUser, i))
+      if (checkAccess(newAccess, i))
       {
-        //line1.setCharAt(i * 2 - 3, char(i));
         line1.setCharAt(i * 2 - 3, char(i+48));
       }
     }
@@ -387,7 +386,7 @@ void addUserMenu() {
   line1="#=yes  *=no";
   displayClear();
   displayPrint(line0, 0, 0);
-  displayPrint(line1, 0, 0);
+  displayPrint(line1, 0, 1);
 
   while (true) {
     char c;
@@ -506,6 +505,7 @@ void accessUserMenu(byte function) {
         loggedInUser=currentUser;
         currentUser=choice-1;
         editUserMenu();
+        userSave();
         currentUser=loggedInUser;
       }
       else {
