@@ -352,8 +352,8 @@ word newPinMenu() {
     int passI = pass.toInt();
     word passW = (word) passI;
 
-    userSetPass(currentUser, passW);
-    userSave();
+//    userSetPass(currentUser, passW);
+//    userSave();
   return passI;
 }
 
