@@ -291,26 +291,24 @@ word newPinMenu() {
 
     while (true) {
       char c = keypadInput();
-      //strl = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         pass += c;
+        //Serial.print(pass.length());
       }
-      else if (c == '#' | pass.length() >= 4) {
+      else if (c == '#' | pass.length() >= 16) {
         break;
       }
     }
-    delay(1000);
     displayClear();
     displayPrint(confirm, 0, 0);
     String conf = "";
 
     while (true) {
       char c = keypadInput();
-      //strlCon = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         conf += c;
       }
-      else if (c == '#' | conf.length() >= 4) {
+      else if (c == '#' | conf.length() >= 16) {
         break;
       }
     }
@@ -329,22 +327,13 @@ word newPinMenu() {
       displayClear();
     }
   }
-//
-
-  //Serial.print(pass);
   
-//  int passI = pass.toInt();
-//
-//  word passW = (word) passI;
-//
-//  Serial.print(passW);
-//
-//  userSetPass(currentUser, passW);
+    int passI = pass.toInt();
+    word passW = (word) passI;
 
-    word W = 0000;
-//    users[currentUser].pass = 
-//    userSave();
-  return W;
+    userSetPass(currentUser, passW);
+    userSave();
+  return passI;
 }
 
 
@@ -564,7 +553,8 @@ void logIn(bool firstStartup = false) {
         }
       }
       displayClear();
-      currentUser = userFind(word(pass.toInt()));
+
+      currentUser = userFind(pass.toInt());
       Serial.println(currentUser);
       if (currentUser == 255) {
         Serial.println("inte correct");
