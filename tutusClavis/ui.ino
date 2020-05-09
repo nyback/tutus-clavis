@@ -564,8 +564,7 @@ void logIn(bool firstStartup = false) {
         }
       }
       displayClear();
-
-      currentUser = userFind(pass.toInt());
+      currentUser = userFind(word(pass.toInt()));
       Serial.println(currentUser);
       if (currentUser == 255) {
         Serial.println("inte correct");
