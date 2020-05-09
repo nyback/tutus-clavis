@@ -142,6 +142,7 @@ void userCreate(char* uname, word pass, byte options, byte access) {
 void userDelete(byte id) {
   // Deletes user from array and subs one from userNumber.
   for (byte i = id; i < userNumber; i++) {
+    users[i+1].id = ((users[i+1].id)-1);
     users[i] = users[i+1];
 
     // Clears info from last user.
@@ -151,6 +152,7 @@ void userDelete(byte id) {
     users[i+1].options = 0;
     users[i+1].access = 0;
   }
+  userNumber--;
 }
 
 // Finds user id from pass word (no pun intended). If no user is found returns 255.
