@@ -453,8 +453,17 @@ void editUserMenu() {
 }
 
 //Asks for confirmation and the deletes the user
-void deleteUserMenu() {
-  
+void deleteUserMenu(byte id) {
+  if (id<currentUser)
+  {
+    userDelete(id);
+    currentUser--;
+  }
+  else
+  {
+    userDelete(id);
+  }
+  return;
 }
 
 //Gives a list of registered users and calls 'editUserMenu' or 'deleteUserMenu'
@@ -491,7 +500,7 @@ void accessUserMenu(byte function) {
         editUserMenu();
       }
       else {
-        deleteUserMenu();
+        deleteUserMenu(choice-1);
       }
       currentUser=loggedInUser;
     }
@@ -595,7 +604,7 @@ void logIn(bool firstStartup = false) {
   if (firstStartup == true) {
     Serial.print("första");
     delay(25);
-    currentUser = 0;
+    currentUser = 0; //what
     mainMenu();
   }
   else {
