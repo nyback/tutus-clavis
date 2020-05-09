@@ -367,7 +367,7 @@ void addUserMenu() {
 
   displayClear();
   displayPrint(line0, 0, 0);
-  displayPrint(line1, 0, 0);
+  displayPrint(line1, 0, 1);
   delay(3000);
 
   char Name[9];
@@ -476,7 +476,8 @@ void deleteUserMenu(byte id) {
     userDelete(id);
     userSave();
   }
-  resetFunc();
+  //resetFunc();
+  //digitalWrite(7, LOW);
   return;
 }
 
@@ -723,6 +724,8 @@ void firstStartup() {
 // ui init function.
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
+//  pinMode(7, OUTPUT);
+//  digitalWrite(7, HIGH);
 
 //  Serial.println(numberOfUsers());
   if (numberOfUsers() == 0) {
