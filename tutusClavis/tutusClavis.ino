@@ -136,6 +136,8 @@ void setup()
 //  stepperTest();
 }
 
+void(* resetFunc) (void) = 0;
+
 bool moveToKey(byte key, byte id){
  byte perm = userAccess(id, key);
  Serial.print("byte: ");
