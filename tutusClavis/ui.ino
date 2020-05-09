@@ -476,6 +476,7 @@ void deleteUserMenu(byte id) {
     userDelete(id);
     userSave();
   }
+  userLoad();
   return;
 }
 
