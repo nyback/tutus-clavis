@@ -416,7 +416,7 @@ void editUserMenu() {
 
   displayClear();
   displayPrint(line0, 0, 0);
-  displayPrint(line1, 0, 0);
+  displayPrint(line1, 0, 1);
   delay(3000);
 
   char Name[9];
@@ -510,6 +510,7 @@ void accessUserMenu(byte function) {
       if (function==0) {
         loggedInUser=currentUser;
         currentUser=choice-1;
+        Serial.println("innan edit user menu");
         editUserMenu();
         userSave();
         currentUser=loggedInUser;
@@ -545,6 +546,7 @@ void manageUsersMenu() {
         addUserMenu();
         break;
       case 2:
+        Serial.println("inne i andra alt");
         accessUserMenu(0);
         break;
       case 3:
@@ -581,40 +583,65 @@ void mainMenu() {
   while (true)
   {
     choice = scrollableList(headlines, options);
-    switch (choice)
-    {
-      case 1:
-        keysMenu();
-        break;
-      case 2:
-        displayClear();
-        displayPrint("Logging off",0,0);
-        delay(1500);
-        return;   
-      case 3:
-        //delay(5000);
-        word pass = newPinMenu();
+    Serial.print("choice: ");
+    Serial.println(choice);
+//    switch (choice)
+//    {
+//      case 1:
+//        keysMenu();
+//        break;
+//      case 2:
+//        displayClear();
+//        displayPrint("Logging off",0,0);
+//        delay(1500);
+//        return;   
+//      case 3:
+//        //delay(5000);
+//        word pass = newPinMenu();
+//
+//        delay(1000);
+//        userSetPass(currentUser, pass);
+//        userSave();
+//        break;
+//      case 4:
+//        Serial.println("before");
+//        manageUsersMenu();
+//        delay(1000);
+//        Serial.println("efter");
+//        break;
+//      default:
+//        //If chosen option is 2 or 0 it is interpretted as log out
+//        if (logOut()){
+//          return;
+//        }
+//        break;
+//        
+//    }
 
-        delay(1000);
-        userSetPass(currentUser, pass);
-        userSave();
-        break;
-      case 4:
-        //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
-        delay(1000);
-        Serial.println("före");
-        manageUsersMenu();
-        delay(1000);
-        Serial.println("efter");
-        break;
-      default:
-        //If chosen option is 2 or 0 it is interpretted as log out
-        if (logOut()){
+    if (choice == 1){
+      keysMenu();
+    } else if (choice == 2){
+      displayClear();
+      displayPrint("Logging off",0,0);
+      delay(1500);
+      return;  
+    } else if (choice == 3){
+       word pass = newPinMenu();
+
+       delay(1000);
+       userSetPass(currentUser, pass);
+       userSave();
+    } else if (choice == 4){
+      Serial.println("before");
+       manageUsersMenu();
+       delay(1000);
+       Serial.println("efter");
+    } else {
+      if (logOut()){
           return;
         }
-        break;
-        
     }
+
   }
 }
 
