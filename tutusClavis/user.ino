@@ -205,9 +205,9 @@ void userDEOP(byte id) {
   users[id].options = 0;
 }
 
-// Gives user access to key.
+// Gives user access to keys.
 void userAuthorise(byte id, byte key) {
-  users[id].access = users[id].access | userKeyToAccess(key);
+  users[id].access = key;
 }
 
 // Takes away a users access to key.
