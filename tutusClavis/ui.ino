@@ -457,13 +457,11 @@ void deleteUserMenu(byte id) {
   if (id<currentUser)
   {
     userDelete(id);
-    userSave();
     currentUser--;
   }
   else
   {
     userDelete(id);
-    userSave();
   }
   return;
 }
@@ -496,15 +494,15 @@ void accessUserMenu(byte function) {
     }
     else if (choice!=0)
     {
-      loggedInUser=currentUser;
-      currentUser=choice-1;
       if (function==0) {
+        loggedInUser=currentUser;
+        currentUser=choice-1;
         editUserMenu();
+        currentUser=loggedInUser;
       }
       else {
         deleteUserMenu(choice-1);
       }
-      currentUser=loggedInUser;
     }
     else    //if input = '*' return
     {
