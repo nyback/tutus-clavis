@@ -241,6 +241,7 @@ byte scrollableList(String headlines[], byte options) {
 //Displays available keys and calls 'moveToKey'
 void keysMenu() {
   byte choosenKey;
+  char c;
   String line0 = "Choose  x x x x";
   String line1 = "a key  x x x x ";
 
@@ -248,14 +249,16 @@ void keysMenu() {
   {
     if (userAccess(currentUser, i))
     {
-      line0.setCharAt(6 + i * 2, char(i));
+      //line0.setCharAt(6 + i * 2, char(i));
+      line0.setCharAt(6 + i * 2, i+48);
     }
   }
   for (byte i = 5; i < 9; i++)
   {
     if (userAccess(currentUser, i))
     {
-      line1.setCharAt(i * 2 - 3, char(i));
+      //line1.setCharAt(i * 2 - 3, char(i));
+      line1.setCharAt(i * 2 - 3, char(i+48));
     }
   }
 
@@ -266,7 +269,22 @@ void keysMenu() {
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
-    Return = moveToKey(choosenKey, currentUser);
+    c=keypadInput();
+
+    if (c == '#' || c == '0') {
+      //loop again
+    }
+    else if (c == '*') {
+      //go back to previous menu
+      Return = true;
+    }
+    else {
+      //calclates the numeric value of char c
+      choosenKey=c-'0';
+      
+      Return = moveToKey(choosenKey, currentUser);
+    }
+    
     if (Return) {
       return;
     }
@@ -291,24 +309,26 @@ word newPinMenu() {
 
     while (true) {
       char c = keypadInput();
+      //strl = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         pass += c;
-        //Serial.print(pass.length());
       }
-      else if (c == '#' | pass.length() >= 16) {
+      else if (c == '#' | pass.length() >= 4) {
         break;
       }
     }
+    delay(1000);
     displayClear();
     displayPrint(confirm, 0, 0);
     String conf = "";
 
     while (true) {
       char c = keypadInput();
+      //strlCon = sizeof pass / sizeof pass[0];
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         conf += c;
       }
-      else if (c == '#' | conf.length() >= 16) {
+      else if (c == '#' | conf.length() >= 4) {
         break;
       }
     }
@@ -327,13 +347,22 @@ word newPinMenu() {
       displayClear();
     }
   }
-  
-    int passI = pass.toInt();
-    word passW = (word) passI;
+//
 
-    userSetPass(currentUser, passW);
-    userSave();
-  return passI;
+  //Serial.print(pass);
+  
+//  int passI = pass.toInt();
+//
+//  word passW = (word) passI;
+//
+//  Serial.print(passW);
+//
+//  userSetPass(currentUser, passW);
+
+    word W = 0000;
+//    users[currentUser].pass = 
+//    userSave();
+  return W;
 }
 
 
@@ -429,6 +458,7 @@ void accessUserMenu(byte function) {
       }
       else {
         deleteUserMenu();
+        //Måste hantera att current users id kan ändras beroende på vilken user som raderas
       }
       currentUser=loggedInUser;
     }
@@ -553,8 +583,7 @@ void logIn(bool firstStartup = false) {
         }
       }
       displayClear();
-
-      currentUser = userFind(pass.toInt());
+      currentUser = userFind(word(pass.toInt()));
       Serial.println(currentUser);
       if (currentUser == 255) {
         Serial.println("inte correct");

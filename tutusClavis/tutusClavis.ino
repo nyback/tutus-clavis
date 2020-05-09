@@ -110,7 +110,7 @@ void setup()
 //  stepperTest();
 }
 
-bool moveToKey(int key, byte id){
+bool moveToKey(byte key, byte id){
  byte perm = userAccess(id, key);
   if(perm == 1){
     String acc = "Access";
