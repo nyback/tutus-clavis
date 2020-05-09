@@ -71,8 +71,8 @@ byte keyAccessMenu()
 {
   char c;
 
-  String line0 = "Choose  x x x x";
-  String line1 = "keys   x x x x ";
+  String line0 = "Choose  x x x x ";
+  String line1 = "keys   x x x x  ";
   byte newAccess = 0;
 
   while (true)
@@ -107,7 +107,7 @@ byte keyAccessMenu()
     }
     if (c == '1')
     {
-      if (B00000001 & newAccess == B00000001) {
+      if ((B00000001 & newAccess) == B00000001) {
         newAccess -= B00000001;
       }
       else {
@@ -116,7 +116,7 @@ byte keyAccessMenu()
     }
     if (c == '2')
     {
-      if (B00000010 & newAccess == B00000010) {
+      if ((B00000010 & newAccess) == B00000010) {
         newAccess -= B00000010;
       }
       else {
@@ -125,7 +125,7 @@ byte keyAccessMenu()
     }
     if (c == '3')
     {
-      if (B00000100 & newAccess == B00000100) {
+      if ((B00000100 & newAccess) == B00000100) {
         newAccess -= B00000100;
       }
       else {
@@ -134,7 +134,7 @@ byte keyAccessMenu()
     }
     if (c == '4')
     {
-      if (B00001000 & newAccess == B00001000) {
+      if ((B00001000 & newAccess) == B00001000) {
         newAccess -= B00001000;
       }
       else {
@@ -143,7 +143,7 @@ byte keyAccessMenu()
     }
     if (c == '5')
     {
-      if (B00010000 & newAccess == B00010000) {
+      if ((B00010000 & newAccess) == B00010000) {
         newAccess -= B00010000;
       }
       else {
@@ -152,7 +152,7 @@ byte keyAccessMenu()
     }
     if (c == '6')
     {
-      if (B00100000 & newAccess == B00100000) {
+      if ((B00100000 & newAccess) == B00100000) {
         newAccess -= B00100000;
       }
       else {
@@ -161,7 +161,7 @@ byte keyAccessMenu()
     }
     if (c == '7')
     {
-      if (B01000000 & newAccess == B01000000) {
+      if ((B01000000 & newAccess) == B01000000) {
         newAccess -= B01000000;
       }
       else {
@@ -170,7 +170,7 @@ byte keyAccessMenu()
     }
     if (c == '8')
     {
-      if (B10000000 & newAccess == B10000000) {
+      if ((B10000000 & newAccess) == B10000000) {
         newAccess -= B10000000;
       }
       else {
