@@ -350,6 +350,8 @@ word newPinMenu() {
   
     int passI = pass.toInt();
     word passW = (word) passI;
+    Serial.print("passEntered: ");
+    Serial.println(passW);
 
 //    userSetPass(currentUser, passW);
 //    userSave();
