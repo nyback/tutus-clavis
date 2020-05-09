@@ -451,10 +451,10 @@ void manageUsersMenu() {
     switch (choice)
     {
       case 1:
-        addUserMenu();
+        accessUserMenu(1)
         break;
       case 2:
-        editUserMenu();
+        accessUserMenu(0);
         break;
       case 3:
         deleteUserMenu();
