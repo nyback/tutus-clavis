@@ -554,12 +554,17 @@ void mainMenu() {
 //The highest function in the ui hierarchy which handles logging in
 void logIn(bool firstStartup = false) {
   //userDebug(0);
+
   if (firstStartup == true) {
+    Serial.print("första");
+    delay(25);
     currentUser = 0;
     mainMenu();
   }
   else {
 
+    delay(500);
+    
     bool corr = false;
     String pass;
 
@@ -567,10 +572,7 @@ void logIn(bool firstStartup = false) {
     while (!corr) {
       displayClear();
       String enter = "Enter pin";
-
-
       displayPrint(enter, 0, 0);
-
       pass = "";
 
       while (true) {
@@ -601,9 +603,8 @@ void logIn(bool firstStartup = false) {
 
     }
 
-  }
+  }}
 
-}
 
 //Sets upp the first admin if no users exist
 void firstStartup() {
@@ -627,6 +628,7 @@ void firstStartup() {
 // ui init function.
 void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
+
   Serial.println(numberOfUsers());
   if (numberOfUsers() == 0) {
 
