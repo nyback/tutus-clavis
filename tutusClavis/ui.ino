@@ -353,7 +353,7 @@ word newPinMenu() {
 
 //    userSetPass(currentUser, passW);
 //    userSave();
-  return passI;
+  return passW;
 }
 
 
