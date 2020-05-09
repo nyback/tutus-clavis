@@ -266,7 +266,7 @@ void keysMenu() {
 
   while (true)
   {
-    //displayClear();
+    displayClear();
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
@@ -314,7 +314,7 @@ word newPinMenu() {
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         pass += c;
       }
-      else if (c == '#' | pass.length() >= 4) {
+      else if (c == '#' | pass.length() >= 16) {
         break;
       }
     }
@@ -329,7 +329,7 @@ word newPinMenu() {
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         conf += c;
       }
-      else if (c == '#' | conf.length() >= 4) {
+      else if (c == '#' | conf.length() >= 16) {
         break;
       }
     }
@@ -348,22 +348,12 @@ word newPinMenu() {
       displayClear();
     }
   }
-//
+    int passI = pass.toInt();
+    word passW = (word) passI;
 
-  //Serial.print(pass);
-  
-//  int passI = pass.toInt();
-//
-//  word passW = (word) passI;
-//
-//  Serial.print(passW);
-//
-//  userSetPass(currentUser, passW);
-
-    word W = 0000;
-//    users[currentUser].pass = 
-//    userSave();
-  return W;
+    userSetPass(currentUser, passW);
+    userSave();
+  return passI;
 }
 
 
@@ -529,13 +519,9 @@ void mainMenu() {
         keysMenu();
         break;
       case 3:
-        //delay(5000);
-//        word pass = 
         newPinMenu();
 
         delay(1000);
-        //userSetPass(currentUser, pass);
-        //userSave();
         break;
       case 4:
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
