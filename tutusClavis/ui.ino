@@ -358,49 +358,51 @@ word newPinMenu() {
 //Handles creating a new user
 //REWRITE SIMILLAR TO HOW FIRST STARTUP WORKS
 void addUserMenu() {
-  //####### Or corresponding datatypes for a user
+  String line0 = "Enter new data";
+  String line1 = "for user";
+
+  displayClear();
+  displayPrint(line0, 0, 0);
+  displayPrint(line1, 0, 0);
+  delay(3000);
+
   char Name[9];
-  word pin=0xF;
-  byte access=0;
-  bool Return = false;
-  byte choice;
-  String headlines[4];
-  String test;
+//  Serial.println("editName");
+  String test = newNameMenu();
+//  Serial.println("editNameUnder");
+  test.toCharArray(Name, test.length() + 1);
+//  Serial.println("Uname changed");
+  
+  word pin = newPinMenu();
+//  Serial.println("pin changed");
+  
+  byte access = keyAccessMenu();
+//  Serial.println("pin changed");
 
-  headlines[0] = "Name";
-  headlines[1] = "Pin";
-  headlines[2] = "Key access";
-  headlines[3] = "Finish";
+  byte admin;
+  line0="Make user admin?";
+  line1="#=yes  *=no";
+  displayClear();
+  displayPrint(line0, 0, 0);
+  displayPrint(line1, 0, 0);
 
-  while (true)
-  {
-    choice = scrollableList(headlines, 4);
-    switch (choice)
-    {
-      case 1:
-        String test = newNameMenu();
-
-        test.toCharArray(Name, test.length());
-        //strcpy(Name, test);
-        break;
-      case 2:
-        pin = newPinMenu();
-        break;
-      case 3:
-        access = keyAccessMenu();
-        break;
-      case 4:
-        Return = finishMenu(Name, pin, access);
-        break;
-      default:
-        //If chosen option 0 return to 'manageUsersMenu'
-        Return = true;
-        break;
+  while (true) {
+    char c;
+    c=keypadInput();
+    if (c=='#') {
+      admin=255;
+      break;
     }
-    if (Return) {
-      return;
+    if (c=='*') {
+      admin=0;
+      break;
     }
+    delay(25);
   }
+  userCreate(Name, pin, admin, access);
+  
+  userSave();
+  Serial.println("Edit");
 }
 
 //Allows for changing of a users data
@@ -457,13 +459,11 @@ void deleteUserMenu(byte id) {
   if (id<currentUser)
   {
     userDelete(id);
-    userSave();
     currentUser--;
   }
   else
   {
     userDelete(id);
-    userSave();
   }
   return;
 }
@@ -678,7 +678,6 @@ void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
 
 //  Serial.println(numberOfUsers());
-
   if (numberOfUsers() == 0) {
 
     firstStartup();
