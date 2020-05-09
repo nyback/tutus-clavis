@@ -32,6 +32,7 @@ void displayInit()
 
 void displayPrint(String printThis, int column, int row){
   //column 0-15, row 0-1
+  delay(25);
   lcd.setCursor(column, row);
   lcd.print(printThis);
 }

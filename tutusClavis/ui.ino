@@ -676,6 +676,7 @@ void uiInit() {
   //Kollar om det finns users och om det inte gör det startar firstStartup
 
 //  Serial.println(numberOfUsers());
+
   if (numberOfUsers() == 0) {
 
     firstStartup();
