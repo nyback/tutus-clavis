@@ -192,15 +192,15 @@ bool finishMenu(char Name[9], word pin, int access[8]) {
 byte scrollableList(String headlines[], byte options) {
   Serial.println("Scrolll");
   boolean down = false;
-  for (int i = 0; i <= options; i++) {
-    if (down) {
-      if (i <= 2) {
-        i = 0;
-      }
-      else {
-        i -= 2;
-      }
-    }
+  for (int i = 0; i < options; i++) {
+//    if (down) {
+//      if (i <= 2) {
+//        i = 0;
+//      }
+//      else {
+//        i -= 2;
+//      }
+//    }
     Serial.println("w");
     down = false;
     String s1;
@@ -217,11 +217,11 @@ byte scrollableList(String headlines[], byte options) {
     Serial.println("t");
     while (true) {
       char c = keypadInput();
-      if (c == '5') {
+      if (c == '5') { //neråt
         break;
       }
-      else if (c == '2') {
-        down = true;
+      else if (c == '2') {//uppåt
+        //down = true;
 
         break;
       }
@@ -460,7 +460,11 @@ void mainMenu() {
         keysMenu();
         break;
       case 3:
+        //delay(5000);
+        //word pass =
         newPinMenu();
+        //userSetPass(currentUser, pass);
+        //userSave();
         break;
       case 4:
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
@@ -486,10 +490,10 @@ void logIn(bool firstStartup = false) {
 
     bool corr = false;
     String pass;
-    int id;
-    
-    while (!corr) {
 
+
+    while (!corr) {
+      displayClear();
       String enter = "Enter pin";
 
 
@@ -508,15 +512,22 @@ void logIn(bool firstStartup = false) {
         }
       }
       displayClear();
-      for (int i = 0; i < numberOfUsers(); i++) {
-        if(EEPROM.get((i+1)*12)==pass){
-          corr = true;
-          id = i+
-        }
+      currentUser = userFind(pass.toInt());
+      Serial.println(currentUser);
+      if (currentUser == 255) {
+        Serial.println("inte correct");
+        delay(2000);
+        displayClear();
+        displayPrint("Wrong pin", 0, 0);
+        delay(6000);
+      }
+      else {
+        mainMenu();
       }
 
 
     }
+
   }
 
 }
