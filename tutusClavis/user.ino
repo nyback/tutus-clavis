@@ -167,8 +167,9 @@ void userDelete(byte id) {
     users[i+1].options = 0;
     users[i+1].access = 0;
 
-    userNumber--;
+    
   }
+  userNumber--;
 }
 
 // Finds user id from pass word (no pun intended). If no user is found returns 255.
