@@ -595,7 +595,9 @@ void mainMenu() {
         break;
       case 4:
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
+        delay(1000);
         manageUsersMenu();
+        delay(1000);
         break;
       default:
         //If chosen option is 2 or 0 it is interpretted as log out
