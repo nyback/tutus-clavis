@@ -263,6 +263,7 @@ void keysMenu() {
 
   while (true)
   {
+    //displayClear();
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
