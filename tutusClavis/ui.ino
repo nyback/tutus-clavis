@@ -526,6 +526,7 @@ void accessUserMenu(byte function) {
 void manageUsersMenu() {
   byte choice;
   String headlines[3];
+  Serial.println("i");
 
   headlines[0] = "Add user";
   headlines[1] = "Edit user";
@@ -595,7 +596,11 @@ void mainMenu() {
         break;
       case 4:
         //Only possible if the logged in account is an admin account (Excactly how remains to be figured out)
+        delay(1000);
+        Serial.println("före");
         manageUsersMenu();
+        delay(1000);
+        Serial.println("efter");
         break;
       default:
         //If chosen option is 2 or 0 it is interpretted as log out
