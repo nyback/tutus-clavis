@@ -420,11 +420,13 @@ void deleteUserMenu(byte id) {
   if (id<currentUser)
   {
     userDelete(id);
+    userSave();
     currentUser--;
   }
   else
   {
     userDelete(id);
+    userSave();
   }
   return;
 }
