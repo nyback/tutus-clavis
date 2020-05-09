@@ -427,7 +427,10 @@ void editUserMenu() {
   
   word pin = newPinMenu();
   userSetPass(currentUser, pin);
-//  Serial.println("pin changed");
+  Serial.print("Entered pin: ");
+  Serial.println(pin);
+  Serial.print("User to change: ");
+  Serial.println(currentUser);
   
   byte access = keyAccessMenu();
   userAuthorise(currentUser, access);
