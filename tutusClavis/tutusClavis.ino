@@ -57,6 +57,9 @@ void setup()
 //  userDebug(2);
 //  userDebug(3);
 //  userDebug(4);
+//  userDebug(5);
+//  userDebug(6);
+//  userDebug(7);
 
 //  userClean();
 
@@ -97,7 +100,7 @@ void setup()
 //  userDebug(0);
 //  userDebug(1);
 //
-//  userDelete(0);
+//  userDelete(2);
 //
 //  userDebug(0);
 //  userDebug(1);
