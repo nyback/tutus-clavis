@@ -32,14 +32,14 @@ void setup()
   debugInit();
   userInit(); // For now only loads users from EEPROM.
   //userDebug(0);
-//  alphabetInit();
-//  
-//  lockInit();
-//  stepperInit();
-//  keypadInit();
-//  
-//  displayInit();
-//  uiInit();
+  alphabetInit();
+  
+  lockInit();
+  stepperInit();
+  keypadInit();
+  
+  displayInit();
+  uiInit();
 
 // Everything below is only for testing!
 
@@ -52,18 +52,18 @@ void setup()
 
 //  userSetPass(2, 1234);
   
-  userDebug(0); // Prints out everything about user 0.
-  userDebug(1);
-  userDebug(2);
-  userDebug(3);
-  userDebug(4);
-  userDebug(5);
-  userDebug(6);
-  userDebug(7);
+//  userDebug(0); // Prints out everything about user 0.
+//  userDebug(1);
+//  userDebug(2);
+//  userDebug(3);
+//  userDebug(4);
+//  userDebug(5);
+//  userDebug(6);
+//  userDebug(7);
 
 //  userClean();
 
-//  stepperRight(8);
+  stepperRight(8);
 
 //  userOP(0); // Makes user with id 0 admin.
 //  userSetUname(1, "Nyback"); // Sets uname.
@@ -105,12 +105,12 @@ void setup()
 //  userDebug(0);
 //  userDebug(1);
 //  
-  userSave(); // Writes users to EEPROM.
+//  userSave(); // Writes users to EEPROM.
 
 //  stepperTest();
 }
 
-bool moveToKey(byte key, byte id){
+bool moveToKey(int key, byte id){
  byte perm = userAccess(id, key);
   if(perm == 1){
     String acc = "Access";
