@@ -451,7 +451,7 @@ void manageUsersMenu() {
     switch (choice)
     {
       case 1:
-        accessUserMenu(1)
+        accessUserMenu(1);
         break;
       case 2:
         accessUserMenu(0);
@@ -545,7 +545,10 @@ void logIn(bool firstStartup = false) {
       }
       displayClear();
       for (int i = 0; i < numberOfUsers(); i++) {
-        if(EEPROM.get((i+1)*12)==pass){
+        String getPass;
+        byte plats = (byte) ((i+1)*12);
+        EEPROM.get(plats, getPass);
+        if(getPass==pass){
           corr = true;
           id = i+
         }
