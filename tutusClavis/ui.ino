@@ -238,7 +238,7 @@ byte scrollableList(String headlines[], byte options) {
 }
 
 
-//Displays available keys##########
+//Displays available keys and calls 'moveToKey'
 void keysMenu() {
   byte choosenKey;
   String line0 = "Choose  x x x x";
@@ -339,8 +339,8 @@ word newPinMenu() {
 void addUserMenu() {
   //####### Or corresponding datatypes for a user
   char Name[9];
-  word pin = 0;
-  byte access = 0;
+  word pin=0xF;
+  byte access=0;
   bool Return = false;
   byte choice;
   String headlines[4];
@@ -382,23 +382,59 @@ void addUserMenu() {
   }
 }
 
-//
+//Allows for changing of a users data
 void editUserMenu() {
-  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
-  //alternativly could display current admin as well but just not allow changes
 
-  //  for (byte i=0; i<30)
-  //  {
-  //
-  //  }
 }
 
-//
+//Asks for confirmation and the deletes the user
 void deleteUserMenu() {
-  //Somehow need to display a list of all the users except current admin and give editting rights to choosen user
-  //alternativly could display current admin as well but just not allow changes
+  
+}
 
-  //Måste hantera att den inloggade usern fortsätter vara inloggad även efter att en user har raderats
+//Gives a list of registered users and calls 'editUserMenu' or 'deleteUserMenu'
+void accessUserMenu(byte function) {
+  byte amountOfUsers;
+  amountOfUsers=numberOfUsers();
+  String users[amountOfUsers];
+  byte choice;
+  byte loggedInUser;
+  
+  for (byte i=0; i<amountOfUsers; i++)
+  {
+    users[i]=userGetUname(i);
+  }
+  
+  while (true)
+  {
+    choice = scrollableList(users, amountOfUsers);
+
+    if (choice-1 == currentUser)
+    {
+      String line0="You cannot";
+      String line1="choose yourself";
+      displayClear();
+      displayPrint(line0,0,0);
+      displayPrint(line1,0,1);
+      delay(3000);
+    }
+    else if (choice!=0)
+    {
+      loggedInUser=currentUser;
+      currentUser=choice-1;
+      if (function==0) {
+        editUserMenu();
+      }
+      else {
+        deleteUserMenu();
+      }
+      currentUser=loggedInUser;
+    }
+    else    //if input = '*' return
+    {
+      return;
+    }
+  }
 }
 
 //Handles the admin commands menu
@@ -415,10 +451,10 @@ void manageUsersMenu() {
     switch (choice)
     {
       case 1:
-        addUserMenu();
+        accessUserMenu(1)
         break;
       case 2:
-        editUserMenu();
+        accessUserMenu(0);
         break;
       case 3:
         deleteUserMenu();
