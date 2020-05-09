@@ -523,6 +523,10 @@ void mainMenu() {
       case 1:
         keysMenu();
         break;
+      case 2:
+        displayPrint("Logging off",0,0);
+        delay(1500);
+        return;   
       case 3:
         //delay(5000);
 //        word pass = 
@@ -538,7 +542,11 @@ void mainMenu() {
         break;
       default:
         //If chosen option is 2 or 0 it is interpretted as log out
-        return;
+        if (logOut()){
+          return;
+        }
+        break;
+        
     }
   }
 }
