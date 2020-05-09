@@ -59,14 +59,11 @@ String newNameMenu() {
       }
     }
   }
-  displayClear();
-  displayPrint("Confirmed", 0, 0);
-  //Confirming name to move on
 
   return userName;
 }
 
-//Returns a byte with the accessible keys represented as bits, if no keys are saved returns 0
+//Returns a byte with the accessible keys represented as bits
 byte keyAccessMenu()
 {
   char c;
@@ -97,12 +94,7 @@ byte keyAccessMenu()
 
     c = keypadInput();
 
-    if (c == '#') {
-      return newAccess;
-    }
-    if (c == '*')
-    {
-      newAccess = 0;
+    if (c == '#' || c=='*') {
       return newAccess;
     }
     if (c == '1')
@@ -364,6 +356,7 @@ word newPinMenu() {
 
 
 //Handles creating a new user
+//REWRITE SIMILLAR TO HOW FIRST STARTUP WORKS
 void addUserMenu() {
   //####### Or corresponding datatypes for a user
   char Name[9];
@@ -412,7 +405,51 @@ void addUserMenu() {
 
 //Allows for changing of a users data
 void editUserMenu() {
+  String line0 = "Enter new data";
+  String line1 = "for user";
 
+  displayClear();
+  displayPrint(line0, 0, 0);
+  displayPrint(line1, 0, 0);
+  delay(3000);
+
+  char Name[9];
+  Serial.println("editName");
+  String test = newNameMenu();
+  Serial.println("editNameUnder");
+  test.toCharArray(Name, test.length() + 1);
+  userSetUname(currentUser, Name);
+  Serial.println("Uname changed");
+  
+  word pin = newPinMenu();
+  Serial.println("pin changed");
+  
+  byte access = keyAccessMenu();
+  userAuthorise(currentUser, access);
+  Serial.println("pin changed");
+
+  line0="Make user admin?";
+  line1="#=yes  *=no";
+  displayClear();
+  displayPrint(line0, 0, 0);
+  displayPrint(line1, 0, 0);
+
+  while (true) {
+    char c;
+    c=keypadInput();
+    if (c=='#') {
+      userOP(currentUser);
+      break;
+    }
+    if (c=='*') {
+      userDEOP(currentUser);
+      break;
+    }
+    delay(25);
+  }
+  
+  userSave();
+  Serial.println("userEdited");
 }
 
 //Asks for confirmation and the deletes the user
@@ -479,13 +516,13 @@ void manageUsersMenu() {
     switch (choice)
     {
       case 1:
-        accessUserMenu(1);
+        addUserMenu();
         break;
       case 2:
         accessUserMenu(0);
         break;
       case 3:
-        deleteUserMenu();
+        accessUserMenu(1);
         break;
       default:
         //If chosen option 0 return to 'mainMenu'
