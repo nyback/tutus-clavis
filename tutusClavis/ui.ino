@@ -75,18 +75,19 @@ byte keyAccessMenu()
 
   while (true)
   {
-    for (byte i = 0; i < 4; i++)
+    for (byte i = 1; i < 5; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line0.setCharAt(7 + i * 2, char(i+48));
+        line0.setCharAt(6 + i * 2, char(i+48));
       }
     }
-    for (byte i = 0; i < 4; i++)
+    for (byte i = 5; i < 9; i++)
     {
       if (userAccess(currentUser, i))
       {
-        line1.setCharAt(6 + i * 2, char(i+48));
+        //line1.setCharAt(i * 2 - 3, char(i));
+        line1.setCharAt(i * 2 - 3, char(i+48));
       }
     }
     displayClear();
