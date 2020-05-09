@@ -295,7 +295,7 @@ word newPinMenu() {
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         pass += c;
       }
-      else if (c == '#' | pass.length() >= 16) {
+      else if (c == '#' | pass.length() >= 4) {
         break;
       }
     }
@@ -309,7 +309,7 @@ word newPinMenu() {
       if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
         conf += c;
       }
-      else if (c == '#' | conf.length() >= 16) {
+      else if (c == '#' | conf.length() >= 4) {
         break;
       }
     }
@@ -331,7 +331,9 @@ word newPinMenu() {
 
   int passI = pass.toInt();
 
-  return passI;
+  word passW = (word) passI;
+
+  return passW;
 }
 
 
@@ -451,7 +453,7 @@ void manageUsersMenu() {
     switch (choice)
     {
       case 1:
-        accessUserMenu(1)
+        accessUserMenu(1);
         break;
       case 2:
         accessUserMenu(0);
@@ -497,7 +499,7 @@ void mainMenu() {
         break;
       case 3:
         //delay(5000);
-        //word pass =
+        //word pass = 
         newPinMenu();
         //userSetPass(currentUser, pass);
         //userSave();
