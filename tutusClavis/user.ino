@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#define MAX_USERS 5 // Do we need more than 30 users?
+#define MAX_USERS 15 // Do we need more than 30 users?
 
 
 
@@ -86,6 +86,13 @@ byte userKeyToAccess(byte key) {
 
 // Returns 1 if user is autorised for key.
 byte userAccess(byte id, byte key) {
+  //key = key-48;
+  Serial.print("id: ");
+  Serial.println(id);
+  Serial.print("key: ");
+  Serial.println(key);
+  Serial.print("access: ");
+  Serial.println(users[id].access);
   if (users[id].access & userKeyToAccess(key)) {
     return 1;
   }
@@ -142,7 +149,6 @@ void userCreate(char* uname, word pass, byte options, byte access) {
 void userDelete(byte id) {
   // Deletes user from array and subs one from userNumber.
   for (byte i = id; i < userNumber; i++) {
-    users[i+1].id = ((users[i+1].id)-1);
     users[i] = users[i+1];
 
     // Clears info from last user.
@@ -152,7 +158,6 @@ void userDelete(byte id) {
     users[i+1].options = 0;
     users[i+1].access = 0;
   }
-  userNumber--;
 }
 
 // Finds user id from pass word (no pun intended). If no user is found returns 255.
