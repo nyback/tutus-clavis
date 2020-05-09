@@ -249,14 +249,16 @@ void keysMenu() {
   {
     if (userAccess(currentUser, i))
     {
-      line0.setCharAt(6 + i * 2, char(i));
+      //line0.setCharAt(6 + i * 2, char(i));
+      line0.setCharAt(6 + i * 2, i+48);
     }
   }
   for (byte i = 5; i < 9; i++)
   {
     if (userAccess(currentUser, i))
     {
-      line1.setCharAt(i * 2 - 3, char(i));
+      //line1.setCharAt(i * 2 - 3, char(i));
+      line1.setCharAt(i * 2 - 3, char(i+48));
     }
   }
 
