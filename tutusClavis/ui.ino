@@ -529,10 +529,7 @@ void mainMenu() {
         break;
       default:
         //If chosen option is 2 or 0 it is interpretted as log out
-        if (logOut())
-          //if logged out return to 'logIn' else continue
-          return;
-        break;
+        return;
     }
   }
 }
