@@ -36,13 +36,23 @@ void setup()
   delay(25);
   userInit(); // For now only loads users from EEPROM.
   delay(25);
-  //userDebug(0);
+  userDebug(0);
   delay(25);
   alphabetInit();
   delay(25);  
   lockInit();
   delay(25);
   stepperInit();
+    stepperKey(1);
+    stepperStart();
+  stepperKey(2);
+  stepperStart();
+  stepperKey(3);
+  stepperStart();
+  stepperKey(4);
+  stepperStart();
+  stepperKey(8);
+  stepperStart();
   delay(25);
   keypadInit();
   delay(25);
@@ -69,7 +79,7 @@ void setup()
 
 //  userClean();
 
-  stepperRight(8);
+  //stepperRight(8);
 
 //  userOP(0); // Makes user with id 0 admin.
 //  userSetUname(1, "Nyback"); // Sets uname.
@@ -114,6 +124,7 @@ void setup()
 //  userSave(); // Writes users to EEPROM.
 
 //  stepperTest();
+
 }
 
 void(* resetFunc) (void) = 0;
