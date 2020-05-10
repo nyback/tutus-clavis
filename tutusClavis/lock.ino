@@ -18,8 +18,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-int lock = 7; // Lock signal connected to digital 13.
-int hinge = 8; // Hinge signal connected to digital 12.
+int lock = 2; // Lock signal connected to digital 13.
+int hinge = 13; // Hinge signal connected to digital 12.
 
 void lockInit()
 {
