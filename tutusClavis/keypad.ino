@@ -68,7 +68,7 @@ void keypadInit()
     //For debuging 
     Serial.print(button);
   }
-
+  Serial.println("button");
   //Delay needed, otherwise I2C gets too much info
   delay(25);
 
