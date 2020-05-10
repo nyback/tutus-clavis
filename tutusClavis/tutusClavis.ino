@@ -34,31 +34,51 @@ void setup()
 {
   debugInit();
   delay(25);
-  userInit(); // For now only loads users from EEPROM.
-  delay(25);
-  userDebug(0);
-  delay(25);
-  alphabetInit();
-  delay(25);  
-  lockInit();
-  delay(25);
+//  userInit(); // For now only loads users from EEPROM.
+//  delay(25);
+//  //userDebug(0);
+//  delay(25);
+//  alphabetInit();
+//  delay(25);  
+//  lockInit();
+//  delay(25);
   stepperInit();
-    stepperKey(1);
-    stepperStart();
-  stepperKey(2);
-  stepperStart();
-  stepperKey(3);
-  stepperStart();
-  stepperKey(4);
-  stepperStart();
-  stepperKey(8);
-  stepperStart();
-  delay(25);
-  keypadInit();
-  delay(25);
-  displayInit();
-  delay(25);
-  uiInit();
+//  debugPrintln("Step key 1!");
+//  delay(3000);
+//  stepperKey(1);
+//  debugPrintln("Step back from key 1!");
+//  delay(3000);
+//  stepperStart();
+//  debugPrintln("Step key 2!");
+//  delay(3000);
+//  stepperKey(2);
+//  debugPrintln("Step back from key 2!");
+//  delay(3000);
+//  stepperStart();
+//  debugPrintln("Step key 5!");
+//  delay(3000);
+//  stepperKey(5);
+//  debugPrintln("Step back from key 5!");
+//  delay(3000);
+//  stepperStart();
+//  debugPrintln("Step key 4!");
+//  delay(3000);
+//  stepperKey(4);
+//  debugPrintln("Step back from key 4!");
+//  delay(3000);
+//  stepperStart();
+//  debugPrintln("Step key 8!");
+//  delay(3000);
+//  stepperKey(8);
+//  debugPrintln("Step back from key 8!");
+//  delay(3000);
+//  stepperStart();
+  delay(2500);
+  //keypadInit();
+//  delay(25);
+//  displayInit();
+//  delay(25);
+//  uiInit();
 
 // Everything below is only for testing!
 
