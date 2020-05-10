@@ -75,6 +75,7 @@ byte keyAccessMenu()
 
   while (true)
   {
+    delay(500);
     for (byte i = 1; i < 5; i++)
     {
       if (checkAccess(newAccess, i))
@@ -564,6 +565,7 @@ void manageUsersMenu() {
       case 2:
         Serial.println("inne i andra alt");
         accessUserMenu(0);
+        userLoad();
         break;
       case 3:
         accessUserMenu(1);
