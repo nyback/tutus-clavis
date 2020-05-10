@@ -30,7 +30,7 @@ int steps;
 // Stepper setup.
 void stepperInit()
 {
-  stepper.setSpeed(8);
+  stepper.setSpeed(12);
   debugPrintln("stepper initialised.");
 }
 
@@ -64,13 +64,13 @@ void stepperKey(int key)
 {
   key--;
   steps = key * STEP_SIZE;
-  stepper.step(steps, FORWARD, SINGLE);
+  stepper.step(steps, FORWARD, DOUBLE);
   stepper.release();
 }
 
 // Should run as soon as hatch is secured.
 void stepperStart()
 {
-  stepper.step(steps, BACKWARD, SINGLE);
+  stepper.step(steps, BACKWARD, DOUBLE);
   stepper.release();
 }

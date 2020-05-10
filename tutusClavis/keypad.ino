@@ -69,7 +69,7 @@ void keypadInit()
     Serial.print(button);
   }
   //Delay needed, otherwise I2C gets too much info
-  delay(25);
+  delay(50);
 
   //Return button pressed as char
   return button;
