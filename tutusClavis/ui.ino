@@ -75,6 +75,7 @@ byte keyAccessMenu()
 
   while (true)
   {
+    delay(1000);
     for (byte i = 1; i < 5; i++)
     {
       if (checkAccess(newAccess, i))
@@ -553,6 +554,7 @@ void manageUsersMenu() {
         break;
       case 3:
         accessUserMenu(1);
+        userLoad();
         break;
       default:
         //If chosen option 0 return to 'mainMenu'
