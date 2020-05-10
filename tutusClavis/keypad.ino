@@ -21,7 +21,7 @@
 //We would probably benefit from having an 'excpectInput' function which sends back only one of the sent in excpected inputs//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
-#include <Wire.h>
+//#include <Wire.h>
 #include "SparkFun_Qwiic_Keypad_Arduino_Library.h" //Click here to get the library: http://librarymanager/All#SparkFun_keypad
 KEYPAD keypad1;
 

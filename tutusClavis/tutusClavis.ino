@@ -48,6 +48,8 @@ void setup()
   delay(25);
   displayInit();
   delay(25);
+  stepperKey(6);
+  stepperStart();
   uiInit();
 
 // Everything below is only for testing!
@@ -69,7 +71,7 @@ void setup()
 
 //  userClean();
 
-  stepperRight(8);
+
 
 //  userOP(0); // Makes user with id 0 admin.
 //  userSetUname(1, "Nyback"); // Sets uname.
