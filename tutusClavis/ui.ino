@@ -94,15 +94,19 @@ byte keyAccessMenu()
       }
       else
       {
-        line1.setCharAt(i * 2 - 3, char(i+48));
+        line1.setCharAt(i * 2 - 3, 'x');
       }
     }
     displayClear();
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
-    while (c!='*' && c!='#' && c!='1' && c!='2' && c!='3' && c!='4' && c!='5' && c!='6' && c!='7' && c!='8'){
+    while (true){
       c = keypadInput();
+      delay(25);
+      if (c=='*' || c=='#' || c=='1' || c=='2' || c=='3' || c=='4' || c=='5' || c=='6' || c=='7' || c=='8') {
+        break;
+      }
     }
 
     if (c == '#' || c=='*') {
