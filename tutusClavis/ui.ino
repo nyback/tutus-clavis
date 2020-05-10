@@ -288,6 +288,7 @@ void keysMenu() {
       Return = moveToKey(choosenKey, currentUser);
     }
     if (Return) {
+      break;
       return;
     }
   }
@@ -624,6 +625,11 @@ void mainMenu() {
 
     if (choice == 1){
       keysMenu();
+      delay(500);
+      displayClear();
+      displayPrint("Logging off",0,0);
+      delay(1500);
+      return;  
     } else if (choice == 2){
       displayClear();
       displayPrint("Logging off",0,0);
