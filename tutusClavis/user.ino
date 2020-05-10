@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#define MAX_USERS 10// Do we need more than 30 users?
+#define MAX_USERS 8// Do we need more than 30 users?
 
 
 

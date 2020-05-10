@@ -30,7 +30,7 @@ int steps;
 // Stepper setup.
 void stepperInit()
 {
-  stepper.setSpeed(8);
+  stepper.setSpeed(10);
   debugPrintln("stepper initialised.");
 }
 
@@ -53,24 +53,44 @@ void stepperRight(char steps)
 }
 
 // Step left.
-void stepperLeft(int steps)
+void stepperLeft(char steps)
 {
   debugStep(steps, 'l');
   stepper.step(steps*STEP_SIZE, BACKWARD, SINGLE);
 }
 
 // For keys 1-8.
-void stepperKey(int key)
+void stepperKey(byte key)
 {
   key--;
-  steps = key * STEP_SIZE;
-  stepper.step(steps, FORWARD, SINGLE);
+  steps = key;
+  if (key > 3) {
+    stepperLeft(8-key);
+//    steps = (8-key) * STEP_SIZE;
+//    stepper.step(steps*STEP_SIZE, BACKWARD, DOUBLE);
+  } else {
+    stepperRight(key);
+//    steps = (key) * STEP_SIZE;
+//    stepper.step(steps*STEP_SIZE, FORWARD, DOUBLE);
+  }
+  
+//  stepper.step(steps, FORWARD, DOUBLE);
   stepper.release();
 }
 
 // Should run as soon as hatch is secured.
 void stepperStart()
 {
-  stepper.step(steps, BACKWARD, SINGLE);
+//  if (steps > 4*STEP_SIZE) {
+//    stepper.step(steps, FORWARD, DOUBLE);
+//  } else {
+//    stepper.step(steps, BACKWARD, DOUBLE);
+//  }
+  if (steps < 4) {
+    stepperLeft(steps);
+  } else {
+    stepperRight(8-steps);
+  }
+  
   stepper.release();
 }
