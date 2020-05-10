@@ -67,7 +67,7 @@ String newNameMenu() {
 //Returns a byte with the accessible keys represented as bits
 byte keyAccessMenu()
 {
-  char c;
+  char c='x';
 
   String line0 = "Choose  x x x x ";
   String line1 = "keys   x x x x  ";
@@ -81,10 +81,18 @@ byte keyAccessMenu()
       {
         line0.setCharAt(6 + i * 2, char(i+48));
       }
+      else 
+      {
+        line0.setCharAt(6 + i * 2, 'x');
+      }
     }
     for (byte i = 5; i < 9; i++)
     {
       if (checkAccess(newAccess, i))
+      {
+        line1.setCharAt(i * 2 - 3, char(i+48));
+      }
+      else
       {
         line1.setCharAt(i * 2 - 3, char(i+48));
       }
@@ -93,7 +101,9 @@ byte keyAccessMenu()
     displayPrint(line0, 0, 0);
     displayPrint(line1, 0, 1);
 
-    c = keypadInput();
+    while (c!='*' && c!='#' && c!='1' && c!='2' && c!='3' && c!='4' && c!='5' && c!='6' && c!='7' && c!='8'){
+      c = keypadInput();
+    }
 
     if (c == '#' || c=='*') {
       return newAccess;
