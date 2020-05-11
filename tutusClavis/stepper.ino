@@ -49,14 +49,14 @@ void stepperTest()
 void stepperRight(char steps)
 {
   debugStep(steps, 'r');
-  stepper.step(steps*STEP_SIZE, FORWARD, SINGLE);
+  stepper.step(steps*STEP_SIZE, FORWARD, DOUBLE);
 }
 
 // Step left.
 void stepperLeft(char steps)
 {
   debugStep(steps, 'l');
-  stepper.step(steps*STEP_SIZE, BACKWARD, SINGLE);
+  stepper.step(steps*STEP_SIZE, BACKWARD, DOUBLE);
 }
 
 // For keys 1-8.
@@ -75,6 +75,7 @@ void stepperKey(byte key)
   }
   
 //  stepper.step(steps, FORWARD, DOUBLE);
+  delay(2000);
   stepper.release();
 }
 
@@ -91,6 +92,6 @@ void stepperStart()
   } else {
     stepperRight(8-steps);
   }
-  
+  delay(2000);
   stepper.release();
 }
